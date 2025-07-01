@@ -1,17 +1,7 @@
-export default async function handler(req, res) {
-    try {
-      const { id } = req.query;
-  
-      // Validación mínima
-      if (!id) {
-        return res.status(400).json({ error: 'Missing id parameter' });
-      }
-  
-      const data = { menu: id };
-      res.status(200).json(data);
-    } catch (error) {
-      console.error('❌ Error en la API:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+export default function handler(req, res) {
+    const { id } = req.query;
+   let aca =  `Bearer ${process.env.API_KEY_PRIVADA}`;
+    res.status(200).json({ menu: aca, idJob: id });
   }
+  
   
