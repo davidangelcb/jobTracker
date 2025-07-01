@@ -80,7 +80,7 @@ function App() {
   useEffect(() => {
     getLocation()
     if (!idFromUrl) return;
-
+/*
     getData(idFromUrl)
     .then((data) => {
       setJobInfoData((prev) => ({
@@ -97,7 +97,7 @@ function App() {
         scheduled :  data.scheduleDate,
       }));
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err));*/
 
     
   }, [idFromUrl])
