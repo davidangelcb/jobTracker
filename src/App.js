@@ -24,6 +24,35 @@ function App() {
  // 0 = fail, 1=done, 2=need access, 3=not supported
  const [idFromUrl, setIdFromUrl] = useState(null);
  
+ useEffect(() => {
+  console.log("🔍 Iniciando fetch...");
+
+  fetch('/api/get-job-data?id=123')
+    .then(res => {
+      if (!res.ok) {
+        console.log("❌ Estado no OK");
+        throw new Error(`Error del servidor: ${res.status}`);
+      }
+
+      // Validar si es JSON
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error("❌ La respuesta no es JSON");
+      }
+
+      return res.json();
+    })
+    .then(data => {
+      console.log("✅ Datos recibidos:", data);
+    })
+    .catch(err => {
+      console.error("❌ Error en fetch:", err.message);
+    });
+}, []);
+
+
+
+
   useEffect(() => {
     console.log(1)
     //const params = new URLSearchParams(activeWindow.search);
