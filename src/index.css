@@ -1,0 +1,363 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 480px;
+  width: 100%;
+  margin: auto;
+  background: white;
+  min-height: 100vh;
+  border: 1px solid #ddd;
+}
+
+/* Header (cabecera superior) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+  font-weight: bold;
+  color: #333;
+}
+
+.job-info {
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.job-info strong {
+  color: #007bff;
+}
+
+/* NavBar (íconos de pasos) */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background: #1d1b5e;
+  padding: 0.5rem 0;
+}
+
+.icon {
+  font-size: 1.4rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  color: white;
+}
+
+.icon.active {
+  opacity: 1;
+}
+
+/* Sección de pasos */
+.step {
+  padding: 1.2rem;
+   width: 100%;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.step-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1d1b5e;
+}
+
+/* Botón Confirmar */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  max-height: 30px;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Badges y etiquetas */
+.location-shared {
+  display: inline-block;
+  background-color: #e0f3ff;
+  color: #007bff;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  margin-top: 0.3rem;
+}
+
+/* Acciones de foto y video */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.actions button {
+  flex: 1;
+  border: 1px solid #007bff;
+  background: white;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.actions button:hover:not(:disabled) {
+  background: #007bff;
+  color: white;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.container {
+  width: 100vw;          /* Ocupa todo el ancho del viewport */
+  max-width: 480px;      /* Para centrar en pantallas grandes */
+  margin: 0 auto;        /* Centrado horizontal */
+  min-height: 100vh;     /* Ocupa todo el alto */
+  display: flex;
+  flex-direction: column;
+}
+.bodyContent{
+  color:#333;
+  font-size: 14px;
+}
+.subTitle{
+  color:#333;
+  font-size:  13px ;
+}
+.footText{
+  color:#333;
+  font-size:  11px ;
+}
+.confirmed{
+  background: #eee;
+  color: gray;
+  border: none;
+  padding: 0.2rem 1.2rem;
+  border-radius: 2px;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 1px solid gray;
+  text-align: center;
+  max-height: 30px;
+}
+.reduce{
+  font: size 0.2em; 
+}
+
+
+
+/* === Overlay general === */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* === Cámara === */
+.video-camera {
+  width: 90%;
+  max-width: 480px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* === Video preview === */
+.video-preview {
+  width: 90%;
+  max-width: 480px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* === Botones === */
+.overlay button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #00b894;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background-color: #019875;
+}
+
+/* === Comentario textarea === */
+.overlay textarea {
+  width: 90%;
+  max-width: 480px;
+  height: 80px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+/* === Miniaturas de video === */
+.video-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.video-thumbnail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+}
+
+.video-thumbnail video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.video-thumbnail p {
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 4px;
+}
+
+
+/*STEP 4*/
+.inProgress{
+  background: #FFF5E7;
+  color: orange;
+  border: none;
+  padding: 0.2rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 0px solid gray;
+  text-align: center;
+  max-height: 30px;
+}
+.subTitleStep4{
+  font-size: 14px;
+  margin-bottom : 16;
+  text-align : "center";
+}
+.subTitleText{
+  color:#007AFF
+}
+.spaceAlt { 
+  margin: 16px 0 
+} 
+/* STEP 5 */
+.paid{
+  width: 120px;
+  background: #E7FFE0;
+  color: #23a756;
+  border: none;
+  padding: 0.2rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 0px solid gray;
+  text-align: center;
+  max-height: 30px;
+}
+.subTitleTextPaid{
+  color:#23a756
+}
+/*STEP 1*/
+
+.fields{
+  font-weight : 600;
+  font-size: 14px;
+  margin-bottom: 4;
+} 
+.titleStep {
+  color: #333;
+  font-size: 14px;
+}
+.subTitleStep {
+  color:  #333 ;
+  font-size: 12px;
+} 
+.locationBox {
+  background:  #e6f0ff ;
+  color:  #007aff ;
+  padding:  2px 8px ;
+  font-size : 12px;
+  border-radius : 4 ;
+  width:  fit-content ;
+} 
+.off {
+   background: #c7c7c7 
+}
+
+/*STEP 4*/
+.processing{
+  background: #E5F0FF;
+  color: #007aff;
+  border: none;
+  padding: 0.2rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 0px solid gray;
+  text-align: center;
+  max-height: 30px;
+}
