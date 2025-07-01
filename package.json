@@ -17,9 +17,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "env-cmd -f .env react-scripts build && node direct-combine.js",
-    "build:uat": "env-cmd -f .env.uat react-scripts build && node direct-combine.js",
-    "build:prod": "env-cmd -f .env.production react-scripts build && node direct-combine.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
