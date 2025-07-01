@@ -23,7 +23,7 @@ function App() {
   const [error, setError] = useState(false)
  // 0 = fail, 1=done, 2=need access, 3=not supported
  const [idFromUrl, setIdFromUrl] = useState(null);
-
+ 
   useEffect(() => {
     console.log(1)
     //const params = new URLSearchParams(activeWindow.search);
