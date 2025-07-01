@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getData, postData } from '../src/services/api';
+//import { getData, postData } from '../src/services/api';
+import { getJobData, postJobData } from './services/api.v1';
+
 import { useLocation } from 'react-router-dom';
 
 import './App.css';
@@ -25,29 +27,13 @@ function App() {
  const [idFromUrl, setIdFromUrl] = useState(null);
  
  useEffect(() => {
-  console.log("🔍 Iniciando fetch...");
+  getJobData(123)
+    .then(data => console.log('GET OK:', data))
+    .catch(err => console.error('GET Fail:', err));
 
-  fetch('/api/get-job-data?id=123')
-    .then(res => {
-      if (!res.ok) {
-        console.log("❌ Estado no OK");
-        throw new Error(`Error del servidor: ${res.status}`);
-      }
-
-      // Validar si es JSON
-      const contentType = res.headers.get("content-type") || "";
-      if (!contentType.includes("application/json")) {
-        throw new Error("❌ La respuesta no es JSON");
-      }
-
-      return res.json();
-    })
-    .then(data => {
-      console.log("✅ Datos recibidos:", data);
-    })
-    .catch(err => {
-      console.error("❌ Error en fetch:", err.message);
-    });
+  postJobData({ name: 'David', status: 'started' })
+    .then(data => console.log('POST OK:', data))
+    .catch(err => console.error('POST Fail:', err));
 }, []);
 
 
