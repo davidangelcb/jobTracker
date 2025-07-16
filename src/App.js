@@ -56,9 +56,10 @@ function App() {
         data.tracker?.status === "S1" &&
         data.tracker?.data?.tracker?.step1?.dayApproved
       ) {
+        completarPaso(2);
         return {
           ...baseData,
-          dateConfirm: data.tracker.data.tracker.step1.dayApproved,
+          dateConfirm: formatDate(data.tracker.data.tracker.step1.dayApproved),
         };
       }
 
