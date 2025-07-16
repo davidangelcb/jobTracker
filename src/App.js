@@ -86,7 +86,6 @@ function App() {
 
   const confirmLocation = async(num) => {
     const formatted = formatDate();
-    //setDateConfirm(formatted);
     setJobInfoData({
       ...jobInfoData,
       dateConfirm : formatted,

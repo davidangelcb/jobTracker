@@ -6,16 +6,12 @@
   
   // /api/job.js
 export default async function handler(req, res) {
+
   if (req.method === 'GET') {
     const jobId = req.query.id;
-
-    // Supongamos que haces un fetch externo usando tu clave secreta
-   //4d27ce6e-f83f-4d5b-9801-1cbfc8e53582'}
     const apiKey = process.env.API_KEY_PRIVADA;
     const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/"+jobId;
 
-    if (req.method === 'GET') {
-     
       const response = await fetch(urlApi, {
         headers: {
           "Content-Type": "application/json",
@@ -25,17 +21,40 @@ export default async function handler(req, res) {
   
       const data = await response.json();
       return res.status(200).json(data);
-    }     
   }
 
+
+  if (req.method === 'POST') {
+    const apiKey = process.env.API_KEY_PRIVADA;
+    const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/tracker";
+  
+    try {
+      const response = await fetch(urlApi, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        },
+        body: JSON.stringify(req.body)
+      });
+  
+      const data = await response.json();
+  
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ error: 'Error al enviar la solicitud POST' });
+    }
+  }
+  
+/*
   if (req.method === 'POST') {
     const body = req.body;
     const apiKey = process.env.API_KEY_PRIVADA;
-    // Puedes procesar el body o enviarlo a otra API externa
+    
     console.log(' Datos recibidos en POST:', apiKey);
 
     return res.status(200).json({ message: 'Datos guardados correctamente:'+apiKey, received: body });
-  }
+  }*/
 
   // Otros métodos no soportados
   res.setHeader('Allow', ['GET', 'POST']);
