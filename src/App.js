@@ -35,22 +35,21 @@ function App() {
  
  useEffect(() => {
   getJobData(idJob)
-    .then( 
-      setJobInfoData((prev) => ({
-        ...prev,
-        idJob: data.number,
-        name : data.property.name,
-        address : data.property.location.address1 +', '+data.property.location.city+', '+ data.property.location.state +' ' + data.property.location.postalCode ,
-        unit: "unit - " + data.unit,
-        locationn : {
-          lat: data.property.location.geo.coordinates[0],
-          lng: data.property.location.geo.coordinates[1],
-        },
-        cleaningType : data.service.name,
-        scheduled :  data.scheduleDate,
-      })
-
-    ))
+  .then((data) => {
+    setJobInfoData((prev) => ({
+      ...prev,
+      idJob: data.number,
+      name : data.property.name,
+      address : data.property.location.address1 +', '+data.property.location.city+', '+ data.property.location.state +' ' + data.property.location.postalCode ,
+      unit: "unit - " + data.unit,
+      locationn : {
+        lat: data.property.location.geo.coordinates[0],
+        lng: data.property.location.geo.coordinates[1],
+      },
+      cleaningType : data.service.name,
+      scheduled :  data.scheduleDate,
+    }));
+  })
     .catch(err => console.error('GET Fail:', err));
 
   postJobData({ name: 'David', status: 'started' })
