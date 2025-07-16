@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const apiKey = process.env.API_KEY_PRIVADA;
     const urlApi = " https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/4d27ce6e-f83f-4d5b-9801-1cbfc8e53582";
 
-    if (req.method === 'GET') {
+    if (req.method === 'AA') {
       console.log(urlApi+jobId);
       const response = await fetch(urlApi, {
         headers: {
@@ -25,7 +25,8 @@ export default async function handler(req, res) {
   
       const data = await response.json();
       return res.status(200).json(data);
-    }    
+    }
+    return res.status(200).json({ message: 'get correctamente:'+jobId, received: req.params });
   }
 
   if (req.method === 'POST') {

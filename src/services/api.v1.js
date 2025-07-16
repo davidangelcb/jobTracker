@@ -1,6 +1,7 @@
 // GET con query string
 export const getJobData = async (id) => {
   try {
+    console.log(11, id);
     const res = await fetch(`/api/job?id=${id}`);
     if (!res.ok) throw new Error(`GET failed: ${res.status}`);
     return await res.json();
