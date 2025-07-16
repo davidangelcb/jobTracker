@@ -30,9 +30,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     const body = req.body;
-
+    const apiKey = process.env.API_KEY_PRIVADA;
     // Puedes procesar el body o enviarlo a otra API externa
-    console.log(' Datos recibidos en POST:', body);
+    console.log(' Datos recibidos en POST:', apiKey);
 
     return res.status(200).json({ message: 'Datos guardados correctamente', received: body });
   }
