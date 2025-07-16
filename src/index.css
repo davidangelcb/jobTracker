@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,8 +19,8 @@ code {
 }
 
 body {
-  font-family: "Helvetica Neue", sans-serif;
-  background-color: #f5f5f5;
+  font-family: 'Montserrat', "Helvetica Neue", sans-serif;
+   
   color: #333;
 }
 
@@ -46,12 +46,14 @@ body {
 
 .logo {
   font-weight: bold;
-  color: #333;
+  color: #1d1b5e;
+  font-size:22px;
 }
 
 .job-info {
   text-align: right;
   font-size: 0.85rem;
+
 }
 
 .job-info strong {
@@ -63,7 +65,8 @@ body {
   display: flex;
   justify-content: space-around;
   background: #1d1b5e;
-  padding: 0.5rem 0;
+  padding-top: 0.6rem;
+  padding-bottom: 0.4rem;
 }
 
 .icon {
@@ -76,7 +79,15 @@ body {
 .icon.active {
   opacity: 1;
 }
-
+.icon.deactive {
+  opacity: 0.3;
+}
+.icon.deactive.disabled {
+  opacity: 0.3;
+}
+.icon.deactive.enabled {
+  opacity: 1;
+}
 /* Sección de pasos */
 .step {
   padding: 1.2rem;
@@ -91,8 +102,8 @@ body {
 }
 
 .step-header h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: bold;
   color: #1d1b5e;
 }
 
@@ -101,14 +112,16 @@ button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: 4px;
+  padding: 0.5rem 1.2rem;   
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.3s;
-  max-height: 30px;
+  max-height: 50px;
 }
-
+.confirmBtn{
+  height: 50px;
+  width: 120px;
+}
 button:hover:not(:disabled) {
   background-color: #0056b3;
 }
@@ -116,6 +129,12 @@ button:hover:not(:disabled) {
 button:disabled {
   background-color: #bbb;
   cursor: not-allowed;
+  height: 50px;
+   justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 120px;
+  padding: 0.5rem 1.2rem;  
 }
 
 /* Badges y etiquetas */
@@ -163,31 +182,38 @@ html, body {
   flex-direction: column;
 }
 .bodyContent{
-  color:#333;
+  color:#4f4f4f;
   font-size: 14px;
 }
 .subTitle{
-  color:#333;
+  color:#4f4f4f;
   font-size:  13px ;
 }
+.email{
+  text-decoration: none;
+  color: #007bff;
+}
 .footText{
-  color:#333;
+  color:#4f4f4f;
   font-size:  11px ;
 }
-.confirmed{
-  background: #eee;
+.confirmedText{
   color: gray;
+  font-size: 0.9rem;
+}
+.confirmed{
+  background: #fff;
   border: none;
-  padding: 0.2rem 1.2rem;
-  border-radius: 2px;
-  font-size: 0.6rem;
+  padding-top: 0.6rem; 
   cursor: pointer;
   border: 1px solid gray;
   text-align: center;
-  max-height: 30px;
+  height: 50px;
+  width: 120px;
 }
 .reduce{
-  font: size 0.2em; 
+  color: gray;
+  font-size: 0.5rem; 
 }
 
 
@@ -287,11 +313,12 @@ html, body {
   border: none;
   padding: 0.2rem 1.2rem;
   border-radius: 8px;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   cursor: pointer;
   border: 0px solid gray;
   text-align: center;
   max-height: 30px;
+  font-weight: bold;
 }
 .subTitleStep4{
   font-size: 14px;
@@ -299,7 +326,11 @@ html, body {
   text-align : "center";
 }
 .subTitleText{
-  color:#007AFF
+  color:#007AFF;
+  font-weight: bold;
+}
+.subTitleTextRoom{
+  font-weight: bold;
 }
 .spaceAlt { 
   margin: 16px 0 
@@ -312,14 +343,16 @@ html, body {
   border: none;
   padding: 0.2rem 1.2rem;
   border-radius: 8px;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   cursor: pointer;
   border: 0px solid gray;
   text-align: center;
   max-height: 30px;
+  font-weight: bold;
 }
 .subTitleTextPaid{
-  color:#23a756
+  color:#23a756;
+  font-weight: bold;
 }
 /*STEP 1*/
 
@@ -343,6 +376,7 @@ html, body {
   font-size : 12px;
   border-radius : 4 ;
   width:  fit-content ;
+  font-weight: bold;
 } 
 .off {
    background: #c7c7c7 
@@ -360,4 +394,5 @@ html, body {
   border: 0px solid gray;
   text-align: center;
   max-height: 30px;
+  font-weight: bold;
 }

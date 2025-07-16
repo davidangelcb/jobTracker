@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 //import { getData, postData } from '../src/services/api';
 import { getJobData, postJobData } from './services/api.v1';
-
-import { useLocation } from 'react-router-dom';
+import { useParams , useLocation} from 'react-router-dom';
+ 
 
 import './App.css';
 // App
@@ -20,14 +20,21 @@ let locationStatus  = 0;
  
 function App() {
   const activeWindow = useLocation();
-
+  const { idJob } = useParams();
   const [location, setLocation] = useState(null)
   const [error, setError] = useState(false)
  // 0 = fail, 1=done, 2=need access, 3=not supported
  const [idFromUrl, setIdFromUrl] = useState(null);
+
+ useEffect(() => {
+  if (!idJob) return;
+
+  console.log('ID desde URL:', idJob);
+  // Aquí puedes hacer tu fetch a la API usando ese id
+}, [idJob]);
  
  useEffect(() => {
-  getJobData(123)
+  getJobData(idJob)
     .then(data => console.log('GET OK:', data))
     .catch(err => console.error('GET Fail:', err));
 
@@ -174,11 +181,12 @@ function App() {
        <NavBar 
           currentStep={currentStep}
           enabledSteps={enabledSteps}
-          onStepChange={setCurrentStep}  />
+          onStepChange={setCurrentStep} 
+           />
 
        {currentStep === 1 && <JobInfo locationStatus={locationStatus}  onStatusChange={confirmLocation} data={jobInfoData} />}
-       {currentStep === 2 && <StartJob data={startJobData} setData={setStartJobData} startJobConfirmed={confirmStarJOb} />}
-       {currentStep === 3 && <EndJob data={endJobData} setData={setEndJobData} startJobConfirmed={confirmEndJOb} />}
+       {currentStep === 2 && <StartJob data={startJobData} setData={setStartJobData} startJobConfirmed={confirmStarJOb} model={1}/>}
+       {currentStep === 3 && <StartJob data={endJobData} setData={setEndJobData} startJobConfirmed={confirmEndJOb}  model={2}/>}
        {currentStep === 4 && <JobReview statusJob={paymentStatus} dept={department} />}
        {currentStep === 5 && <Payment statusJob={paymentStatus}/>}
     </div>

@@ -20,7 +20,7 @@ switch (locationStatus) {
         </div>
         )
         btnConfirm = (
-            <button  onClick={onStatusChange}>Confirm</button>
+            <button className="confirmBtn"  onClick={onStatusChange}>Confirm</button>
         ) 
         break
     default:
@@ -29,8 +29,8 @@ switch (locationStatus) {
 if(data.dateConfirm!=null){
     btnConfirm = (
         <div className="confirmed">
-            <span>Confirmed</span><br/>
-            <span className="reduce">{data.dateConfirm}</span>
+            <div className="confirmedText">Confirmed</div>
+            <div className="reduce">{data.dateConfirm}</div>
         </div>
     ) 
 }
@@ -46,26 +46,26 @@ if(data.dateConfirm!=null){
          
           <div className="bodyContent">
             <hr className="spaceAlt" />
-            <strong>{data.name}</strong>
+            <b>{data.name}</b>
             <br />
             {data.address}
             <br />
-            <strong>{data.unit}</strong>
+            <b>{data.unit}</b>
             <br />
             <span className="location-shared">
               {shareLocationText}
             </span>
             <br />
             <hr className="spaceAlt"/>
-            <strong className="subTitle">Cleaning Type</strong>
+            <b className="subTitle">Cleaning Type</b>
             <br /> 
             {data.cleaningType}
             <br /><br />
-            <strong className="subTitle">Scheduled</strong>
+            <b className="subTitle">Scheduled</b>
             <br />
             {data.scheduled}
             <br /><br />
-            <strong className="subTitle">Special Instructions </strong>
+            <b className="subTitle">Special Instructions </b>
             <br />
             {data.instructions}
             <br />
@@ -75,7 +75,7 @@ if(data.dateConfirm!=null){
               <br />
               Text: 843-983-1466
               <br />
-              Email: Ops@pinchjob.com
+              Email: <a className="email" href="mailto:Ops@pinchjob.com">Ops@pinchjob.com</a>
             </small>
           </div>
         

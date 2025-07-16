@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function StartJob({ data, setData, startJobConfirmed }) {
+export default function StartJob({ data, setData, startJobConfirmed, model }) {
   const [showCamera, setShowCamera] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
@@ -9,6 +9,8 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
   const photos = data.photos;
 
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
+
   const [canConfirm, setCanConfirm] = useState(false);
 
   const videoRef = useRef(null);
@@ -25,16 +27,16 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
   const [showVideoOverlay, setShowVideoOverlay] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
- 
+
   const [currentPreviewVideo, setCurrentPreviewVideo] = useState({
-    url: '',
-    comment: '',
-    poster: '',
+    url: "",
+    comment: "",
+    poster: "",
     ready: false,
   });
 
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
-  const [editingIndex, setEditingIndex] = useState(null);
+
   const mediaRecorderRef = useRef(null);
 
   const handleSaveVideo = () => {
@@ -55,6 +57,8 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
       setIsRecording(false);
       setShowPreviewOverlay(false);
       setShowVideoOverlay(false);
+
+      setSelectedVideoIndex(0);
     }
   };
 
@@ -83,11 +87,14 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
   }, [showCamera]);
 
   useEffect(() => {
-    let option  = 0;
-    if(data!==undefined){
-       option =  data.option;
-     }
-
+    let option = 0;
+    if (data !== undefined) {
+      option = data.option;
+    }
+    console.log("inrgeso cac");
+    console.log(option);
+    console.log(videos.length);
+    console.log(canConfirm);
     if (photos.length >= 5 && !canConfirm && option === 1) {
       console.log(`Tienes ${photos.length} imágenes`);
       setCanConfirm(true);
@@ -96,8 +103,10 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
       setCanConfirm(true);
     } else if (photos.length < 5 && canConfirm && option === 1) {
       setCanConfirm(false);
-    } else if (videos.length < 0 && canConfirm && option === 2) {
+      console.log(1111113);
+    } else if (videos.length <= 0 && canConfirm && option === 2) {
       setCanConfirm(false);
+      console.log(1111114);
     }
   }, [photos, canConfirm, videos, data]);
 
@@ -154,10 +163,8 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
     setShowPreview(false);
     setShowCamera(false);
     //aca seleccionar default
-    
-     
+
     setSelectedPhotoIndex(0);
-   
   };
 
   const handleCancelPreview = () => {
@@ -206,67 +213,23 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
     }));
   };
 
-  const startRecording2 = () => {
-    if (!videoRef.current || !videoRef.current.srcObject) return;
-  
-    const stream = videoRef.current.srcObject;
-    
-    let mimeType = '';
-  
-    if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-      mimeType = 'video/webm;codecs=vp9';
-    } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-      mimeType = 'video/webm;codecs=vp8';
-    } else if (MediaRecorder.isTypeSupported('video/webm')) {
-      mimeType = 'video/webm';
-    } else if (MediaRecorder.isTypeSupported('video/mp4')) {
-      mimeType = 'video/mp4'; // Safari
-    } else {
-      alert('Este navegador no soporta MediaRecorder para video.');
-      return;
-    }
-  
-    const recorder = new MediaRecorder(stream, { mimeType });
-  
-    const chunks = [];
-    recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) {
-        chunks.push(e.data);
-      }
-    };
-  
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: mimeType });
-      const videoUrl = URL.createObjectURL(blob);
-      setCurrentPreviewVideo({ url: videoUrl, comment: "" });
-      setRecordedChunks([]);
-      setShowPreviewOverlay(true);
-      setShowVideoOverlay(false);
-    };
-  
-    //setMediaRecorder(recorder); // Si usas estado para controlarlo
-    recorder.start();
-  };
-  
   const startRecording = () => {
     if (!videoRef.current || !videoRef.current.srcObject) return;
 
-    let mimeType = '';
-  
-    if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-      mimeType = 'video/webm;codecs=vp9';
-    } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-      mimeType = 'video/webm;codecs=vp8';
-    } else if (MediaRecorder.isTypeSupported('video/webm')) {
-      mimeType = 'video/webm';
-    } else if (MediaRecorder.isTypeSupported('video/mp4')) {
-      mimeType = 'video/mp4'; // Safari
+    let mimeType = "";
+
+    if (MediaRecorder.isTypeSupported("video/webm;codecs=vp9")) {
+      mimeType = "video/webm;codecs=vp9";
+    } else if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8")) {
+      mimeType = "video/webm;codecs=vp8";
+    } else if (MediaRecorder.isTypeSupported("video/webm")) {
+      mimeType = "video/webm";
+    } else if (MediaRecorder.isTypeSupported("video/mp4")) {
+      mimeType = "video/mp4"; // Safari
     } else {
-      alert('Este navegador no soporta MediaRecorder para video.');
+      alert("Este navegador no soporta MediaRecorder para video.");
       return;
     }
-  
- 
 
     const stream = videoRef.current.srcObject;
     const recorder = new MediaRecorder(stream, { mimeType });
@@ -278,28 +241,26 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
       }
     };
 
-  
-
     recorder.onstop = () => {
       const blob = new Blob(chunks, { type: mimeType });
       const videoUrl = URL.createObjectURL(blob);
-    
+
       const videoEl = document.createElement("video");
       videoEl.src = videoUrl;
       videoEl.muted = true;
       videoEl.playsInline = true;
       videoEl.preload = "auto";
-    
+
       videoEl.addEventListener("loadeddata", () => {
         // Crear canvas y capturar el primer frame como imagen
         const canvas = document.createElement("canvas");
         canvas.width = videoEl.videoWidth;
         canvas.height = videoEl.videoHeight;
-    
+
         const ctx = canvas.getContext("2d");
         ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
         const posterDataUrl = canvas.toDataURL("image/jpeg");
-    
+
         // Guardar video y poster como parte del estado
         setCurrentPreviewVideo({
           url: videoUrl,
@@ -307,18 +268,14 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
           comment: "",
           ready: true,
         });
-    
+
         setRecordedChunks([]);
         setShowPreviewOverlay(true);
         setShowVideoOverlay(false);
       });
-    
+
       videoEl.load();
     };
-    
-    
-    
-     
 
     recorder.start();
     setIsRecording(true);
@@ -351,8 +308,8 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
   };
 
   const handleCloseVideoOverlay = () => {
-    console.log(1.1, data.isConfirmed)
-    console.log(2.21, canConfirm)
+    console.log(1.1, data.isConfirmed);
+    console.log(2.21, canConfirm);
     if (videoStream) {
       videoStream.getTracks().forEach((track) => track.stop());
       setVideoStream(null);
@@ -361,20 +318,20 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
     setShowVideoOverlay(false);
     setRecordedChunks([]); // por si grabaste algo antes
 
-    console.log(1.2, data.isConfirmed)
-    console.log(2.22, canConfirm)
+    console.log(1.2, data.isConfirmed);
+    console.log(2.22, canConfirm);
   };
 
   const handleClosePhotoOverlay = () => {
     setShowCamera(false);
-  }
+  };
 
   return (
     <section className="step">
       <div className="step-header">
-        <h2>Start Job</h2>
+        <h2> {model === 1 ? "Start Job" : "End Job"}</h2>
 
-        {data.isConfirmed == false && (
+        {data.isConfirmed === false && (
           <button
             onClick={() => {
               setData({ ...data, isConfirmed: true, dateConfirm: getDate() });
@@ -389,44 +346,74 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
 
         {data.isConfirmed && (
           <div className="confirmed">
-            <span>Confirmed</span>
-            <br />
-            <span className="reduce">{data.dateConfirm}</span>
+            <div className="confirmedText">Confirmed</div>
+            <div className="reduce">{data.dateConfirm}</div>
           </div>
         )}
       </div>
 
-      <div className="bodyContent"  >
+      <div className="bodyContent">
         <hr style={{ margin: "16px 0" }} />
         {!showCamera && (
           <>
-            {(photos.length === 0 && videos.length===0) && (
+            {photos.length === 0 && videos.length === 0 && (
               <div style={styles.subTitleStep}>
-                To start the job, take photos or video of all spaces to be
-                cleaned.
-                <br />A minimum of 5 photos or a 10 second video is required to
-                start this job.
+                {model === 1 ? (
+                  <>
+                    To start the job, take photos or video of all spaces to be
+                    cleaned.
+                    <br />A minimum of 5 photos or a 10 second video is required
+                    to start this job.
+                  </>
+                ) : (
+                  <>
+                    <strong>Have you finished?</strong> <br />
+                    To complete the job, take photos or video of all spaces
+                    completed.
+                  </>
+                )}
               </div>
             )}
 
             {/* Previews START */}
             {photos.length > 0 && (
-              <div style={{ marginTop: 20}}>
+              <div style={{ marginTop: 20 }}>
                 <p style={{ fontSize: 13, padding: 5 }}>
                   Before Photos or Video
                 </p>
                 <div style={{ display: "flex", overflowX: "auto" }}>
                   {photos.map((p, i) => (
-                    <div key={i} style={{ marginRight: 8 }}>
+                    <div
+                      key={i}
+                      style={{ marginRight: 8, position: "relative" }}
+                    >
+                      {!data.isConfirmed && (
+                        <button
+                          onClick={() => {
+                            const updatedPhotos = photos.filter(
+                              (_, index) => index !== i
+                            );
+                            setData({ ...data, photos: updatedPhotos });
+                            if (selectedPhotoIndex === i)
+                              setSelectedPhotoIndex(null);
+                          }}
+                          style={styles.closeButtonImgPreview}
+                        >
+                          x
+                        </button>
+                      )}
                       <img
                         src={p.image}
                         alt={`preview-${i}`}
                         style={{
-                          width: 80,
-                          height: 80,
+                          width: 120,
+                          height: 120,
                           objectFit: "cover",
-                          borderRadius: 8,
                           cursor: "pointer",
+                          border:
+                            selectedPhotoIndex === i
+                              ? "3px solid #007Aff"
+                              : "3px solid #fff",
                         }}
                         onClick={() => setSelectedPhotoIndex(i)}
                       />
@@ -444,12 +431,7 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
                       }
                       readOnly={data.isConfirmed ? true : false}
                       placeholder="Edit comment..."
-                      style={{
-                        width: "100%",
-                        padding: 6,
-                        borderRadius: 6,
-                        border: "1px solid #ccc",
-                      }}
+                      style={styles.boxTextImgComment}
                     />
                   </div>
                 )}
@@ -462,89 +444,53 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
 
         {/* Overlay cámara */}
         {showCamera && !showPreview && (
-           <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: 'black',
-            zIndex: 9999,
-            overflow: 'hidden',
-          }}>
-          
+          <div
+            style={styles.overlayTakePhoto}
+          >
             {/* Botón Cerrar */}
             <button
               onClick={handleClosePhotoOverlay}
-              style={{
-                position: "absolute",
-                top: 20,
-                right: 20,
-                background: "transparent",
-                border: "none",
-                fontSize: 32,
-                color: "#fff",
-                cursor: "pointer",
-                zIndex: 10000,
-              }}
+              style={styles.closeOverlayTakePhoto}
             >
               ✖
             </button>
-          
+
             {/* Video en full screen */}
             <video
               ref={videoRef}
               autoPlay
               playsInline
               style={{
-                width: '100vw',
-                height: '100vh',
-                objectFit: 'cover',
+                width: "100vw",
+                height: "100vh",
+                objectFit: "cover",
               }}
             ></video>
-          
+
             {/* Canvas oculto */}
             <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-          
+
             {/* Botón "Take Photo" centrado abajo */}
-            <div style={{
-              position: 'absolute',
-              bottom: 120,
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              zIndex: 10001,
-            }}>
-              <button style={styles.captureButton}
-                onClick={handleTakePhoto}
-              >
+            <div
+              style={styles.containerButtonTakePhoto}
+            >
+              <button style={styles.captureButton} onClick={handleTakePhoto}>
                 Take Photo
               </button>
             </div>
           </div>
-          
-          
         )}
 
         {/* Overlay preview */}
         {showPreview && (
           <div style={styles.overlay}>
-            <button onClick={handleCancelPreview} 
-            style={{
-                position: "absolute",
-                top: 66,
-                right: 16,
-                background: "transparent",
-                border: "none",
-                fontSize: 24,
-                color: "#fff",
-                cursor: "pointer",
-                zIndex: 10000,
-              }}>
-                ✖
-              </button>
+            <button
+              onClick={handleCancelPreview}
+              style={styles.closeOverlayImgPreview}
+            >
+              ✖
+            </button>
             <div style={styles.previewBox}>
-              
               <img
                 src={previewImage}
                 alt="preview"
@@ -564,83 +510,84 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
         )}
 
         {/*VIDEO Start */}
-       
+
         {/*** */}
 
-        <div
-          style={{
-            display: "flex",
-            overflowX: "auto",
-            gap: "1rem",
-            marginTop: "1rem",
-          }}
-        >
+        <div>
           {/* Miniaturas de videos con comentarios */}
-          
-          {videos.length>0 && (
-          <div
-            style={{
-              display: "flex",
-              overflowX: "auto",
-              gap: "1rem",
-              marginTop: "1rem",
-              paddingBottom: 12,
-            }}
-          > 
-            {videos.map((video, index) => (
+
+          {videos.length > 0 && (
+            <div>
+              <p style={{ fontSize: 13, padding: 5 }}>
+                After Photos or Video
+              </p>
               <div
-                key={index}
-                style={{
-                  minWidth: 120,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  padding: 8,
-                  borderRadius: 6,
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
-                }}
+                style={styles.panelVideoPreview}
               >
-                <video
-                  src={video.url}
-                  controls
-                  style={{
-                    width: "100%",
-                    height: "80px",
-                    objectFit: "cover",
-                    borderRadius: 4,
-                    backgroundColor: "#000",
-                  }}
-                />
-                <textarea
-                  placeholder="Edit comment"
-                  value={video.comment}
-                  onChange={(e) =>
-                    handleVideoCommentChange(index, e.target.value)
-                  }
-                  readOnly={data.isConfirmed ? true : false}
-                  style={{
-                    width: "100%",
-                    fontSize: "0.75rem",
-                    marginTop: "0.25rem",
-                    resize: "none",
-                    padding: 4,
-                  }}
-                />
+                {videos.map((video, index) => (
+                  <div
+                    key={index}
+                    style={styles.containerVideoPreview}
+                  >
+                    {!data.isConfirmed && (
+                      <button
+                        onClick={() => setSelectedVideoIndex(index)}
+                        style={styles.buttonCheckVideoPreview}
+                      >
+                        ✓
+                      </button>
+                    )}
+                    {!data.isConfirmed && (
+                      <button
+                        onClick={() => {
+                          const updated = videos.filter((_, i) => i !== index);
+                          setData({ ...data, videos: updated });
+                          if (updated.length > 0) {
+                            setSelectedVideoIndex(0);
+                          }
+                        }}
+                        style={styles.closeVideoPreview}
+                      >
+                        x
+                      </button>
+                    )}
+                    <video
+                      src={video.url}
+                      controls
+                      style={{
+                        width: "100%",
+                        height: "120px",
+                        objectFit: "cover",
+                        padding: 2,
+                        backgroundColor:
+                          selectedVideoIndex === index ? "  #007Aff" : "#fff",
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+              {selectedVideoIndex !== null && (
+                <div style={{ marginTop: 12 }}>
+                  <textarea
+                    value={videos[selectedVideoIndex]?.comment || ""}
+                    onChange={(e) =>
+                      handleVideoCommentChange(
+                        selectedVideoIndex,
+                        e.target.value
+                      )
+                    }
+                    readOnly={data.isConfirmed ? true : false}
+                    placeholder="Edit comment..."
+                    style={styles.boxTextVideoPreview}
+                  />
+                </div>
+              )}
+            </div>
           )}
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 20,
-          }}
-        >
-          {((data.option === 0 || data.option === 1) && !data.isConfirmed) && (
+        { !data.isConfirmed && (
+        <div style={styles.buttonPhotos}>
+          {(data.option === 0 || data.option === 1) && !data.isConfirmed && (
             <button
               style={
                 data.isConfirmed
@@ -656,11 +603,11 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
                 }
               }}
             >
-              +Take Photos
+              +Photos
             </button>
           )}
-         &nbsp;&nbsp;          
-          {((data.option === 0 || data.option === 2) && !data.isConfirmed )&& (
+           
+          {(data.option === 0 || data.option === 2) && !data.isConfirmed && (
             <button
               style={
                 data.isConfirmed
@@ -673,8 +620,6 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
                 } else {
                   setShowVideoOverlay(true);
                   setData({ ...data, option: 2 });
-                  console.log(2.1, data.isConfirmed)
-                  console.log(2.11, canConfirm)
                 }
               }}
             >
@@ -682,27 +627,29 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
             </button>
           )}
         </div>
+        )}
         {/*VIDEO END*/}
         {/*BLUE TEXT */}
         {data.isConfirmed && (
-        <div
-              style={{
-                backgroundColor: '#e6f0ff',
-                color: '#333',
-                fontSize: 14,
-                padding: '12px 16px',
-                borderRadius: 6,
-                marginTop: 16,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-              }}
-            >
-                <span style={{ color: '#007aff', fontWeight: 'bold', fontSize: 18 }}>ℹ️</span>
-                <span>
-                The photos or videos were submitted successfully to document the space Before cleaning.
-                </span>
-              </div>
+          <div   style={styles.informationContainer}>
+            <span  style={styles.informationText} >
+              ℹ️
+            </span>
+            <span>
+              
+              {data.option  === 1 ? (
+                  <>
+                    The photos or videos were submitted successfully to document the
+                    space Before cleaning.
+                  </>
+                ) : (
+                  <>
+                    The photos or videos were submitted successfully to document the
+                    space After cleaning.
+                  </>
+                )}
+            </span>
+          </div>
         )}
 
         {/*VIDEO Start */}
@@ -713,107 +660,66 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
                 setCurrentPreviewVideo(null);
                 setShowPreviewOverlay(false); // cancela grabación si aplica
               }}
-              style={{
-                position: "absolute",
-                top: 66,
-                right: 16,
-                background: "transparent",
-                border: "none",
-                fontSize: 24,
-                color: "#fff",
-                cursor: "pointer",
-                zIndex: 10000,
-              }}
-            >✖
+              style={styles.closeOverlayVideo}
+            >
+              ✖
             </button>
             <div style={styles.previewBox}>
-            {currentPreviewVideo.ready && (
-              <video
-                style={styles.previewImage}
-                src={currentPreviewVideo.url}
-                controls
-                autoPlay={false}
-                preload="auto"
-                playsInline
-                poster={currentPreviewVideo.poster}
-                 className="video-preview"
+              {currentPreviewVideo.ready && (
+                <video
+                  style={styles.previewImage}
+                  src={currentPreviewVideo.url}
+                  controls
+                  autoPlay={false}
+                  preload="auto"
+                  playsInline
+                  poster={currentPreviewVideo.poster}
+                  className="video-preview"
+                />
+              )}
+
+              <textarea
+                style={styles.commentBox}
+                value={currentPreviewVideo.comment}
+                onChange={(e) =>
+                  setCurrentPreviewVideo({
+                    ...currentPreviewVideo,
+                    comment: e.target.value,
+                  })
+                }
+                placeholder="Add a comment..."
               />
-            )} 
-            
 
-            <textarea
-            style={styles.commentBox}
-              value={currentPreviewVideo.comment}
-              onChange={(e) =>
-                setCurrentPreviewVideo({
-                  ...currentPreviewVideo,
-                  comment: e.target.value,
-                })
-              }
-              placeholder="Add a comment..."
-            />
-
-            <button style={styles.saveButton} onClick={handleSaveVideo}>
-              save
-            </button>
+              <button style={styles.saveButton} onClick={handleSaveVideo}>
+                save
+              </button>
             </div>
           </div>
         )}
 
         {showVideoOverlay && (
-          <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: 'black',
-            zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          
+          <div
+            style={styles.overlayVideo}
+          >
             {/* Botón cerrar */}
             <button
               onClick={handleCloseVideoOverlay}
-              style={{
-                position: "absolute",
-                top: 20,
-                right: 20,
-                background: "transparent",
-                border: "none",
-                fontSize: 32,
-                color: "#fff",
-                cursor: "pointer",
-                zIndex: 10000,
-              }}
+              style={styles.closeVideoButton}
             >
               ✖
             </button>
-          
+
             {/* Video */}
             <video
               ref={videoRef}
-              style={{
-                width: '100vw',
-                height: '100vh',
-                objectFit: 'cover', // Asegura que el video llene el contenedor
-              }}
+              style={styles.contentVideo}
               playsInline
               muted
               autoPlay
             />
-          
+
             {/* Controles */}
-            <div style={{
-              position: 'absolute',
-              bottom: 120,
-              display: 'flex',
-              gap: 20,
-              zIndex: 10001,
-            }}>
+            <div  style={styles.controlsVideo}>
               {!isRecording ? (
                 <button onClick={startRecording} style={styles.captureButton}>
                   Record
@@ -825,7 +731,6 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
               )}
             </div>
           </div>
-          
         )}
         {/*VIDEO End */}
       </div>
@@ -834,7 +739,216 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
 }
 
 const styles = {
+  btnConfirm:{
+    height: "50px",
    
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    width:"120px"
+  },
+  closeButtonImgPreview:{
+    position: "absolute",
+    top: 0, // Quitar desplazamiento vertical raro
+    right: 0, // Quitar desplazamiento horizontal raro
+    background: "#333",
+    color: "#fff",
+    border: "none",
+    borderRadius: "50%", // 50% para un círculo perfecto
+    width: 18, // Un poco más ancho para que se vea bien la X
+    height: 18, // Igual que width para círculo
+    fontSize: 12,
+    lineHeight: "18px", // Igual que height para centrar la X verticalmente
+    textAlign: "center",
+    cursor: "pointer",
+    boxShadow: "0 0 2px rgba(0,0,0,0.6)",
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0,
+    userSelect: "none",
+  },
+  boxTextImgComment:{
+    width: "100%",
+    padding: 6,
+    borderRadius: 6,
+    border: "1px solid #ccc",
+    fontSize: "16px",
+  },
+  overlayTakePhoto:{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "black",
+    zIndex: 9999,
+    overflow: "hidden",
+  },
+  closeOverlayTakePhoto:{
+    position: "absolute",
+    top: 20,
+    right: 20,
+    background: "transparent",
+    border: "none",
+    fontSize: 32,
+    color: "#fff",
+    cursor: "pointer",
+    zIndex: 10000,
+  },
+  containerButtonTakePhoto:{
+    position: "absolute",
+    bottom: 140,
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    zIndex: 10001,
+  },
+  closeOverlayImgPreview:{
+    position: "absolute",
+    top: 66,
+    right: 16,
+    background: "transparent",
+    border: "none",
+    fontSize: 24,
+    color: "#fff",
+    cursor: "pointer",
+    zIndex: 10000,
+  },
+  panelVideoPreview:{
+    display: "flex",
+    overflowX: "auto",
+    gap: "1rem",
+    paddingBottom: 12,
+  },
+  containerVideoPreview:{
+    minWidth: 120,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    position: "relative",
+  },
+  buttonCheckVideoPreview:{
+    position: "absolute",
+    top: -1, // Quitar desplazamiento vertical raro
+    left: -1, // Quitar desplazamiento horizontal raro
+    background: "#007AFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "50%", // 50% para un círculo perfecto
+    width: 25, // Un poco más ancho para que se vea bien la X
+    height: 25, // Igual que width para círculo
+    fontSize: 16,
+    lineHeight: "25px", // Igual que height para centrar la X verticalmente
+    textAlign: "center",
+    cursor: "pointer",
+    boxShadow: "0 0 2px rgba(0,0,0,0.6)",
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0,
+    userSelect: "none",
+    zIndex: 1000,
+  },
+  closeVideoPreview:{
+    position: "absolute",
+    top: 0, // Quitar desplazamiento vertical raro
+    right: 0, // Quitar desplazamiento horizontal raro
+    background: "#333",
+    color: "#fff",
+    border: "none",
+    borderRadius: "50%", // 50% para un círculo perfecto
+    width: 25, // Un poco más ancho para que se vea bien la X
+    height: 25, // Igual que width para círculo
+    fontSize: 16,
+    lineHeight: "25px", // Igual que height para centrar la X verticalmente
+    textAlign: "center",
+    cursor: "pointer",
+    boxShadow: "0 0 2px rgba(0,0,0,0.6)",
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0,
+    userSelect: "none",
+    zIndex: 1000,
+  },
+  boxTextVideoPreview:{
+    width: "100%",
+    padding: 6,
+    borderRadius: 6,
+    border: "1px solid #ccc",
+    fontSize: "16px",
+  },
+  buttonPhotos:{
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  informationContainer:{
+    backgroundColor: "#e6f0ff",
+    color: "#333",
+    fontSize: 14,
+    padding: "12px 16px",
+    borderRadius: 6,
+    marginTop: 16,
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  informationText:{
+     color: "#007aff", 
+     fontWeight: "bold", 
+     fontSize: 18 
+  },
+  closeOverlayVideo:{
+    position: "absolute",
+    top: 66,
+    right: 16,
+    background: "transparent",
+    border: "none",
+    fontSize: 24,
+    color: "#fff",
+    cursor: "pointer",
+    zIndex: 10000,
+  },
+  overlayVideo:{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "black",
+    zIndex: 9999,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closeVideoButton:{
+    position: "absolute",
+    top: 20,
+    right: 20,
+    background: "transparent",
+    border: "none",
+    fontSize: 32,
+    color: "#fff",
+    cursor: "pointer",
+    zIndex: 10000,
+  },
+  contentVideo:{
+    width: "100vw",
+    height: "100vh",
+    objectFit: "cover", // Asegura que el video llene el contenedor
+  },
+  controlsVideo:{
+    position: "absolute",
+    bottom: 120,
+    display: "flex",
+    gap: 20,
+    zIndex: 10001,
+  },
+
   takePhotosBtn1: {
     padding: "10px 20px",
     fontSize: 16,
@@ -881,19 +995,17 @@ const styles = {
     backgroundColor: "#007aff",
     color: "#fff",
     border: "none",
-     
-    borderRadius: 8,
+
     fontSize: 14,
     cursor: "pointer",
-    width: "130px"
+    width: "130px",
   },
   captureStop: {
     width: "130px",
     backgroundColor: "red",
     color: "#fff",
     border: "none",
-  
-    borderRadius: 8,
+
     fontSize: 14,
     cursor: "pointer",
   },
@@ -927,17 +1039,18 @@ const styles = {
     borderRadius: 4,
     border: "1px solid #ccc",
     marginBottom: 10,
+    fontSize: "16px",
   },
   saveButton: {
     border: "none",
-     
+
     backgroundColor: "#007AFF",
     color: "#fff",
-     borderRadius: 8,
+
     cursor: "pointer",
-    fontSize:"14px",
-     textAlign: "center",
-     width: "120px",
+    fontSize: "14px",
+    textAlign: "center",
+    width: "120px",
   },
   closeButton: {
     position: "absolute",
@@ -1001,8 +1114,8 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     cursor: "pointer",
-    textAlign: "center"
-
+    textAlign: "center",
+    marginRight:"10px"
   },
   takePhotosBtnOff: {
     width: "130px",
@@ -1011,6 +1124,7 @@ const styles = {
     border: "1px solid gray",
     fontSize: "12px",
     fontWeight: 600,
-    cursor: "pointer" 
+    cursor: "pointer",
+    marginRight:"10px"
   },
 };
