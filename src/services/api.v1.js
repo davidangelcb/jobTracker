@@ -1,7 +1,7 @@
 // GET con query string
 export const getJobData = async (id) => {
   try {
-    console.log(11, id);
+    
     const res = await fetch(`/api/job?id=${id}`);
     if (!res.ok) throw new Error(`GET failed: ${res.status}`);
     return await res.json();
@@ -22,6 +22,24 @@ export const postJobData = async (data) => {
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error(`POST failed: ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("Error:", err);
+    throw err;
+  }
+};
+
+
+export const putImg = async (data) => {
+  try {
+    const res = await fetch("/api/job", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error(`PUT failed: ${res.status}`);
     return await res.json();
   } catch (err) {
     console.error("Error:", err);

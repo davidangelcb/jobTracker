@@ -46,15 +46,28 @@ export default async function handler(req, res) {
     }
   }
   
-/*
-  if (req.method === 'POST') {
-    const body = req.body;
-    const apiKey = process.env.API_KEY_PRIVADA;
-    
-    console.log(' Datos recibidos en POST:', apiKey);
 
-    return res.status(200).json({ message: 'Datos guardados correctamente:'+apiKey, received: body });
-  }*/
+  if (req.method === 'PUT') {
+    const apiKey = process.env.API_KEY_PRIVADA;  
+    const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/uploadUrl";
+  
+    try {
+      const response = await fetch(urlApi, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        },
+        body: JSON.stringify(req.body)
+      });
+  
+      const data = await response.json();
+  
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ error: 'Error al enviar la solicitud POST' });
+    }
+  }
 
   // Otros métodos no soportados
   res.setHeader('Allow', ['GET', 'POST']);

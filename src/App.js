@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 //import { getData, postData } from '../src/services/api';
-import { getJobData, postJobData } from './services/api.v1';
+import { getJobData, postJobData, putImg } from './services/api.v1';
 import { useParams , useLocation} from 'react-router-dom';
  
 
@@ -184,8 +184,14 @@ function App() {
     setCurrentStep(num);
   };
 
-  const confirmStarJOb =  () => {
-    completarPaso(3)
+  const confirmStarJOb = async () => {
+    let response  = await putImg({
+      size : 12112,
+      name :"david",
+      type: "application/pdf"
+    });
+    console.log(response);
+    //completarPaso(3)
   }
 
   const confirmEndJOb =  () => {
