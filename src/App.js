@@ -43,7 +43,7 @@ function App() {
         name: data.property.name,
         address: `${data.property.location.address1}, ${data.property.location.city}, ${data.property.location.state} ${data.property.location.postalCode}`,
         unit: data.unit,
-        locationn: {
+        location: {
           lat: data.property.location.geo.coordinates[0],
           lng: data.property.location.geo.coordinates[1],
         },
@@ -51,7 +51,6 @@ function App() {
         scheduled: data.scheduleDate,
       };
 
-      // Agrega "active: true" si se cumple la condición
       if (
         data.tracker?.status === "S1" &&
         data.tracker?.data?.tracker?.step1?.dayApproved
@@ -85,6 +84,32 @@ function App() {
     
   }, [activeWindow.search]);
 
+  const confirmLocation = async(num) => {
+    const formatted = formatDate();
+    //setDateConfirm(formatted);
+    setJobInfoData({
+      ...jobInfoData,
+      dateConfirm : formatted,
+      locationBrowser : location
+    })  
+
+    let response  = await postJobData(
+      { 
+        trackerId: idJob, 
+        step1: {
+          location: {
+            geo : [jobInfoData.location.lat,jobInfoData.location.lng],
+            geoApp: [location.lat, location.lng]
+          }
+        } 
+      }
+    );
+    console.log("waiting response!!")
+    console.log(response);
+    completarPaso(2);
+  }
+ 
+  /****************************************/
   const getLocation = () => {
     console.log(2)
     if (!navigator.geolocation) {
@@ -140,7 +165,7 @@ function App() {
   }, [idFromUrl])
 
   //  onStatusChange={updateIconStatus} 
-  const confirmLocation = () => {
+  const confirmLocationX = () => {
  
     const formatted = formatDate();
     //setDateConfirm(formatted);
@@ -173,7 +198,7 @@ function App() {
     name : "David Room",
     address : "Jr comercio 987, Cañete, Cerro Azul 9898",
     unit: "AB987",
-    locationn : {
+    location : {
       lat: -98987897,
       lng: +898798798,
     },
