@@ -19,6 +19,23 @@ import {formatDate} from './utils/misc';
 let locationStatus  = 0; 
  
 function App() {
+  // StartJOb
+  const [startJobData, setStartJobData] = useState({
+    photos: [],
+    isConfirmed: false,
+    dateConfirm:null,
+    option: 0,
+    videos:[]
+  });
+ // end job
+  const [endJobData, setEndJobData] = useState({
+    photos: [],
+    isConfirmed: false,
+    dateConfirm:null,
+    option: 0,
+    videos:[]
+  });
+  
   const activeWindow = useLocation();
   const { idJob } = useParams();
   const [location, setLocation] = useState(null)
@@ -184,7 +201,7 @@ function App() {
     setCurrentStep(num);
   };
 
-  const confirmStarJOb = async () => {
+  const confirmStarJOb =  () => {
     /*let response  = await putImg({
       size : 12112,
       name :"david",
@@ -201,22 +218,7 @@ function App() {
     console.log(11) 
 
   }
-async function uploadAllVideos() {
-  for (let i = 0; i < data.videos.length; i++) {
-    const { url, comment } = data.videos[i];
-    const blob = await (await fetch(url)).blob();
-    const fileType = blob.type; // ej: 'video/webm'
-    const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
-
-    try {
-      const downloadUrl = await uploadToS3Blob(blob, fileName, fileType);
-      console.log('Video subido:', downloadUrl);
-      data.videos[i].downloadUrl = downloadUrl;
-    } catch (e) {
-      console.error('Error subiendo video:', e);
-    }
-  }
-}
+ 
 
   const confirmEndJOb =  () => {
     completarPaso(4)
@@ -238,22 +240,7 @@ async function uploadAllVideos() {
     locationBrowser: null 
  })
   
-  // StartJOb
-  const [startJobData, setStartJobData] = useState({
-    photos: [],
-    isConfirmed: false,
-    dateConfirm:null,
-    option: 0,
-    videos:[]
-  });
- // end job
-  const [endJobData, setEndJobData] = useState({
-    photos: [],
-    isConfirmed: false,
-    dateConfirm:null,
-    option: 0,
-    videos:[]
-  });
+  
   // STATUS PAYMENT
   const [paymentStatus, setPaymentStatus]  = useState('I'); //I(inprogress) P (processing) D (done paid) 
   const [department, setDepartment]  = useState(jobInfoData.name + ' - ' + jobInfoData.unit);
