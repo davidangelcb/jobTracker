@@ -185,14 +185,38 @@ function App() {
   };
 
   const confirmStarJOb = async () => {
-    let response  = await putImg({
+    /*let response  = await putImg({
       size : 12112,
       name :"david",
       type: "application/pdf"
     });
-    console.log(response);
+    console.log(response);*/
     //completarPaso(3)
+    console.log(10)
+    console.log(startJobData.isConfirmed)
+    console.log(startJobData.dateConfirm)
+    console.log(startJobData.option)
+    console.log(startJobData.photos.length)
+    console.log(startJobData.videos.length)
+    console.log(11) 
+
   }
+async function uploadAllVideos() {
+  for (let i = 0; i < data.videos.length; i++) {
+    const { url, comment } = data.videos[i];
+    const blob = await (await fetch(url)).blob();
+    const fileType = blob.type; // ej: 'video/webm'
+    const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
+
+    try {
+      const downloadUrl = await uploadToS3Blob(blob, fileName, fileType);
+      console.log('Video subido:', downloadUrl);
+      data.videos[i].downloadUrl = downloadUrl;
+    } catch (e) {
+      console.error('Error subiendo video:', e);
+    }
+  }
+}
 
   const confirmEndJOb =  () => {
     completarPaso(4)
