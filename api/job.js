@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     // Puedes procesar el body o enviarlo a otra API externa
     console.log(' Datos recibidos en POST:', apiKey);
 
-    return res.status(200).json({ message: 'Datos guardados correctamente', received: body });
+    return res.status(200).json({ message: 'Datos guardados correctamente:'+apiKey, received: body });
   }
 
   // Otros métodos no soportados
