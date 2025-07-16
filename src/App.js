@@ -36,19 +36,34 @@ function App() {
  useEffect(() => {
   getJobData(idJob)
   .then((data) => {
-    setJobInfoData((prev) => ({
-      ...prev,
-      idJob: data.number,
-      name : data.property.name,
-      address : data.property.location.address1 +', '+data.property.location.city+', '+ data.property.location.state +' ' + data.property.location.postalCode ,
-      unit: "unit - " + data.unit,
-      locationn : {
-        lat: data.property.location.geo.coordinates[0],
-        lng: data.property.location.geo.coordinates[1],
-      },
-      cleaningType : data.service.name,
-      scheduled :  data.scheduleDate,
-    }));
+    setJobInfoData((prev) => {
+      const baseData = {
+        ...prev,
+        idJob: data.number,
+        name: data.property.name,
+        address: `${data.property.location.address1}, ${data.property.location.city}, ${data.property.location.state} ${data.property.location.postalCode}`,
+        unit: data.unit,
+        locationn: {
+          lat: data.property.location.geo.coordinates[0],
+          lng: data.property.location.geo.coordinates[1],
+        },
+        cleaningType: data.service.name,
+        scheduled: data.scheduleDate,
+      };
+
+      // Agrega "active: true" si se cumple la condición
+      if (
+        data.tracker?.status === "S1" &&
+        data.tracker?.data?.tracker?.step1?.dayApproved
+      ) {
+        return {
+          ...baseData,
+          dateConfirm: data.tracker.data.tracker.step1.dayApproved,
+        };
+      }
+
+      return baseData;
+    });
   })
     .catch(err => console.error('GET Fail:', err));
 
