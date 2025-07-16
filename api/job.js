@@ -12,11 +12,11 @@ export default async function handler(req, res) {
     // Supongamos que haces un fetch externo usando tu clave secreta
  
     const apiKey = process.env.API_KEY_PRIVADA;
-    const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/";
+    const urlApi = " https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/4d27ce6e-f83f-4d5b-9801-1cbfc8e53582";
 
     if (req.method === 'GET') {
       console.log(urlApi+jobId);
-      const response = await fetch(urlApi+jobId, {
+      const response = await fetch(urlApi, {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": apiKey
