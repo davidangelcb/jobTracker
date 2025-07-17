@@ -48,6 +48,8 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
           {
             url: currentPreviewVideo.url,
             comment: currentPreviewVideo.comment || "",
+            blob: currentPreviewVideo.blob,
+            type: currentPreviewVideo.mimeType
           },
         ],
       });
