@@ -8,6 +8,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+    console.log(222, req.method);
   if (req.method === "POST") {
     const contentType = req.headers["content-type"] || "";
     if (contentType.includes("multipart/form-data")) {
