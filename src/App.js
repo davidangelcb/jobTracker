@@ -214,10 +214,10 @@ function App() {
             geoApp: [location.lat, location.lng]
           },
           media: startJobData.option,
-          files: dataVideos          
+          dataVideos          
         } 
       }
-      console.table(request);
+       
       response  = await postJobData(request);
 
     } else {
@@ -233,7 +233,7 @@ function App() {
  
 async function uploadAllVideos(data) {
   let videoDB = {
-    videos : []
+    files : []
   };
   for (let i = 0; i < data.videos.length; i++) {
     const { url, comment, blob , type} = data.videos[i];
