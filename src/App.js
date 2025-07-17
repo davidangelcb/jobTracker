@@ -209,10 +209,18 @@ function App() {
     });
     console.log(response);*/
     //completarPaso(3)
+    console.log(10)
+    console.log(startJobData.isConfirmed)
+    console.log(startJobData.dateConfirm)
+    console.log(startJobData.option)
+    console.log(startJobData.photos.length)
+    console.log(startJobData.videos.length)
+    console.log(11)
+
  
     if(startJobData.option==2){
       console.log("genera videos");
-      let dataVideos = await uploadAllVideos(startJobData.photos);
+      let dataVideos = await uploadAllVideos(startJobData);
       console.log(dataVideos);
     } else {
       console.log("genera imagenes");
