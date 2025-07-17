@@ -204,6 +204,8 @@ function App() {
     if(startJobData.option==2){
       
       let dataVideos = await uploadAllVideos(startJobData);
+      console.log(dataVideos);
+      
       response  = await postJobData(
         { 
           trackerId: idJob, 
