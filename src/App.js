@@ -198,30 +198,36 @@ function App() {
   };
 
   const confirmStarJOb =  async() => {
-    /*let response  = await putImg({
-      size : 12112,
-      name :"david",
-      type: "application/pdf"
-    });
-    console.log(response);*/
-    //completarPaso(3)
-    console.log(10)
-    console.log(startJobData.isConfirmed)
-    console.log(startJobData.dateConfirm)
-    console.log(startJobData.option)
-    console.log(startJobData.photos.length)
-    console.log(startJobData.videos.length)
-    console.log(11)
-
+    
+   let response = null;
  
     if(startJobData.option==2){
-      console.log("genera videos");
+      
       let dataVideos = await uploadAllVideos(startJobData);
-      console.log(dataVideos);
+      response  = await postJobData(
+        { 
+          trackerId: idJob, 
+          step2: {
+            location: {
+              geo : [jobInfoData.location.lat,jobInfoData.location.lng],
+              geoApp: [location.lat, location.lng]
+            },
+            media: startJobData.option,
+            files: dataVideos          
+          } 
+        }
+      );
+
     } else {
       console.log("genera imagenes");
     }
+
+    console.log("waiting response!!")
+    console.log(response);
+    completarPaso(3);
+
   }
+  
  
 async function uploadAllVideos(data) {
   let videoDB = {
@@ -242,17 +248,13 @@ async function uploadAllVideos(data) {
       let downloadUrl = await uploadToS3Blob(blob, fileName, cleanMimeType, fileSize);
       fileNameS3 = downloadUrl.fileNameS3;
       urlS3 = downloadUrl.url;
-      console.log (121, downloadUrl);
-     // console.log('Video subido:', downloadUrl);
-      //data.videos[i].downloadUrl = downloadUrl;
+ 
     } catch (e) {
-      //data.videos[i].downloadUrl = '';
+
       console.error('Error subiendo video:', e);
     }
     videoDB.videos.push({
-      fileName: fileName,
       comment : comment,
-      filezise: fileSize,
       downloadUrl: urlS3,
       fileNameS3: fileNameS3
     }); 

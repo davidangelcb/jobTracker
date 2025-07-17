@@ -69,24 +69,7 @@ export default async function handler(req, res) {
         }
       break;
       case "upload":
-         
-        try {
-          const response = await fetch(req.body.uploadUrl, {
-            method: 'PUT',
-            body: req.body.blob,
-            headers: {
-              'Content-Type': req.body.fileType,
-               'x-amz-tagging':req.body.uploadTags
-            } 
-          });      
-          if (!response.ok) {
-            console.log(response)
-          }        
-      
-          res.status(200).json({status:"success", values: response});
-        } catch (error) {
-          res.status(500).json({ error: 'Error al enviar la solicitud POST' });
-        }     
+        ///            
       break;
     }
     return res;
