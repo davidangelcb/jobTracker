@@ -33,6 +33,8 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
     comment: "",
     poster: "",
     ready: false,
+    block: null,
+    type: ""
   });
 
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
@@ -49,7 +51,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             url: currentPreviewVideo.url,
             comment: currentPreviewVideo.comment || "",
             blob: currentPreviewVideo.blob,
-            type: currentPreviewVideo.mimeType
+            type: currentPreviewVideo.type
           },
         ],
       });
@@ -235,7 +237,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 
     const stream = videoRef.current.srcObject;
     const recorder = new MediaRecorder(stream, { mimeType });
-
+    console.log(mimeType);
     const chunks = [];
     recorder.ondataavailable = (e) => {
       if (e.data.size > 0) {
