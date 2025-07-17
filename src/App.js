@@ -204,8 +204,7 @@ function App() {
  
     if(startJobData.option==2){
       
-      datafiles = await uploadAllVideos(startJobData);
-      console.log(dataVideos);     
+      datafiles = await uploadAllVideos(startJobData);  
 
     } else {
       datafiles= await uploadAllPhotos(startJobData);
