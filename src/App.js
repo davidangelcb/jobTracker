@@ -242,6 +242,7 @@ async function uploadAllVideos(data) {
       let downloadUrl = await uploadToS3Blob(blob, fileName, cleanMimeType, fileSize);
       fileNameS3 = downloadUrl.url;
       urlS3 = downloadUrl.fileNameS3;
+      console.log (121, downloadUrl);
      // console.log('Video subido:', downloadUrl);
       //data.videos[i].downloadUrl = downloadUrl;
     } catch (e) {
