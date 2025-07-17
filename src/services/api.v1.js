@@ -62,15 +62,17 @@ export const uploadToS3Blob = async(blob, fileName, fileType, fileSize) => {
   const { uploadUrl, uploadTags, downloadUrl } = json.data;
 
   // 2. Enviar el archivo directamente a S3
-  const putRes = await fetch(uploadUrl, {
+
+  const res2 = await fetch(`/api/job`, {
     method: 'PUT',
-    body: blob,
     headers: {
-      'Content-Type': fileType,
-      'x-amz-tagging': uploadTags
-    }
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ function: "upload", uploadUrl: uploadUrl, blob: blob,  fileType: fileType, uploadTags: uploadTags })
   });
-  if (!putRes.ok) throw new Error('Error al subir a S3');
+
+  const json2 = await res2.json();
+  if (json.status !== 'success') throw new Error(json.message || 'Error al generar URL');
 
   return downloadUrl; // URL pública o firmada
 }

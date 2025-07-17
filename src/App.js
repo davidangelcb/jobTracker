@@ -83,10 +83,6 @@ function App() {
     });
   })
     .catch(err => console.error('GET Fail:', err));
-
-  postJobData({ name: 'David', status: 'started' })
-    .then(data => console.log('POST OK:', data))
-    .catch(err => console.error('POST Fail:', err));
 }, []);
 
 
