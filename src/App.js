@@ -214,7 +214,7 @@ function App() {
             geoApp: [location.lat, location.lng]
           },
           media: startJobData.option,
-          files: dataVideos          
+          dataVideos          
         } 
       }
       console.table(request);
@@ -233,7 +233,7 @@ function App() {
  
 async function uploadAllVideos(data) {
   let videoDB = {
-    items : []
+    files : []
   };
   for (let i = 0; i < data.videos.length; i++) {
     const { url, comment, blob , type} = data.videos[i];
@@ -255,7 +255,7 @@ async function uploadAllVideos(data) {
 
       console.error('Error subiendo video:', e);
     }
-    videoDB.items.push({
+    videoDB.files.push({
       comment : comment,
       downloadUrl: urlS3,
       fileNameS3: fileNameS3
