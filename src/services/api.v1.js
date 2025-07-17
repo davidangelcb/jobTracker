@@ -50,7 +50,8 @@ export const putImg = async (data) => {
 export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => {
   let data = {
     url : '',
-    fileNameS3: ''
+    fileNameS3: '',
+    log:null
   };
   const res = await fetch(`/api/job`, {
     method: 'PUT',
@@ -66,38 +67,22 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
 
   const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;
 
-  // 2. Enviar el archivo directamente a S3
-  const formData = new FormData();
-  formData.append('function', 'upload');
-  formData.append('uploadUrl', uploadUrl);
-  formData.append('fileType', fileType);
-  formData.append('uploadTags', uploadTags);
-  formData.append('file', blob); // Tu video Blob
-  
-  const res3 = await fetch('/api/upload', {
-    method: 'POST',
-    body: formData
-  });
-  const json3 = await res3.json();
-  console.log(json3)
 
-/*
-
-  const arrayBuffer = await blob.arrayBuffer();
-  const base64Data = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
-
-  const res2 = await fetch(`/api/job`, {
+  const response = await fetch(uploadUrl, {
     method: 'PUT',
+    body: blob,
     headers: {
-      'Content-Type': 'application/json' 
-    },
-    body: JSON.stringify({ function: "upload", uploadUrl: uploadUrl, blob: base64Data,  fileType: fileType, uploadTags: uploadTags })
-  });
+      'Content-Type': fileType,
+       'x-amz-tagging':uploadTags
+    } 
+  });      
+  if (!response.ok) {
+    console.log(response)
+  }  
 
-  const json2 = await res2.json();
-  if (json2.status !== 'success') throw new Error(json2.message || 'Error al generar URL');*/
   data.url = downloadUrl;
   data.fileNameS3 = fileName;
+  data.log = response;
  
 
   return  data;  

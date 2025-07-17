@@ -240,8 +240,8 @@ async function uploadAllVideos(data) {
       console.log(fileName, fileType, fileSize);
       const cleanMimeType = fileType.split(';')[0]
       let downloadUrl = await uploadToS3Blob(blob, fileName, cleanMimeType, fileSize);
-      fileNameS3 = downloadUrl.url;
-      urlS3 = downloadUrl.fileNameS3;
+      fileNameS3 = downloadUrl.fileNameS3;
+      urlS3 = downloadUrl.url;
       console.log (121, downloadUrl);
      // console.log('Video subido:', downloadUrl);
       //data.videos[i].downloadUrl = downloadUrl;
