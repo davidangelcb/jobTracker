@@ -5,6 +5,14 @@
   }  */
   
   // /api/job.js
+import formidable from 'formidable';
+import fs from 'fs';
+
+export const config = {
+  api: {
+    bodyParser: false, // necesario para manejar archivos con formidable
+  },
+};
 export default async function handler(req, res) {
   const apiKey = process.env.API_KEY_PRIVADA;
 
@@ -68,16 +76,53 @@ export default async function handler(req, res) {
         }
       break;
       case "upload":
-        try {
-          const buffer = Buffer.from(req.body.blob, 'base64');
+        const contentType = req.headers['content-type'] || '';
+        if (contentType.includes('multipart/form-data')) {
+          const form = new formidable.IncomingForm();
 
+          form.parse(req, async (err, fields, files) => {
+            
+            if (err) {
+              console.error('Error al parsear el form:', err);
+               res.status(500).json({ status: 'error', message: 'Error al parsear archivo' });
+            }
 
+            const { uploadUrl, uploadTags, fileType } = fields;
+            const file = files.file;
+
+            if (!file || !uploadUrl || !fileType || !uploadTags) {
+               res.status(400).json({ status: 'error', message: 'Faltan datos para la subida' });
+            }
+
+            try {
+              const fileStream = fs.createReadStream(file.filepath);
+
+              const uploadRes = await fetch(uploadUrl, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': fileType,
+                  'x-amz-tagging': uploadTags,
+                },
+                body: fileStream,
+              });
+
+              if (!uploadRes.ok) {
+                const errorText = await uploadRes.text();
+                 res.status(500).json({ status: 'error', message: 'Fallo el PUT a S3', error: errorText });
+              }
+
+               res.status(200).json({ status: 'success', message: 'Archivo subido a S3'});
+            } catch (error) {
+               res.status(500).json({ status: 'error', message: 'Error al subir archivo a S3', error });
+            }      
+        })} 
+       /* try {
           const response = await fetch(req.body.uploadUrl, {
             method: 'PUT',
-            body: buffer,
+            body: req.body.blob,
             headers: {
               'Content-Type': req.body.fileType,
-              'x-amz-tagging':req.body.uploadTags
+               'x-amz-tagging':req.body.uploadTags
             } 
           });      
           if (!response.ok) {
@@ -87,7 +132,7 @@ export default async function handler(req, res) {
           res.status(200).json({status:"success", values: response});
         } catch (error) {
           res.status(500).json({ error: 'Error al enviar la solicitud POST' });
-        }          
+        }     */     
       break;
     }
     return res;

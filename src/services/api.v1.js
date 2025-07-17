@@ -66,6 +66,22 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;
 
   // 2. Enviar el archivo directamente a S3
+  const formData = new FormData();
+  formData.append('function', 'upload');
+  formData.append('uploadUrl', uploadUrl);
+  formData.append('fileType', fileType);
+  formData.append('uploadTags', uploadTags);
+  formData.append('file', blob); // Tu video Blob
+  
+  const res3 = await fetch('/api/job', {
+    method: 'PUT',
+    body: formData
+  });
+  const json3 = await res3.json();
+
+
+/*
+
   const arrayBuffer = await blob.arrayBuffer();
   const base64Data = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
@@ -78,10 +94,10 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   });
 
   const json2 = await res2.json();
-  if (json2.status !== 'success') throw new Error(json2.message || 'Error al generar URL');
+  if (json2.status !== 'success') throw new Error(json2.message || 'Error al generar URL');*/
   data.url = downloadUrl;
   data.fileNameS3 = fileName;
-  data.res =json2.values;
+ 
 
   return  data;  
 }
