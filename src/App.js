@@ -200,36 +200,70 @@ function App() {
   const confirmStarJOb =  async() => {
     
    let response = null;
+   let datafiles = null;
  
     if(startJobData.option==2){
       
-      let dataVideos = await uploadAllVideos(startJobData);
-      console.log(dataVideos);
-
-      let request = { 
-        trackerId: idJob, 
-        step2: {
-          location: {
-            geo : [jobInfoData.location.lat,jobInfoData.location.lng],
-            geoApp: [location.lat, location.lng]
-          },
-          media: startJobData.option,
-          files: dataVideos          
-        } 
-      }
-      console.table(request);
-      response  = await postJobData(request);
+      datafiles = await uploadAllVideos(startJobData);
+      console.log(dataVideos);     
 
     } else {
-      console.log("genera imagenes");
+      datafiles= await uploadAllPhotos(startJobData);
     }
+
+    let request = { 
+      trackerId: idJob, 
+      step2: {
+        location: {
+          geo : [jobInfoData.location.lat,jobInfoData.location.lng],
+          geoApp: [location.lat, location.lng]
+        },
+        media: startJobData.option,
+        files: datafiles          
+      } 
+    }
+    response  = await postJobData(request);
 
     console.log("waiting response!!")
     console.log(response);
     completarPaso(3);
 
   }
+  async function uploadAllPhotos(data) {
+    let photoDB = {
+      items: []
+    };
   
+    for (let i = 0; i < data.photos.length; i++) {
+      const { image, comment } = data.photos[i];
+  
+      const fileType = image.type; // ej: 'image/jpeg'
+      const fileSize = image.size;
+      const fileName = `photo_${i}`; // puedes usar un índice para diferenciar
+  
+      let fileNameS3 = '';
+      let urlS3 = '';
+  
+      try {
+        
+        const cleanMimeType = fileType.split(';')[0];
+        let downloadUrl = await uploadToS3Blob(image, fileName, cleanMimeType, fileSize);
+        fileNameS3 = downloadUrl.fileNameS3;
+        urlS3 = downloadUrl.url;
+      } catch (e) {
+        console.error('Error subiendo foto:', e);
+      }
+  
+      photoDB.items.push({
+        comment: comment,
+        downloadUrl: urlS3,
+        fileNameS3: fileNameS3
+      });
+    }
+  
+    return photoDB;
+  }
+   
  
 async function uploadAllVideos(data) {
   let videoDB = {
