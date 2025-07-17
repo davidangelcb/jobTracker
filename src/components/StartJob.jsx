@@ -267,7 +267,8 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
           poster: posterDataUrl,
           comment: "",
           ready: true,
-          blob: blob
+          blob: blob,
+          type: mimeType
         });
 
         setRecordedChunks([]);

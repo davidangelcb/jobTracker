@@ -228,9 +228,9 @@ async function uploadAllVideos(data) {
     videos : []
   };
   for (let i = 0; i < data.videos.length; i++) {
-    const { url, comment, blob } = data.videos[i];
+    const { url, comment, blob , type} = data.videos[i];
      
-    const fileType = blob.type; // ej: 'video/webm'
+    const fileType = type; // ej: 'video/webm'
     const fileSize = blob.size;
     const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
     
