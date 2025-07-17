@@ -234,10 +234,10 @@ function App() {
     };
   
     for (let i = 0; i < data.photos.length; i++) {
-      const { image, comment } = data.photos[i];
+      const { image, comment, blod } = data.photos[i];
   
-      const fileType = image.type; // ej: 'image/jpeg'
-      const fileSize = image.size;
+      const fileType = blod.type; // ej: 'image/jpeg'
+      const fileSize = blod.size;
       const fileName = `photo_${i}`; // puedes usar un índice para diferenciar
   
       let fileNameS3 = '';
@@ -246,7 +246,7 @@ function App() {
       try {
         
         const cleanMimeType = fileType.split(';')[0];
-        let downloadUrl = await uploadToS3Blob(image, fileName, cleanMimeType, fileSize);
+        let downloadUrl = await uploadToS3Blob(blod, fileName, cleanMimeType, fileSize);
         fileNameS3 = downloadUrl.fileNameS3;
         urlS3 = downloadUrl.url;
       } catch (e) {

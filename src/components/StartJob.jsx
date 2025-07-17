@@ -4,6 +4,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   const [showCamera, setShowCamera] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [previewImageBlod, setPreviewImageBlod] = useState(null);
   const [comment, setComment] = useState("");
 
   const photos = data.photos;
@@ -141,6 +142,19 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
     }
   }, [showVideoOverlay]);
   /*CIERRO VIDEOS */
+  function dataURLtoBlob(dataURL) {
+    const parts = dataURL.split(',');
+    const mime = parts[0].match(/:(.*?);/)[1];
+    const byteString = atob(parts[1]);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uintArray = new Uint8Array(arrayBuffer);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      uintArray[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([arrayBuffer], { type: mime });
+  }
 
   const handleTakePhoto = () => {
     const video = videoRef.current;
@@ -151,7 +165,9 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
       canvas.height = video.videoHeight;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/png");
+      const blod = dataURLtoBlob(dataUrl); 
       setPreviewImage(dataUrl);
+      setPreviewImageBlod(blod);
       setShowPreview(true);
     }
   };
@@ -159,10 +175,11 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   const handleSavePhoto = () => {
     setData({
       ...data,
-      photos: [...photos, { image: previewImage, comment }],
+      photos: [...photos, { image: previewImage, blod:previewImageBlod,  comment }],
     });
 
     setPreviewImage(null);
+    setPreviewImageBlod(null);
     setComment("");
     setShowPreview(false);
     setShowCamera(false);
@@ -173,6 +190,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 
   const handleCancelPreview = () => {
     setPreviewImage(null);
+    setPreviewImageBlod(null);
     setComment("");
     setShowPreview(false);
     setShowCamera(false);
