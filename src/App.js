@@ -205,20 +205,20 @@ function App() {
       
       let dataVideos = await uploadAllVideos(startJobData);
       console.log(dataVideos);
-      
-      response  = await postJobData(
-        { 
-          trackerId: idJob, 
-          step2: {
-            location: {
-              geo : [jobInfoData.location.lat,jobInfoData.location.lng],
-              geoApp: [location.lat, location.lng]
-            },
-            media: startJobData.option,
-            files: dataVideos          
-          } 
-        }
-      );
+
+      let request = { 
+        trackerId: idJob, 
+        step2: {
+          location: {
+            geo : [jobInfoData.location.lat,jobInfoData.location.lng],
+            geoApp: [location.lat, location.lng]
+          },
+          media: startJobData.option,
+          files: dataVideos          
+        } 
+      }
+      console.table(request);
+      response  = await postJobData(request);
 
     } else {
       console.log("genera imagenes");
