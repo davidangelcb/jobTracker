@@ -232,7 +232,7 @@ async function uploadAllVideos(data) {
      
     const fileType = type; // ej: 'video/webm'
     const fileSize = blob.size;
-    const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
+    const fileName = `video`;
     
     let fileNameS3 = '';
     let urlS3 = '';
