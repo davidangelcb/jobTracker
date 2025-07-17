@@ -1,4 +1,5 @@
-import formidable from "formidable";
+import { formidable } from 'formidable';
+
 import fs from "fs";
 
 export const config = {
@@ -10,7 +11,7 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     const contentType = req.headers["content-type"] || "";
     if (contentType.includes("multipart/form-data")) {
-      const form = new formidable.IncomingForm();
+        const form = formidable()
     
       form.parse(req, async (err, fields, files) => {
         if (err) {
