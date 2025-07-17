@@ -48,7 +48,10 @@ export const putImg = async (data) => {
 };
 
 export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => {
-  let data = null;
+  let data = {
+    url : '',
+    fileNameS3: ''
+  };
   const res = await fetch(`/api/job`, {
     method: 'PUT',
     headers: {
@@ -77,5 +80,5 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   data.url = downloadUrl;
   data.fileNameS3 = fileName;
 
-  return  data; // URL pública o firmada
+  return  data;  
 }
