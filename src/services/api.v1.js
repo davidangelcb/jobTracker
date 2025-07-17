@@ -66,13 +66,15 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;
 
   // 2. Enviar el archivo directamente a S3
+  const arrayBuffer = await blob.arrayBuffer();
+  const base64Data = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
   const res2 = await fetch(`/api/job`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json' 
     },
-    body: JSON.stringify({ function: "upload", uploadUrl: uploadUrl, blob: blob,  fileType: fileType, uploadTags: uploadTags })
+    body: JSON.stringify({ function: "upload", uploadUrl: uploadUrl, blob: base64Data,  fileType: fileType, uploadTags: uploadTags })
   });
 
   const json2 = await res2.json();

@@ -69,9 +69,12 @@ export default async function handler(req, res) {
       break;
       case "upload":
         try {
+          const buffer = Buffer.from(req.body.blob, 'base64');
+
+
           const response = await fetch(req.body.uploadUrl, {
             method: 'PUT',
-            body: req.body.blob,
+            body: buffer,
             headers: {
               'Content-Type': req.body.fileType,
               'x-amz-tagging':req.body.uploadTags
