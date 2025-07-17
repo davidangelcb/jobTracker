@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 //import { getData, postData } from '../src/services/api';
-import { getJobData, postJobData, putImg } from './services/api.v1';
+import { getJobData, postJobData, putImg , uploadToS3Blob } from './services/api.v1';
 import { useParams , useLocation} from 'react-router-dom';
  
 
@@ -35,7 +35,7 @@ function App() {
     option: 0,
     videos:[]
   });
-  
+
   const activeWindow = useLocation();
   const { idJob } = useParams();
   const [location, setLocation] = useState(null)
@@ -201,7 +201,7 @@ function App() {
     setCurrentStep(num);
   };
 
-  const confirmStarJOb =  () => {
+  const confirmStarJOb =  async() => {
     /*let response  = await putImg({
       size : 12112,
       name :"david",
@@ -209,17 +209,47 @@ function App() {
     });
     console.log(response);*/
     //completarPaso(3)
-    console.log(10)
-    console.log(startJobData.isConfirmed)
-    console.log(startJobData.dateConfirm)
-    console.log(startJobData.option)
-    console.log(startJobData.photos.length)
-    console.log(startJobData.videos.length)
-    console.log(11) 
-
+ 
+    if(startJobData.option==2){
+      console.log("genera videos");
+      let dataVideos = await uploadAllVideos(startJobData.photos);
+      console.log(dataVideos);
+    } else {
+      console.log("genera imagenes");
+    }
   }
  
+async function uploadAllVideos(data) {
+  let videoDB = {
+    videos : []
+  };
+  for (let i = 0; i < data.videos.length; i++) {
+    const { url, comment } = data.videos[i];
+    const blob = await (await fetch(url)).blob();
+    const fileType = blob.type; // ej: 'video/webm'
+    const fileSize = blob.size;
+    const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
+    
+    let downloadUrl = '';
+    try {
+      downloadUrl = await uploadToS3Blob(blob, fileName, fileType, fileSize);
+     // console.log('Video subido:', downloadUrl);
+      //data.videos[i].downloadUrl = downloadUrl;
+    } catch (e) {
+      //data.videos[i].downloadUrl = '';
+      console.error('Error subiendo video:', e);
+    }
+    videoDB.videos.push({
+      fileName: fileName,
+      comment : comment,
+      downloadUrl: downloadUrl
+    }); 
 
+  }
+  return videoDB;
+}
+
+ 
   const confirmEndJOb =  () => {
     completarPaso(4)
   }
