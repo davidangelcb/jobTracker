@@ -246,7 +246,9 @@ async function uploadAllVideos(data) {
     videoDB.videos.push({
       fileName: fileName,
       comment : comment,
-      downloadUrl: downloadUrl
+      filezise: fileSize,
+      downloadUrl: downloadUrl.url,
+      fileNameS3: downloadUrl.fileNameS3
     }); 
 
   }

@@ -74,7 +74,7 @@ export default async function handler(req, res) {
             body: req.body.blob,
             headers: {
               'Content-Type': req.body.fileType,
-               'x-amz-tagging':req.body.uploadTags
+              'x-amz-tagging':req.body.uploadTags
             } 
           });      
           if (!response.ok) {
