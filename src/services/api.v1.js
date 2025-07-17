@@ -61,6 +61,7 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   });
 
   const json = await res.json();
+  console.log(json);
   if (json.status !== 'success') throw new Error(json.message || 'Error al generar URL');
 
   const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;
@@ -73,12 +74,12 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   formData.append('uploadTags', uploadTags);
   formData.append('file', blob); // Tu video Blob
   
-  const res3 = await fetch('/api/job', {
+  const res3 = await fetch('/api/upload', {
     method: 'PUT',
     body: formData
   });
   const json3 = await res3.json();
-
+  console.log(json3)
 
 /*
 
