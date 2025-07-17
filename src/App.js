@@ -234,9 +234,12 @@ async function uploadAllVideos(data) {
     const fileSize = blob.size;
     const fileName = `video-${Date.now()}-${i}.${fileType.split('/')[1]}`;
     
-    let downloadUrl = '';
+    let fileNameS3 = '';
+    let urlS3 = '';
     try {
-      downloadUrl = await uploadToS3Blob(blob, fileName, fileType, fileSize);
+      let downloadUrl = await uploadToS3Blob(blob, fileName, fileType, fileSize);
+      fileNameS3 = downloadUrl.url;
+      urlS3 = downloadUrl.fileNameS3;
      // console.log('Video subido:', downloadUrl);
       //data.videos[i].downloadUrl = downloadUrl;
     } catch (e) {
@@ -247,8 +250,8 @@ async function uploadAllVideos(data) {
       fileName: fileName,
       comment : comment,
       filezise: fileSize,
-      downloadUrl: downloadUrl.url,
-      fileNameS3: downloadUrl.fileNameS3
+      downloadUrl: urlS3,
+      fileNameS3: fileNameS3
     }); 
 
   }

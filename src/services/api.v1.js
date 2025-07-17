@@ -47,19 +47,20 @@ export const putImg = async (data) => {
   }
 };
 
-export const uploadToS3Blob = async(blob, fileName, fileType, fileSize) => {
+export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => {
+  let data = null;
   const res = await fetch(`/api/job`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json' 
     },
-    body: JSON.stringify({ function: "makeLink", name: fileName, type: fileType,  size: fileSize })
+    body: JSON.stringify({ function: "makeLink", name: fileNameLocal, type: fileType,  size: fileSize })
   });
 
   const json = await res.json();
   if (json.status !== 'success') throw new Error(json.message || 'Error al generar URL');
 
-  const { uploadUrl, uploadTags, downloadUrl } = json.data;
+  const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;
 
   // 2. Enviar el archivo directamente a S3
 
@@ -72,7 +73,9 @@ export const uploadToS3Blob = async(blob, fileName, fileType, fileSize) => {
   });
 
   const json2 = await res2.json();
-  if (json.status !== 'success') throw new Error(json.message || 'Error al generar URL');
+  if (json2.status !== 'success') throw new Error(json2.message || 'Error al generar URL');
+  data.url = downloadUrl;
+  data.fileNameS3 = fileName;
 
-  return downloadUrl; // URL pública o firmada
+  return  data; // URL pública o firmada
 }
