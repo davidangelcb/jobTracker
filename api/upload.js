@@ -1,5 +1,6 @@
-import formidable from 'formidable';
-import fs from "fs";
+import { IncomingForm } from 'formidable';
+import fs from 'fs';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 export const config = {
   api: {
@@ -7,62 +8,41 @@ export const config = {
   },
 };
 
+const s3 = new S3Client({ region: process.env.S3_REGION });
+
 export default async function handler(req, res) {
-    console.log(222, req.method);
-  if (req.method === "POST") {
-    const contentType = req.headers["content-type"] || "";
-    if (contentType.includes("multipart/form-data")) {
-      const form = formidable();
-
-      form.parse(req, async (err, fields, files) => {
-        if (err) {
-          console.error('Error al parsear el form:', err);
-          return res.status(500).json({ status: 'error', message: 'Error al parsear archivo' });
-        }
-
-        const getField = (f) => Array.isArray(f) ? f[0] : f;
-        const uploadUrl = getField(fields.uploadUrl);
-        const uploadTags = getField(fields.uploadTags);
-        const fileType = getField(fields.fileType);
-        const file = Array.isArray(files.file) ? files.file[0] : files.file;
-
-        if (!file || !uploadUrl || !fileType || !uploadTags) {
-          return res.status(400).json({ status: 'error', message: 'Faltan datos para la subida' });
-        }
-
-        if (!fs.existsSync(file.filepath)) {
-          return res.status(400).json({ status: 'error', message: 'El archivo temporal no existe' });
-        }
-
-        try {
-          const fileStream = fs.createReadStream(file.filepath);
-
-          const uploadRes = await fetch(uploadUrl, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': fileType,
-              'x-amz-tagging': uploadTags,
-            },
-            body: fileStream,
-          });
-
-          if (!uploadRes.ok) {
-            const errorText = await uploadRes.text();
-            console.error("S3 PUT error:", errorText);
-            return res.status(500).json({ status: 'error', message: 'Fallo el PUT a S3', error: errorText });
-          }
-
-          return res.status(200).json({ status: 'success', message: 'Archivo subido a S3' });
-        } catch (error) {
-          console.error("Catch error:", error);
-          return res.status(500).json({ status: 'error', message: 'Error al subir archivo a S3', error: error.message });
-        }
-      });
-    } else {
-      return res.status(400).json({ status: 'error', message: 'Formato incorrecto. Se esperaba multipart/form-data' });
-    }
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  res.setHeader("Allow", ["POST"]);
-  res.status(405).end(`Method ${req.method} Not Allowed`);
+  const form = new IncomingForm({ multiples: false, keepExtensions: true });
+
+  form.parse(req, async (err, fields, files) => {
+    try {
+      if (err) throw err;
+
+      const uploadedFile = files.file;
+      const file = Array.isArray(uploadedFile) ? uploadedFile[0] : uploadedFile;
+      const filePath = file?.filepath || file?.path;
+      const fileStream = fs.createReadStream(filePath);
+
+      const filename = file.originalFilename || 'uploaded-file';
+
+      await s3.send(new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: filename,
+        Body: fileStream,
+        ContentType: file.mimetype,
+      }));
+
+      res.status(200).json({ status: 'success', message: 'Archivo subido correctamente' });
+    } catch (error) {
+      console.error('Error real:', error);
+      res.status(500).json({
+        status: 'error',
+        message: 'Error al subir archivo a S3',
+        error: error.message || error,
+      });
+    }
+  });
 }
