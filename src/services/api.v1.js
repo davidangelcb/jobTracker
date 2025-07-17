@@ -75,7 +75,7 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   formData.append('file', blob); // Tu video Blob
   
   const res3 = await fetch('/api/upload', {
-    method: 'PUT',
+    method: 'POST',
     body: formData
   });
   const json3 = await res3.json();

@@ -8,7 +8,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  if (req.method === "PUT") {
+  if (req.method === "POST") {
     const contentType = req.headers["content-type"] || "";
     if (contentType.includes("multipart/form-data")) {
       const form = formidable();
@@ -62,6 +62,6 @@ export default async function handler(req, res) {
     }
   }
 
-  res.setHeader("Allow", ["PUT"]);
+  res.setHeader("Allow", ["POST"]);
   res.status(405).end(`Method ${req.method} Not Allowed`);
 }
