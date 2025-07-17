@@ -255,7 +255,7 @@ async function uploadAllVideos(data) {
 
       console.error('Error subiendo video:', e);
     }
-    videoDB.videos.push({
+    videoDB.items.push({
       comment : comment,
       downloadUrl: urlS3,
       fileNameS3: fileNameS3
