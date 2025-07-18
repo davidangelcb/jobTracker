@@ -57,6 +57,7 @@ function App() {
     locationBrowser: null,
   });
 
+  const [currentStepDB, setCurrentStepDB] = useState(null);
   const [currentStep, setCurrentStep] = useState(null);
   const [enabledSteps, setEnabledSteps] = useState([1000]);
   
@@ -135,11 +136,12 @@ function App() {
             case "E": activeTabs([1]) ; break;
             case "S1": activeTabs([1,2]) ; break;
             case "S2": activeTabs([1,2,3]) ; break;
-            case "S3": activeTabs([1,2,3,4]) ; break;
-            case "In": activeTabs([4]) ; break;
-            case "Pr": activeTabs([4]) ; break;
+            case "S3": activeTabs([4]); setPaymentStatus('I') ;  break;
+            case "In": activeTabs([4]); setPaymentStatus('P') ; break;
+            case "Pr": activeTabs([5]) ;break;
             case "Pa": activeTabs([5]) ; break;
-          }
+          }         
+          
         }
       })
       .catch((err) => console.error("GET Fail:", err));
