@@ -99,7 +99,8 @@ function App() {
 
           return baseData;
         });
-        if (data.tracker?.status=='S2') {
+        
+        if (data.tracker?.data?.tracker?.step2?.dayApproved) {
             setStartJobData((prev) => {
               const baseData = { 
                 ...prev,
@@ -113,6 +114,21 @@ function App() {
               return baseData;
             });
         }
+
+        if (data.tracker?.data?.tracker?.step3?.dayApproved) {
+          setStartJobData((prev) => {
+            const baseData = { 
+              ...prev,
+              isConfirmed: true,
+              dateConfirm: formatDate(
+                data.tracker.data.tracker.step3.dayApproved
+              ),
+              option: data.tracker.data.tracker.step3.media,
+            }
+
+            return baseData;
+          });
+      }
         
         if(data.tracker?.status){
           switch(data.tracker?.status){
