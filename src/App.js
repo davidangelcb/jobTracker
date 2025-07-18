@@ -113,7 +113,7 @@ function App() {
         }
       })
       .catch((err) => console.error("GET Fail:", err));
-  }, []);
+  }, [enabledSteps]);
 
   function activeTabs(arr){
     let lastNum = null;
