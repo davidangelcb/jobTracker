@@ -99,6 +99,20 @@ function App() {
 
           return baseData;
         });
+        if (data.tracker?.status=='S2') {
+            setJobInfoData((prev) => {
+              const baseData = { 
+                ...prev,
+                isConfirmed: true,
+                dateConfirm: formatDate(
+                  data.tracker.data.tracker.step2.dayApproved
+                ),
+                option: data.tracker.data.tracker.step2.media,
+              }
+
+              return baseData;
+            });
+        }
         
         if(data.tracker?.status){
           switch(data.tracker?.status){
