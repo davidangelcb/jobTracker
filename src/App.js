@@ -58,7 +58,7 @@ function App() {
   });
 
   const [currentStep, setCurrentStep] = useState(null);
-  const [enabledSteps, setEnabledSteps] = useState(null);
+  const [enabledSteps, setEnabledSteps] = useState([1000]);
   
   const activeWindow = useLocation();
   const { idJob } = useParams();
