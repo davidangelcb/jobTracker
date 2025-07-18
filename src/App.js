@@ -100,7 +100,7 @@ function App() {
           return baseData;
         });
         if (data.tracker?.status=='S2') {
-            setJobInfoData((prev) => {
+            setStartJobData((prev) => {
               const baseData = { 
                 ...prev,
                 isConfirmed: true,
