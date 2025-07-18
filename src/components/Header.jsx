@@ -4,7 +4,7 @@ export default function Header({data}) {
         <div className="logo">PINCH</div>
         <div className="job-info">
           <div><strong>Job TRK #{data.idJob}</strong></div>
-          <div>{data.name}</div>
+          <div><b>{data.name}</b></div>
         </div>
       </header>
     )

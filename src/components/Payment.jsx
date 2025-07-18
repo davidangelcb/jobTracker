@@ -2,7 +2,7 @@ export default function Payment() {
     return (
       <section className="step">
         <div className="step-header">
-          <h2>Payment</h2>
+          <h2><b>Payment</b></h2>
           <div className="paid">
             <span>Paid</span>
           </div>

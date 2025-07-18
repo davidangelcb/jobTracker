@@ -353,7 +353,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   return (
     <section className="step">
       <div className="step-header">
-        <h2> {model === 1 ? "Start Job" : "End Job"}</h2>
+        <h2><b> {model === 1 ? "Start Job" : "End Job"}</b></h2>
 
         {data.isConfirmed === false && (
           <button
@@ -403,7 +403,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             {photos.length > 0 && (
               <div style={{ marginTop: 20 }}>
                 <p style={{ fontSize: 13, padding: 5 }}>
-                  Before Photos or Video
+                  <b>Before Photos or Video</b>
                 </p>
                 <div style={{ display: "flex", overflowX: "auto" }}>
                   {photos.map((p, i) => (

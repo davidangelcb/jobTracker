@@ -4,7 +4,7 @@ export default function JobReview({statusJob, dept}) {
     <section className="step">
       <div className="step-header">
         <h2>
-          Job Review
+        <b>Job Review</b>
         </h2> 
         <div className={statusJob==='I' ? "inProgress" : "processing"} >
           <span>{statusJob==='I' ? "In Progress" : "Processing"}</span>

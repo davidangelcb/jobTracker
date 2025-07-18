@@ -39,7 +39,7 @@ if(data.dateConfirm!=null){
   return (
     <section className="step">
       <div className="step-header">
-        <h2>Job Info</h2>
+        <h2><b>Job Info</b></h2>
         {btnConfirm}
         </div>
       <div>
