@@ -116,7 +116,7 @@ function App() {
         }
 
         if (data.tracker?.data?.tracker?.step3?.dayApproved) {
-          setStartJobData((prev) => {
+          setEndJobData((prev) => {
             const baseData = { 
               ...prev,
               isConfirmed: true,
