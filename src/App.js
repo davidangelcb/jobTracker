@@ -335,7 +335,7 @@ function App() {
 
     let request = {
       trackerId: idJob,
-      step2: {
+      step3: {
         location: {
           geo: [jobInfoData.location.lat, jobInfoData.location.lng],
           geoApp: [location.lat, location.lng],
