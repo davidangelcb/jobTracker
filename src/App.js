@@ -116,10 +116,12 @@ function App() {
   }, []);
 
   function activeTabs(arr){
+    let lastNum = null;
     for (let num of arr) {
       setEnabledSteps((prev) => [...new Set([...prev, num])]);
+      lastNum = num;
     }   
-    setCurrentStep(num);
+    setCurrentStep(lastNum);
   }
 
   useEffect(() => {
