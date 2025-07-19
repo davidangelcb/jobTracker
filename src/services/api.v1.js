@@ -62,7 +62,7 @@ export const uploadToS3Blob = async(blob, fileNameLocal, fileType, fileSize) => 
   });
 
   const json = await res.json();
-  console.log(json);
+ 
   if (json.status !== 'success') throw new Error(json.message || 'Error al generar URL');
 
   const { uploadUrl, uploadTags, downloadUrl, fileName } = json.data;

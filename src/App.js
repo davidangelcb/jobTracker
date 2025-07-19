@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   getJobData,
   postJobData,
-  putImg,
   uploadToS3Blob,
 } from "./services/api.v1";
 import { useParams, useLocation } from "react-router-dom";
@@ -13,8 +12,7 @@ import "./App.css";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import JobInfo from "./components/JobInfo";
-import StartJob from "./components/StartJob";
-import EndJob from "./components/EndJob";
+import StartJob from "./components/StartJob"; 
 import JobReview from "./components/JobReview";
 import Payment from "./components/Payment";
 
@@ -39,7 +37,7 @@ function App() {
     option: 0,
     videos: [],
   });
-    // JobInfo
+  // JobInfo
   const [jobInfoData, setJobInfoData] = useState({
     idJob: "XXXX",
     name: "David Room",
@@ -57,10 +55,9 @@ function App() {
     locationBrowser: null,
   });
 
-  const [currentStepDB, setCurrentStepDB] = useState(null);
   const [currentStep, setCurrentStep] = useState(null);
   const [enabledSteps, setEnabledSteps] = useState([1000]);
-  
+
   const activeWindow = useLocation();
   const { idJob } = useParams();
   const [location, setLocation] = useState(null);
@@ -68,7 +65,6 @@ function App() {
   // 0 = fail, 1=done, 2=need access, 3=not supported
   useEffect(() => {
     if (!idJob) return;
-    // Aquí puedes hacer tu fetch a la API usando ese id
   }, [idJob]);
 
   useEffect(() => {
@@ -100,65 +96,78 @@ function App() {
 
           return baseData;
         });
-        
-        if (data.tracker?.data?.tracker?.step2?.dayApproved) {
-            setStartJobData((prev) => {
-              const baseData = { 
-                ...prev,
-                isConfirmed: true,
-                dateConfirm: formatDate(
-                  data.tracker.data.tracker.step2.dayApproved
-                ),
-                option: data.tracker.data.tracker.step2.media,
-              }
 
-              return baseData;
-            });
+        if (data.tracker?.data?.tracker?.step2?.dayApproved) {
+          setStartJobData((prev) => {
+            const baseData = {
+              ...prev,
+              isConfirmed: true,
+              dateConfirm: formatDate(
+                data.tracker.data.tracker.step2.dayApproved
+              ),
+              option: data.tracker.data.tracker.step2.media,
+            };
+
+            return baseData;
+          });
         }
 
         if (data.tracker?.data?.tracker?.step3?.dayApproved) {
           setEndJobData((prev) => {
-            const baseData = { 
+            const baseData = {
               ...prev,
               isConfirmed: true,
               dateConfirm: formatDate(
                 data.tracker.data.tracker.step3.dayApproved
               ),
               option: data.tracker.data.tracker.step3.media,
-            }
+            };
 
             return baseData;
           });
-      }
-        
-        if(data.tracker?.status){
-          switch(data.tracker?.status){
-            case "E": activeTabs([1]) ; break;
-            case "S1": activeTabs([1,2]) ; break;
-            case "S2": activeTabs([1,2,3]) ; break;
-            case "S3": activeTabs([4]); setPaymentStatus('I') ;  break;
-            case "In": activeTabs([4]); setPaymentStatus('P') ; break;
-            case "Pr": activeTabs([5]) ;break;
-            case "Pa": activeTabs([5]) ; break;
-          }         
-          
+        }
+
+        if (data.tracker?.status) {
+          switch (data.tracker?.status) {
+            case "E":
+              activeTabs([1]);
+              break;
+            case "S1":
+              activeTabs([1, 2]);
+              break;
+            case "S2":
+              activeTabs([1, 2, 3]);
+              break;
+            case "S3":
+              activeTabs([4]);
+              setPaymentStatus("I");
+              break;
+            case "In":
+              activeTabs([4]);
+              setPaymentStatus("P");
+              break;
+            case "Pr":
+              activeTabs([5]);
+              break;
+            case "Pa":
+              activeTabs([5]);
+              break;
+          }
         }
       })
       .catch((err) => console.error("GET Fail:", err));
   }, []);
 
-  function activeTabs(arr){
+  function activeTabs(arr) {
     let lastNum = null;
     for (let num of arr) {
       setEnabledSteps((prev) => [...new Set([...prev, num])]);
       lastNum = num;
-    }   
+    }
     setCurrentStep(lastNum);
   }
 
   useEffect(() => {
-    console.log(1);
-
   }, [activeWindow.search]);
 
   const confirmLocation = async (num) => {
@@ -178,14 +187,11 @@ function App() {
         },
       },
     });
-    console.log("waiting response!!");
-    console.log(response);
     completarPaso(2);
   };
 
   /****************************************/
   const getLocation = () => {
-    console.log(2);
     if (!navigator.geolocation) {
       locationStatus = 3;
       //setError("Geolocation not supported")
@@ -214,21 +220,8 @@ function App() {
   };
 
   useEffect(() => {
-    getLocation(); 
+    getLocation();
   }, []);
-
-  //  onStatusChange={updateIconStatus}
-  const confirmLocationX = () => {
-    const formatted = formatDate();
-    //setDateConfirm(formatted);
-    setJobInfoData({
-      ...jobInfoData,
-      dateConfirm: formatted,
-      locationBrowser: location,
-    });
-    completarPaso(2);
-  };
-  // steps
 
 
   const completarPaso = (num) => {
@@ -319,7 +312,6 @@ function App() {
       let fileNameS3 = "";
       let urlS3 = "";
       try {
-        console.log(fileName, fileType, fileSize);
         const cleanMimeType = fileType.split(";")[0];
         let downloadUrl = await uploadToS3Blob(
           blob,
@@ -370,8 +362,6 @@ function App() {
       // reiniciamos el boton para intentar de nuevo
     }
   };
-
-
   // STATUS PAYMENT
   const [paymentStatus, setPaymentStatus] = useState("I"); //I(inprogress) P (processing) D (done paid)
   const [department, setDepartment] = useState(

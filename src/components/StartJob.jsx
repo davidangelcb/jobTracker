@@ -35,7 +35,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
     poster: "",
     ready: false,
     block: null,
-    type: ""
+    type: "",
   });
 
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
@@ -52,7 +52,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             url: currentPreviewVideo.url,
             comment: currentPreviewVideo.comment || "",
             blob: currentPreviewVideo.blob,
-            type: currentPreviewVideo.type
+            type: currentPreviewVideo.type,
           },
         ],
       });
@@ -96,22 +96,15 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
     if (data !== undefined) {
       option = data.option;
     }
-    console.log("inrgeso cac");
-    console.log(option);
-    console.log(videos.length);
-    console.log(canConfirm);
+
     if (photos.length >= 5 && !canConfirm && option === 1) {
-      console.log(`Tienes ${photos.length} imágenes`);
       setCanConfirm(true);
     } else if (videos.length >= 1 && !canConfirm && option === 2) {
-      console.log(`Tienes ${videos.length} videos`);
       setCanConfirm(true);
     } else if (photos.length < 5 && canConfirm && option === 1) {
       setCanConfirm(false);
-      console.log(1111113);
     } else if (videos.length <= 0 && canConfirm && option === 2) {
       setCanConfirm(false);
-      console.log(1111114);
     }
   }, [photos, canConfirm, videos, data]);
 
@@ -143,16 +136,16 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   }, [showVideoOverlay]);
   /*CIERRO VIDEOS */
   function dataURLtoBlob(dataURL) {
-    const parts = dataURL.split(',');
+    const parts = dataURL.split(",");
     const mime = parts[0].match(/:(.*?);/)[1];
     const byteString = atob(parts[1]);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const uintArray = new Uint8Array(arrayBuffer);
-  
+
     for (let i = 0; i < byteString.length; i++) {
       uintArray[i] = byteString.charCodeAt(i);
     }
-  
+
     return new Blob([arrayBuffer], { type: mime });
   }
 
@@ -165,7 +158,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
       canvas.height = video.videoHeight;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/png");
-      const blod = dataURLtoBlob(dataUrl); 
+      const blod = dataURLtoBlob(dataUrl);
       setPreviewImage(dataUrl);
       setPreviewImageBlod(blod);
       setShowPreview(true);
@@ -175,7 +168,10 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   const handleSavePhoto = () => {
     setData({
       ...data,
-      photos: [...photos, { image: previewImage, blod:previewImageBlod,  comment }],
+      photos: [
+        ...photos,
+        { image: previewImage, blod: previewImageBlod, comment },
+      ],
     });
 
     setPreviewImage(null);
@@ -255,7 +251,6 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 
     const stream = videoRef.current.srcObject;
     const recorder = new MediaRecorder(stream, { mimeType });
-    console.log(mimeType);
     const chunks = [];
     recorder.ondataavailable = (e) => {
       if (e.data.size > 0) {
@@ -290,7 +285,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
           comment: "",
           ready: true,
           blob: blob,
-          type: mimeType
+          type: mimeType,
         });
 
         setRecordedChunks([]);
@@ -332,8 +327,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   };
 
   const handleCloseVideoOverlay = () => {
-    console.log(1.1, data.isConfirmed);
-    console.log(2.21, canConfirm);
+
     if (videoStream) {
       videoStream.getTracks().forEach((track) => track.stop());
       setVideoStream(null);
@@ -341,9 +335,6 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
     setIsRecording(false);
     setShowVideoOverlay(false);
     setRecordedChunks([]); // por si grabaste algo antes
-
-    console.log(1.2, data.isConfirmed);
-    console.log(2.22, canConfirm);
   };
 
   const handleClosePhotoOverlay = () => {
@@ -353,7 +344,9 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   return (
     <section className="step">
       <div className="step-header">
-        <h2><b> {model === 1 ? "Start Job" : "End Job"}</b></h2>
+        <h2>
+          <b> {model === 1 ? "Start Job" : "End Job"}</b>
+        </h2>
 
         {data.isConfirmed === false && (
           <button
@@ -468,9 +461,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 
         {/* Overlay cámara */}
         {showCamera && !showPreview && (
-          <div
-            style={styles.overlayTakePhoto}
-          >
+          <div style={styles.overlayTakePhoto}>
             {/* Botón Cerrar */}
             <button
               onClick={handleClosePhotoOverlay}
@@ -495,9 +486,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
 
             {/* Botón "Take Photo" centrado abajo */}
-            <div
-              style={styles.containerButtonTakePhoto}
-            >
+            <div style={styles.containerButtonTakePhoto}>
               <button style={styles.captureButton} onClick={handleTakePhoto}>
                 Take Photo
               </button>
@@ -542,17 +531,10 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 
           {videos.length > 0 && (
             <div>
-              <p style={{ fontSize: 13, padding: 5 }}>
-                After Photos or Video
-              </p>
-              <div
-                style={styles.panelVideoPreview}
-              >
+              <p style={{ fontSize: 13, padding: 5 }}>After Photos or Video</p>
+              <div style={styles.panelVideoPreview}>
                 {videos.map((video, index) => (
-                  <div
-                    key={index}
-                    style={styles.containerVideoPreview}
-                  >
+                  <div key={index} style={styles.containerVideoPreview}>
                     {!data.isConfirmed && (
                       <button
                         onClick={() => setSelectedVideoIndex(index)}
@@ -609,69 +591,66 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             </div>
           )}
         </div>
-        { !data.isConfirmed && (
-        <div style={styles.buttonPhotos}>
-          {(data.option === 0 || data.option === 1) && !data.isConfirmed && (
-            <button
-              style={
-                data.isConfirmed
-                  ? styles.takePhotosBtnOff
-                  : styles.takePhotosBtn
-              }
-              onClick={() => {
-                if (data.isConfirmed) {
-                  console.log("ya no se puede hacer click");
-                } else {
-                  setShowCamera(true);
-                  setData({ ...data, option: 1 });
+        {!data.isConfirmed && (
+          <div style={styles.buttonPhotos}>
+            {(data.option === 0 || data.option === 1) && !data.isConfirmed && (
+              <button
+                style={
+                  data.isConfirmed
+                    ? styles.takePhotosBtnOff
+                    : styles.takePhotosBtn
                 }
-              }}
-            >
-              +Photos
-            </button>
-          )}
-           
-          {(data.option === 0 || data.option === 2) && !data.isConfirmed && (
-            <button
-              style={
-                data.isConfirmed
-                  ? styles.takePhotosBtnOff
-                  : styles.takePhotosBtn
-              }
-              onClick={() => {
-                if (data.isConfirmed) {
-                  console.log("ya no se puede hacer click");
-                } else {
-                  setShowVideoOverlay(true);
-                  setData({ ...data, option: 2 });
+                onClick={() => {
+                  if (data.isConfirmed) {
+                    console.log("ya no se puede hacer click");
+                  } else {
+                    setShowCamera(true);
+                    setData({ ...data, option: 1 });
+                  }
+                }}
+              >
+                +Photos
+              </button>
+            )}
+
+            {(data.option === 0 || data.option === 2) && !data.isConfirmed && (
+              <button
+                style={
+                  data.isConfirmed
+                    ? styles.takePhotosBtnOff
+                    : styles.takePhotosBtn
                 }
-              }}
-            >
-              +Video
-            </button>
-          )}
-        </div>
+                onClick={() => {
+                  if (data.isConfirmed) {
+                    console.log("ya no se puede hacer click");
+                  } else {
+                    setShowVideoOverlay(true);
+                    setData({ ...data, option: 2 });
+                  }
+                }}
+              >
+                +Video
+              </button>
+            )}
+          </div>
         )}
         {/*VIDEO END*/}
         {/*BLUE TEXT */}
         {data.isConfirmed && (
-          <div   style={styles.informationContainer}>
-            <span  style={styles.informationText} >
-              ℹ️
-            </span>
+          <div style={styles.informationContainer}>
+            <span style={styles.informationText}>ℹ️</span>
             <span>
-              
-              {data.option  === 1 ? (
-                  <>
-                    The photos or videos were submitted successfully to document the
-                    space Before cleaning.
-                  </>
-                ) : (
-                  <>
-                    The photos or videos were submitted successfully to document the
-                    space After cleaning.
-                  </>
-                )}
+              {data.option === 1 ? (
+                <>
+                  The photos or videos were submitted successfully to document
+                  the space Before cleaning.
+                </>
+              ) : (
+                <>
+                  The photos or videos were submitted successfully to document
+                  the space After cleaning.
+                </>
+              )}
             </span>
           </div>
         )}
@@ -722,9 +701,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
         )}
 
         {showVideoOverlay && (
-          <div
-            style={styles.overlayVideo}
-          >
+          <div style={styles.overlayVideo}>
             {/* Botón cerrar */}
             <button
               onClick={handleCloseVideoOverlay}
@@ -743,7 +720,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             />
 
             {/* Controles */}
-            <div  style={styles.controlsVideo}>
+            <div style={styles.controlsVideo}>
               {!isRecording ? (
                 <button onClick={startRecording} style={styles.captureButton}>
                   Record
@@ -763,15 +740,15 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
 }
 
 const styles = {
-  btnConfirm:{
+  btnConfirm: {
     height: "50px",
-   
+
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    width:"120px"
+    width: "120px",
   },
-  closeButtonImgPreview:{
+  closeButtonImgPreview: {
     position: "absolute",
     top: 0, // Quitar desplazamiento vertical raro
     right: 0, // Quitar desplazamiento horizontal raro
@@ -792,14 +769,14 @@ const styles = {
     padding: 0,
     userSelect: "none",
   },
-  boxTextImgComment:{
+  boxTextImgComment: {
     width: "100%",
     padding: 6,
     borderRadius: 6,
     border: "1px solid #ccc",
     fontSize: "16px",
   },
-  overlayTakePhoto:{
+  overlayTakePhoto: {
     position: "fixed",
     top: 0,
     left: 0,
@@ -809,7 +786,7 @@ const styles = {
     zIndex: 9999,
     overflow: "hidden",
   },
-  closeOverlayTakePhoto:{
+  closeOverlayTakePhoto: {
     position: "absolute",
     top: 20,
     right: 20,
@@ -820,7 +797,7 @@ const styles = {
     cursor: "pointer",
     zIndex: 10000,
   },
-  containerButtonTakePhoto:{
+  containerButtonTakePhoto: {
     position: "absolute",
     bottom: 140,
     width: "100%",
@@ -828,7 +805,7 @@ const styles = {
     justifyContent: "center",
     zIndex: 10001,
   },
-  closeOverlayImgPreview:{
+  closeOverlayImgPreview: {
     position: "absolute",
     top: 66,
     right: 16,
@@ -839,13 +816,13 @@ const styles = {
     cursor: "pointer",
     zIndex: 10000,
   },
-  panelVideoPreview:{
+  panelVideoPreview: {
     display: "flex",
     overflowX: "auto",
     gap: "1rem",
     paddingBottom: 12,
   },
-  containerVideoPreview:{
+  containerVideoPreview: {
     minWidth: 120,
     display: "flex",
     flexDirection: "column",
@@ -853,7 +830,7 @@ const styles = {
     backgroundColor: "#fff",
     position: "relative",
   },
-  buttonCheckVideoPreview:{
+  buttonCheckVideoPreview: {
     position: "absolute",
     top: -1, // Quitar desplazamiento vertical raro
     left: -1, // Quitar desplazamiento horizontal raro
@@ -875,7 +852,7 @@ const styles = {
     userSelect: "none",
     zIndex: 1000,
   },
-  closeVideoPreview:{
+  closeVideoPreview: {
     position: "absolute",
     top: 0, // Quitar desplazamiento vertical raro
     right: 0, // Quitar desplazamiento horizontal raro
@@ -897,19 +874,19 @@ const styles = {
     userSelect: "none",
     zIndex: 1000,
   },
-  boxTextVideoPreview:{
+  boxTextVideoPreview: {
     width: "100%",
     padding: 6,
     borderRadius: 6,
     border: "1px solid #ccc",
     fontSize: "16px",
   },
-  buttonPhotos:{
+  buttonPhotos: {
     display: "flex",
     justifyContent: "center",
     marginTop: 20,
   },
-  informationContainer:{
+  informationContainer: {
     backgroundColor: "#e6f0ff",
     color: "#333",
     fontSize: 14,
@@ -920,12 +897,12 @@ const styles = {
     alignItems: "center",
     gap: 8,
   },
-  informationText:{
-     color: "#007aff", 
-     fontWeight: "bold", 
-     fontSize: 18 
+  informationText: {
+    color: "#007aff",
+    fontWeight: "bold",
+    fontSize: 18,
   },
-  closeOverlayVideo:{
+  closeOverlayVideo: {
     position: "absolute",
     top: 66,
     right: 16,
@@ -936,7 +913,7 @@ const styles = {
     cursor: "pointer",
     zIndex: 10000,
   },
-  overlayVideo:{
+  overlayVideo: {
     position: "fixed",
     top: 0,
     left: 0,
@@ -949,7 +926,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
-  closeVideoButton:{
+  closeVideoButton: {
     position: "absolute",
     top: 20,
     right: 20,
@@ -960,12 +937,12 @@ const styles = {
     cursor: "pointer",
     zIndex: 10000,
   },
-  contentVideo:{
+  contentVideo: {
     width: "100vw",
     height: "100vh",
     objectFit: "cover", // Asegura que el video llene el contenedor
   },
-  controlsVideo:{
+  controlsVideo: {
     position: "absolute",
     bottom: 120,
     display: "flex",
@@ -1139,7 +1116,7 @@ const styles = {
     fontWeight: 600,
     cursor: "pointer",
     textAlign: "center",
-    marginRight:"10px"
+    marginRight: "10px",
   },
   takePhotosBtnOff: {
     width: "130px",
@@ -1149,6 +1126,6 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     cursor: "pointer",
-    marginRight:"10px"
+    marginRight: "10px",
   },
 };
