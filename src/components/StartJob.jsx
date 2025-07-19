@@ -488,7 +488,7 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
             {/* Botón "Take Photo" centrado abajo */}
             <div style={styles.containerButtonTakePhoto}>
               <button style={styles.captureButton} onClick={handleTakePhoto}>
-                Take Photo
+                Photo
               </button>
             </div>
           </div>
