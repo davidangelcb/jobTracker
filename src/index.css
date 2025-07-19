@@ -105,8 +105,12 @@ body {
   font-size: 1.3rem;
   font-weight: bold;
   color: #1d1b5e;
+} 
+ .step-header .title{
+  font-size: 22px;
+  color: #1d1b5e;
+  font-weight: bold;
 }
-
 /* Botón Confirmar */
 button {
   background-color: #007bff;
@@ -245,8 +249,7 @@ html, body {
 .video-preview {
   width: 90%;
   max-width: 480px;
-  border-radius: 12px;
-  margin-bottom: 10px;
+   margin-bottom: 10px;
 }
 
 /* === Botones === */
@@ -328,6 +331,7 @@ html, body {
 .subTitleText{
   color:#007AFF;
   font-weight: bold;
+  font-size: 15px;
 }
 .subTitleTextRoom{
   font-weight: bold;
@@ -353,6 +357,7 @@ html, body {
 .subTitleTextPaid{
   color:#23a756;
   font-weight: bold;
+  font-size: 15px;
 }
 /*STEP 1*/
 

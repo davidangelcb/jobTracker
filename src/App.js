@@ -21,6 +21,7 @@ import { formatDate } from "./utils/misc";
 let locationStatus = 0;
 
 function App() {
+  let activeDB = true;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     photos: [],
@@ -55,108 +56,119 @@ function App() {
     locationBrowser: null,
   });
 
-  const [currentStep, setCurrentStep] = useState(null);
-  const [enabledSteps, setEnabledSteps] = useState([1000]);
+  let actDefault = null;
+  let enaStepsDefault = [1000];
+  if(!activeDB){
+      actDefault = 1;
+      enaStepsDefault = [1,2,3,4,5];
+  }
+  
+  const [currentStep, setCurrentStep] = useState(actDefault);
+  const [enabledSteps, setEnabledSteps] = useState(enaStepsDefault);  
 
   const activeWindow = useLocation();
   const { idJob } = useParams();
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(false);
+
   // 0 = fail, 1=done, 2=need access, 3=not supported
   useEffect(() => {
     if (!idJob) return;
   }, [idJob]);
 
   useEffect(() => {
+    if(activeDB){
     getJobData(idJob)
       .then((data) => {
-        setJobInfoData((prev) => {
-          const baseData = {
-            ...prev,
-            idJob: data.number,
-            name: data.property.name,
-            address: `${data.property.location.address1}, ${data.property.location.city}, ${data.property.location.state} ${data.property.location.postalCode}`,
-            unit: data.unit,
-            location: {
-              lat: data.property.location.geo.coordinates[0],
-              lng: data.property.location.geo.coordinates[1],
-            },
-            cleaningType: data.service.name,
-            scheduled: data.scheduleDate,
-          };
-
-          if (data.tracker?.data?.tracker?.step1?.dayApproved) {
-            return {
-              ...baseData,
-              dateConfirm: formatDate(
-                data.tracker.data.tracker.step1.dayApproved
-              ),
-            };
-          }
-
-          return baseData;
-        });
-
-        if (data.tracker?.data?.tracker?.step2?.dayApproved) {
-          setStartJobData((prev) => {
+        
+          setJobInfoData((prev) => {
             const baseData = {
               ...prev,
-              isConfirmed: true,
-              dateConfirm: formatDate(
-                data.tracker.data.tracker.step2.dayApproved
-              ),
-              option: data.tracker.data.tracker.step2.media,
+              idJob: data.number,
+              name: data.property.name,
+              address: `${data.property.location.address1}, ${data.property.location.city}, ${data.property.location.state} ${data.property.location.postalCode}`,
+              unit: data.unit,
+              location: {
+                lat: data.property.location.geo.coordinates[0],
+                lng: data.property.location.geo.coordinates[1],
+              },
+              cleaningType: data.service.name,
+              scheduled: data.scheduleDate,
             };
+
+            if (data.tracker?.data?.tracker?.step1?.dayApproved) {
+              return {
+                ...baseData,
+                dateConfirm: formatDate(
+                  data.tracker.data.tracker.step1.dayApproved
+                ),
+              };
+            }
 
             return baseData;
           });
-        }
 
-        if (data.tracker?.data?.tracker?.step3?.dayApproved) {
-          setEndJobData((prev) => {
-            const baseData = {
-              ...prev,
-              isConfirmed: true,
-              dateConfirm: formatDate(
-                data.tracker.data.tracker.step3.dayApproved
-              ),
-              option: data.tracker.data.tracker.step3.media,
-            };
+          if (data.tracker?.data?.tracker?.step2?.dayApproved) {
+            setStartJobData((prev) => {
+              const baseData = {
+                ...prev,
+                isConfirmed: true,
+                dateConfirm: formatDate(
+                  data.tracker.data.tracker.step2.dayApproved
+                ),
+                option: data.tracker.data.tracker.step2.media,
+              };
 
-            return baseData;
-          });
-        }
-
-        if (data.tracker?.status) {
-          switch (data.tracker?.status) {
-            case "E":
-              activeTabs([1]);
-              break;
-            case "S1":
-              activeTabs([1, 2]);
-              break;
-            case "S2":
-              activeTabs([1, 2, 3]);
-              break;
-            case "S3":
-              activeTabs([4]);
-              setPaymentStatus("I");
-              break;
-            case "In":
-              activeTabs([4]);
-              setPaymentStatus("P");
-              break;
-            case "Pr":
-              activeTabs([5]);
-              break;
-            case "Pa":
-              activeTabs([5]);
-              break;
+              return baseData;
+            });
           }
-        }
+
+          if (data.tracker?.data?.tracker?.step3?.dayApproved) {
+            setEndJobData((prev) => {
+              const baseData = {
+                ...prev,
+                isConfirmed: true,
+                dateConfirm: formatDate(
+                  data.tracker.data.tracker.step3.dayApproved
+                ),
+                option: data.tracker.data.tracker.step3.media,
+              };
+
+              return baseData;
+            });
+          }
+
+          if (data.tracker?.status) {
+            switch (data.tracker?.status) {
+              case "E":
+                activeTabs([1]);
+                break;
+              case "S1":
+                activeTabs([1, 2]);
+                break;
+              case "S2":
+                activeTabs([1, 2, 3]);
+                break;
+              case "S3":
+                activeTabs([4]);
+                setPaymentStatus("I");
+                break;
+              case "In":
+                activeTabs([4]);
+                setPaymentStatus("P");
+                break;
+              case "Pr":
+                activeTabs([5]);
+                break;
+              case "Pa":
+                activeTabs([5]);
+                break;
+            }
+          }
+        
       })
       .catch((err) => console.error("GET Fail:", err));
-  }, []);
+    }
+}, []);
 
   function activeTabs(arr) {
     let lastNum = null;
@@ -204,7 +216,7 @@ function App() {
           lng: position.coords.longitude,
         });
         locationStatus = 1;
-        setError(false);
+        //setError(false);
       },
       (err) => {
         if (err.code === 1) {
@@ -233,7 +245,7 @@ function App() {
     let response = null;
     let datafiles = null;
 
-    if (startJobData.option == 2) {
+    if (startJobData.option === 2) {
       datafiles = await uploadAllVideos(startJobData);
     } else {
       datafiles = await uploadAllPhotos(startJobData);
@@ -337,7 +349,7 @@ function App() {
     let response = null;
     let datafiles = null;
 
-    if (endJobData.option == 2) {
+    if (endJobData.option === 2) {
       datafiles = await uploadAllVideos(endJobData);
     } else {
       datafiles = await uploadAllPhotos(endJobData);
@@ -364,9 +376,8 @@ function App() {
   };
   // STATUS PAYMENT
   const [paymentStatus, setPaymentStatus] = useState("I"); //I(inprogress) P (processing) D (done paid)
-  const [department, setDepartment] = useState(
-    jobInfoData.name + " - " + jobInfoData.unit
-  );
+  const department =     jobInfoData.name + " - " + jobInfoData.unit;
+  
 
   return (
     <div className="App">

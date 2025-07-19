@@ -344,9 +344,9 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
   return (
     <section className="step">
       <div className="step-header">
-        <h2>
-          <b> {model === 1 ? "Start Job" : "End Job"}</b>
-        </h2>
+         <div className="title">
+          {model === 1 ? "Start Job" : "End Job"} 
+        </div>
 
         {data.isConfirmed === false && (
           <button
@@ -808,7 +808,7 @@ const styles = {
   closeOverlayImgPreview: {
     position: "absolute",
     top: 66,
-    right: 16,
+    left: 16,
     background: "transparent",
     border: "none",
     fontSize: 24,
@@ -905,7 +905,7 @@ const styles = {
   closeOverlayVideo: {
     position: "absolute",
     top: 66,
-    right: 16,
+    left: 16,
     background: "transparent",
     border: "none",
     fontSize: 24,
@@ -1020,38 +1020,36 @@ const styles = {
     cursor: "pointer",
   },
   previewBox: {
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 8,
-    width: "90%",
-    maxWidth: 400,
-    position: "relative",
+    width: "100%",
+    maxWidth: 500,
+    position: "relative", 
     textAlign: "center",
   },
   previewImage: {
     width: "100%",
-    borderRadius: 8,
+    
     marginBottom: 10,
   },
   commentBox: {
-    width: "100%",
+    width: "85%",
     minHeight: 60,
-    padding: 8,
-    borderRadius: 4,
+    backgroundColor: "#282828", 
+    color: "white",
+    padding: "8px",
     border: "1px solid #ccc",
     marginBottom: 10,
     fontSize: "16px",
   },
   saveButton: {
     border: "none",
-
+    width: "85%",
     backgroundColor: "#007AFF",
     color: "#fff",
-
+    height: "45px",
     cursor: "pointer",
     fontSize: "14px",
     textAlign: "center",
-    width: "120px",
+    
   },
   closeButton: {
     position: "absolute",
