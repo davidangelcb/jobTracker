@@ -8,10 +8,22 @@
 
 export default async function handler(req, res) {
   const apiKey = process.env.API_KEY_PRIVADA;
+  const apiURL = process.env.API_URL;
+  /*
+  PROD
+  GET - https://ulg5nshq2f.execute-api.us-east-1.amazonaws.com/prod/api/job/{uid}
+  POST - https://ulg5nshq2f.execute-api.us-east-1.amazonaws.com/prod/api/job/tracker
+  POST - https://ulg5nshq2f.execute-api.us-east-1.amazonaws.com/prod/api/job/uploadUrl
+
+  UAT
+       https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/
+       https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/tracker
+       https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/uploadUrl
+  */
 
   if (req.method === 'GET') {
     const jobId = req.query.id;
-     const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/"+jobId;
+     const urlApi = apiURL+"api/job/"+jobId;
 
       const response = await fetch(urlApi, {
         headers: {
@@ -26,7 +38,7 @@ export default async function handler(req, res) {
 
 
   if (req.method === 'POST') {
-     const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/tracker";
+     const urlApi = apiURL+"api/job/tracker";
   
     try {
       const response = await fetch(urlApi, {
@@ -50,7 +62,7 @@ export default async function handler(req, res) {
   if (req.method === 'PUT') {
     switch(req.body.function){
       case "makeLink":
-         const urlApi = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/api/job/uploadUrl";
+         const urlApi = apiURL+"api/job/uploadUrl";
       
         try {
           const response = await fetch(urlApi, {
