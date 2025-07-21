@@ -638,7 +638,11 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
         {/*BLUE TEXT */}
         {data.isConfirmed && (
           <div style={styles.informationContainer}>
-            <span style={styles.informationText}>ℹ️</span>
+            <svg width="48" height="48" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="8.5" cy="8.5" r="8.5" fill="#007AFF"/>
+  <text x="8.5" y="9" text-anchor="middle" fill="white" font-size="8" font-family="Arial" dominant-baseline="middle">i</text>
+</svg>
+
             <span>
               {data.option === 1 ? (
                 <>
