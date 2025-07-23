@@ -9,6 +9,7 @@
 export default async function handler(req, res) {
   const apiKey = process.env.API_KEY_PRIVADA;
   console.log(process.env.API_URL);
+  console.log(process.env.API_KEY_PRIVADA);
   const apiURL = "https://brc79bbtu3.execute-api.us-east-1.amazonaws.com/dev/";//process.env.API_URL;
   /*
   PROD
