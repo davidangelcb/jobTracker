@@ -8,7 +8,8 @@
 
 export default async function handler(req, res) {
   const apiKey = process.env.API_KEY_PRIVADA;
-  const apiURL = "https://xnq1m085i6.execute-api.us-east-1.amazonaws.com/uat/";//process.env.API_URL;
+  console.log(process.env.API_URL);
+  const apiURL = "https://brc79bbtu3.execute-api.us-east-1.amazonaws.com/dev/";//process.env.API_URL;
   /*
   PROD
   GET - https://ulg5nshq2f.execute-api.us-east-1.amazonaws.com/prod/api/job/{uid}
