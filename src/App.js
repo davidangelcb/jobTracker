@@ -160,7 +160,7 @@ function App() {
               if (Array.isArray(items2)) {
                 for (let item2 of items2) {
                   if (item2.downloadUrl) {
-                    if (data.tracker.data.tracker.step2.media === 2) {
+                    if (data.tracker.data.tracker.step3.media === 2) {
                       baseMedia2.push({
                         url: item2.downloadUrl,
                         comment: item2.comment || "",
