@@ -114,7 +114,7 @@ function App() {
               let baseMedia = [];
               let iniPhotos = [];
               let iniVideos = [];
-              const items1 = trackerData?.step2?.files?.items;
+              const items1 = data.tracker?.data?.tracker?.step2?.files?.items;
               if (Array.isArray(items1)) {
                 for (let item1 of items1) {
                   if (item1.downloadUrl) {
@@ -154,7 +154,7 @@ function App() {
               let baseMedia2 = [];
               let iniPhotos2 = [];
               let iniVideos2 = [];
-              const items2 = trackerData?.step3?.files?.items;
+              const items2 = data.tracker?.data?.tracker?.step3?.files?.items;
               if (Array.isArray(items2)) {
                 for (let item2 of items2) {
                   if (item2.downloadUrl) {
