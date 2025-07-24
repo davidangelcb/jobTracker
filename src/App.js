@@ -108,7 +108,32 @@ function App() {
           });
 
           if (data.tracker?.data?.tracker?.step2?.dayApproved) {
+            //media = 1 photos  photos: [] 
+            //media = 2 videos  videos: []           
             setStartJobData((prev) => {
+              let baseMedia = [];
+              let iniPhotos = [];
+              let iniVideos = [];
+              const items1 = trackerData?.step2?.files?.items;
+              if (Array.isArray(items1)) {
+                for (let item1 of items1) {
+                  if (item1.downloadUrl) {
+                    baseMedia.push({
+                        url: item1.downloadUrl,
+                        comment: item1.comment || "",
+                        blob: "",
+                        type: ""
+                    });
+                  }
+                }
+              }              
+
+              if(data.tracker.data.tracker.step2.media===1){
+                iniPhotos = baseMedia;
+              } else {
+                iniVideos = baseMedia;
+              }
+
               const baseData = {
                 ...prev,
                 isConfirmed: true,
@@ -116,6 +141,8 @@ function App() {
                   data.tracker.data.tracker.step2.dayApproved
                 ),
                 option: data.tracker.data.tracker.step2.media,
+                photos: iniPhotos,
+                videos: iniVideos
               };
 
               return baseData;
@@ -124,6 +151,28 @@ function App() {
 
           if (data.tracker?.data?.tracker?.step3?.dayApproved) {
             setEndJobData((prev) => {
+              let baseMedia2 = [];
+              let iniPhotos2 = [];
+              let iniVideos2 = [];
+              const items2 = trackerData?.step3?.files?.items;
+              if (Array.isArray(items2)) {
+                for (let item2 of items2) {
+                  if (item2.downloadUrl) {
+                    baseMedia2.push({
+                        url: item2.downloadUrl,
+                        comment: item2.comment || "",
+                        blob: "",
+                        type: ""
+                    });
+                  }
+                }
+              }
+              if(data.tracker.data.tracker.step3.media===1){
+                iniPhotos2 = baseMedia2;
+              } else {
+                iniVideos2 = baseMedia2;
+              }
+
               const baseData = {
                 ...prev,
                 isConfirmed: true,
@@ -131,6 +180,8 @@ function App() {
                   data.tracker.data.tracker.step3.dayApproved
                 ),
                 option: data.tracker.data.tracker.step3.media,
+                photos: iniPhotos2,
+                videos: iniVideos2
               };
 
               return baseData;
