@@ -200,7 +200,7 @@ function App() {
                 activeTabs([1, 2, 3]);
                 break;
               case "S3":
-                activeTabs([4]);
+                activeTabs([1,2,3,4]);
                 setPaymentStatus("I");
                 break;
               case "In":
