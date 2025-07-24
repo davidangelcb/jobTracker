@@ -150,7 +150,9 @@ function App() {
           }
 
           if (data.tracker?.data?.tracker?.step3?.dayApproved) {
-            setEndJobData((prev) => {
+            console.log(121212);
+            setEndJobData((prev) =>{  
+              console.log(2222222); 
               let baseMedia2 = [];
               let iniPhotos2 = [];
               let iniVideos2 = [];
@@ -417,6 +419,9 @@ function App() {
         files: datafiles,
       },
     };
+    console.log('step3');
+    console.log(request);
+
     response = await postJobData(request);
     if (response.acknowledged) {
       completarPaso(4);
