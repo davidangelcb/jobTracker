@@ -168,9 +168,9 @@ function App() {
                         type: "",
                       });
                     } else {
-                      baseMedia.push({
-                        image: item1.downloadUrl,
-                        comment: item1.comment || "",
+                      baseMedia2.push({
+                        image: item2.downloadUrl,
+                        comment: item2.comment || "",
                       });
                     }
                   }
