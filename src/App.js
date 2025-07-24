@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 //import { getData, postData } from '../src/services/api';
-import {
-  getJobData,
-  postJobData,
-  uploadToS3Blob,
-} from "./services/api.v1";
+import { getJobData, postJobData, uploadToS3Blob } from "./services/api.v1";
 import { useParams, useLocation } from "react-router-dom";
 
 import "./App.css";
@@ -12,7 +8,7 @@ import "./App.css";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import JobInfo from "./components/JobInfo";
-import StartJob from "./components/StartJob"; 
+import StartJob from "./components/StartJob";
 import JobReview from "./components/JobReview";
 import Payment from "./components/Payment";
 
@@ -58,13 +54,13 @@ function App() {
 
   let actDefault = null;
   let enaStepsDefault = [1000];
-  if(!activeDB){
-      actDefault = 1;
-      enaStepsDefault = [1,2,3,4,5];
+  if (!activeDB) {
+    actDefault = 1;
+    enaStepsDefault = [1, 2, 3, 4, 5];
   }
-  
+
   const [currentStep, setCurrentStep] = useState(actDefault);
-  const [enabledSteps, setEnabledSteps] = useState(enaStepsDefault);  
+  const [enabledSteps, setEnabledSteps] = useState(enaStepsDefault);
 
   const activeWindow = useLocation();
   const { idJob } = useParams();
@@ -76,10 +72,9 @@ function App() {
   }, [idJob]);
 
   useEffect(() => {
-    if(activeDB){
-    getJobData(idJob)
-      .then((data) => {
-        
+    if (activeDB) {
+      getJobData(idJob)
+        .then((data) => {
           setJobInfoData((prev) => {
             const baseData = {
               ...prev,
@@ -108,8 +103,8 @@ function App() {
           });
 
           if (data.tracker?.data?.tracker?.step2?.dayApproved) {
-            //media = 1 photos  photos: [] 
-            //media = 2 videos  videos: []           
+            //media = 1 photos  photos: []
+            //media = 2 videos  videos: []
             setStartJobData((prev) => {
               let baseMedia = [];
               let iniPhotos = [];
@@ -118,17 +113,24 @@ function App() {
               if (Array.isArray(items1)) {
                 for (let item1 of items1) {
                   if (item1.downloadUrl) {
-                    baseMedia.push({
+                    if (data.tracker.data.tracker.step2.media === 2) {
+                      baseMedia.push({
                         url: item1.downloadUrl,
                         comment: item1.comment || "",
                         blob: "",
-                        type: ""
-                    });
+                        type: "",
+                      });
+                    } else {
+                      baseMedia.push({
+                        image: item1.downloadUrl,
+                        comment: item1.comment || "",
+                      });
+                    }
                   }
                 }
-              }              
-              console.log("basemedia", baseMedia);
-              if(data.tracker.data.tracker.step2.media===1){
+              }
+
+              if (data.tracker.data.tracker.step2.media === 1) {
                 iniPhotos = baseMedia;
               } else {
                 iniVideos = baseMedia;
@@ -142,7 +144,7 @@ function App() {
                 ),
                 option: data.tracker.data.tracker.step2.media,
                 photos: iniPhotos,
-                videos: iniVideos
+                videos: iniVideos,
               };
               console.log(baseData);
               return baseData;
@@ -150,9 +152,7 @@ function App() {
           }
 
           if (data.tracker?.data?.tracker?.step3?.dayApproved) {
-            console.log(121212);
-            setEndJobData((prev) =>{  
-              console.log(2222222); 
+            setEndJobData((prev) => {
               let baseMedia2 = [];
               let iniPhotos2 = [];
               let iniVideos2 = [];
@@ -160,16 +160,23 @@ function App() {
               if (Array.isArray(items2)) {
                 for (let item2 of items2) {
                   if (item2.downloadUrl) {
-                    baseMedia2.push({
+                    if (data.tracker.data.tracker.step2.media === 2) {
+                      baseMedia2.push({
                         url: item2.downloadUrl,
                         comment: item2.comment || "",
                         blob: "",
-                        type: ""
-                    });
+                        type: "",
+                      });
+                    } else {
+                      baseMedia.push({
+                        image: item1.downloadUrl,
+                        comment: item1.comment || "",
+                      });
+                    }
                   }
                 }
               }
-              if(data.tracker.data.tracker.step3.media===1){
+              if (data.tracker.data.tracker.step3.media === 1) {
                 iniPhotos2 = baseMedia2;
               } else {
                 iniVideos2 = baseMedia2;
@@ -183,9 +190,9 @@ function App() {
                 ),
                 option: data.tracker.data.tracker.step3.media,
                 photos: iniPhotos2,
-                videos: iniVideos2
+                videos: iniVideos2,
               };
-              console.log(baseData)
+              console.log(baseData);
               return baseData;
             });
           }
@@ -202,7 +209,7 @@ function App() {
                 activeTabs([1, 2, 3]);
                 break;
               case "S3":
-                activeTabs([1,2,3,4]);
+                activeTabs([1, 2, 3, 4]);
                 setPaymentStatus("I");
                 break;
               case "In":
@@ -217,11 +224,10 @@ function App() {
                 break;
             }
           }
-        
-      })
-      .catch((err) => console.error("GET Fail:", err));
+        })
+        .catch((err) => console.error("GET Fail:", err));
     }
-}, []);
+  }, []);
 
   function activeTabs(arr) {
     let lastNum = null;
@@ -232,8 +238,7 @@ function App() {
     setCurrentStep(lastNum);
   }
 
-  useEffect(() => {
-  }, [activeWindow.search]);
+  useEffect(() => {}, [activeWindow.search]);
 
   const confirmLocation = async (num) => {
     const formatted = formatDate();
@@ -287,7 +292,6 @@ function App() {
   useEffect(() => {
     getLocation();
   }, []);
-
 
   const completarPaso = (num) => {
     setEnabledSteps((prev) => [...new Set([...prev, num])]);
@@ -419,7 +423,7 @@ function App() {
         files: datafiles,
       },
     };
-    console.log('step3');
+    console.log("step3");
     console.log(request);
 
     response = await postJobData(request);
@@ -432,8 +436,7 @@ function App() {
   };
   // STATUS PAYMENT
   const [paymentStatus, setPaymentStatus] = useState("I"); //I(inprogress) P (processing) D (done paid)
-  const department =     jobInfoData.name + " - " + jobInfoData.unit;
-  
+  const department = jobInfoData.name + " - " + jobInfoData.unit;
 
   return (
     <div className="App">
