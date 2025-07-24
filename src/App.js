@@ -127,7 +127,7 @@ function App() {
                   }
                 }
               }              
-
+              console.log("basemedia", baseMedia);
               if(data.tracker.data.tracker.step2.media===1){
                 iniPhotos = baseMedia;
               } else {
@@ -144,7 +144,7 @@ function App() {
                 photos: iniPhotos,
                 videos: iniVideos
               };
-
+              console.log(baseData);
               return baseData;
             });
           }
@@ -183,7 +183,7 @@ function App() {
                 photos: iniPhotos2,
                 videos: iniVideos2
               };
-
+              console.log(baseData)
               return baseData;
             });
           }
