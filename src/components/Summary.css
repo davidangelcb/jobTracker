@@ -1,82 +1,60 @@
-/* Summary.css - contenedor */
 .summary {
   font-family: Arial, sans-serif;
   padding: 20px;
-  max-width: 900px;   /* ancho máximo del bloque resumen */
+  max-width: 900px;
   margin: 0 auto;
-  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-/* header */
-.summary-title { font-size: 22px; margin: 0 0 6px; }
-.summary-subtitle { color: #555; margin: 0 0 16px; }
+.summary_title { font-size: 22px; margin-bottom: 6px; }
+.summary_subtitle { color: #555; margin-bottom: 16px; }
 
-/* sección */
-.section { margin-top: 20px; }
-.section-title { font-size: 18px; margin: 0 0 10px; }
+.summary_section { margin-top: 20px; }
+.summary_section-title { font-size: 18px; margin-bottom: 10px; }
 
-/* Contenedor que limita el ancho y contiene el scroll */
-.carousel-container {
+.summary_carousel-wrapper {
   width: 100%;
-  box-sizing: border-box;
-  overflow-x: auto;          /* scroll interno */
+  overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 8px;
 }
 
-/* fila de elementos (no rompe ancho) */
-.carousel {
-  display: inline-flex;      /* inline-flex + container con overflow evita overflow global */
+.summary_carousel {
+  display: inline-flex;
   gap: 12px;
-  align-items: flex-start;
   white-space: nowrap;
-  padding-left: 4px;         /* pequeño padding para estética */
 }
 
-/* tarjeta de foto */
-.photo-card {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  flex: 0 0 auto;            /* clave: no se estira ni encoge */
-  width: 120px;              /* ancho fijo */
+.summary_photo-card {
+  flex: 0 0 auto;
+  width: 120px;
   border-radius: 6px;
-  overflow: hidden;
-  background: #fff;
   border: 1px solid #e2e2e2;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  overflow: hidden;
+  background: #fff;
 }
 
-/* imagen: siempre cabe dentro de la tarjeta */
-.photo {
-  display: block;
+.summary_photo {
   width: 100%;
   height: 90px;
-  object-fit: cover;         /* recorta si hace falta sin estirar */
+  object-fit: cover;
 }
 
-/* footer de foto: muestra comentario (o fecha) */
-.photo-footer {
+.summary_photo-footer {
   font-size: 12px;
   padding: 6px 8px;
   text-align: center;
   background: #f7f7f7;
-  color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* cuando no hay fotos */
-.no-photos {
-  color: #777;
-  padding: 12px 0;
-}
+.summary_no-photos { color: #777; padding: 12px 0; }
 
-/* info box final */
-.info-box {
+.summary_info-box {
   margin-top: 24px;
   display: flex;
   gap: 12px;
@@ -84,6 +62,6 @@
   background: #eef3fb;
   border-radius: 6px;
 }
-.info-icon { font-size: 20px; color: #2b6cb0; }
-.info-text { font-size: 14px; color: #333; }
-.link { color: #2b6cb0; text-decoration: none; font-weight: 600; }
+.summary_info-icon { font-size: 20px; color: #2b6cb0; }
+.summary_info-text { font-size: 14px; color: #333; }
+.summary_link { color: #2b6cb0; text-decoration: none; font-weight: 600; }
