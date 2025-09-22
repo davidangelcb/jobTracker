@@ -47,10 +47,10 @@ const Summary = ({ mainstartJobData, mainendJobData}) => {
       </p>
 
       {/* Before Photos */}
-      {renderSection("Before Photos", mainstartJobData)}
+      {renderSection("Before Photos", mainstartJobData.photos)}
 
       {/* After Photos */}
-      {renderSection("After Photos", mainendJobData)}
+      {renderSection("After Photos", mainendJobData.photos)}
 
       {/* Info box */}
       <div className="info-box">
