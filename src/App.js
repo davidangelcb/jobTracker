@@ -385,7 +385,7 @@ function App() {
           try {
             const cleanMimeType = fileType.split(";")[0];
             let downloadUrl = await uploadToS3Blob(
-              blod,
+              blob,
               fileName,
               cleanMimeType,
               fileSize
