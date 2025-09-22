@@ -1,79 +1,58 @@
 import React from "react";
-import "./Summary.css"; // estilos separados
+import "./Summary.css";
 
-const Summary = ({ mainstartJobData, mainendJobData}) => {
-  console.log(11, mainstartJobData);
-  console.log(22, mainendJobData);
+const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
+  // aplanamos para un solo carrusel
+ let beforeFotos = mainstartJobData.photos;
+ let afterFotos = mainendJobData.photos;
+ let date = "21/21/22";
+ let time = "10:10am";
 
+  const flatBefore = beforeFotos.flat();
+  const flatAfter = afterFotos.flat();
 
-  let date = "10/12/54";
-  let time = "10:00AM";
-  const renderSection = (title, fotos = []) => (
-  <div className="section">
-    <h2 className="section-title">{title}</h2>
-    <div className="rows">
-
-      {fotos.length > 0 ? (
-        fotos.map((row, rowIndex) => (
-          <div key={rowIndex} className="row">
-            {row.map((item, index) => (
-              <div key={index} className="photo-card">
-                <img
-                  src={URL.createObjectURL(item.blob)}
-                  alt={item.comment}
-                  className="photo"
-                />
-                <div className="photo-footer">{date}</div>
-              </div>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p className="no-photos">No photos available</p>
-      )}
-
-
-
+  const renderCarousel = (title, fotos = []) => (
+    <div className="section">
+      <h2 className="section-title">{title}</h2>
+      <div className="carousel">
+        {fotos.length > 0 ? (
+          fotos.map((item, index) => (
+            <div key={index} className="photo-card">
+              <img
+                src={URL.createObjectURL(item.blob)}
+                alt={item.comment}
+                className="photo"
+              />
+              <div className="photo-footer">{item.comment}</div>
+            </div>
+          ))
+        ) : (
+          <p className="no-photos">No photos available</p>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 
   return (
-    <div className="summary-container">
-      {/* Header */}
-      <h1 className="header-title">Job Completed on:</h1>
-      <p className="header-subtitle">
+    <div className="summary">
+      <h1 className="summary-title">Job Completed on:</h1>
+      <p>
         {date} at {time}
       </p>
 
-      {/* Before Photos */}
-      {renderSection("Before Photos", mainstartJobData.photos)}
+      {renderCarousel("Before Photos", flatBefore)}
+      {renderCarousel("After Photos", flatAfter)}
 
-      {/* After Photos */}
-      {renderSection("After Photos", mainendJobData.photos)}
-
-      {/* Info box */}
       <div className="info-box">
-        <div className="info-icon">ℹ️</div>
-        <div className="info-text">
+        <p>
           We successfully received your before and after photos. If you need to
           make any changes, please contact us
+        </p>
+        <p>
+          Text Only: <a href="tel:8439831466">843-983-1466</a>
           <br />
-          <br />
-          <span>
-            Text Only:{" "}
-            <a href="sms:8439831466" className="link">
-              843-983-1466
-            </a>
-          </span>
-          <br />
-          <span>
-            Email:{" "}
-            <a href="mailto:Ops@pinchjob.com" className="link">
-              Ops@pinchjob.com
-            </a>
-          </span>
-        </div>
+          Email: <a href="mailto:Ops@pinchjob.com">Ops@pinchjob.com</a>
+        </p>
       </div>
     </div>
   );
