@@ -533,7 +533,7 @@ function App() {
          />
          )}
 
-        {currentMenuActive === 2 && (
+        {currentMenuActive === 4 && (
           <Summary
                 beforePhotos={startJobData.photos}
                 afterPhotos={endJobData.photos}
