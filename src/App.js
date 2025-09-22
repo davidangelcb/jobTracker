@@ -270,7 +270,7 @@ function App() {
       locationBrowser: location,
     });
 
-   /* let response = await postJobData({
+    let response = await postJobData({
       trackerId: idJob,
       step1: {
         location: {
@@ -278,7 +278,7 @@ function App() {
           geoApp: [location.lat, location.lng],
         },
       },
-    });*/
+    });
     completarPaso(2);
   };
 

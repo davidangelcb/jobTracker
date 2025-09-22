@@ -11,15 +11,16 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
     let btn = '';
     switch (MainCurrentMenuActive) {
         case 1:
-
-           btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
-           if(MainJobInfoData.dateConfirm!=null){
-                btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
-            } 
+            if(MainJobInfoData.isConfirmed===false) {
+            btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
+            if(MainJobInfoData.dateConfirm!=null){
+                    btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
+                } 
+            }
             
             break;
         case 2:
-            btn = '&nbsp;'; 
+            
             if(MainStartJobData.isConfirmed===false) {
                 btn = (<button className="footer-btn disabledBtn">Submit Before Photos</button> );
                 if (MainStartJobData.activeFoot){
