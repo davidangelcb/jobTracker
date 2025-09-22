@@ -64,6 +64,7 @@ function App() {
       "Enter through the back gate using code 4832. Pets on premises.",
     dateConfirm: null,
     locationBrowser: null,
+    isConfirmed: false
   });
   /********************************************************************************* */
 
@@ -266,6 +267,7 @@ function App() {
     const formatted = formatDate();
     setJobInfoData({
       ...jobInfoData,
+      isConfirmed: true,
       dateConfirm: formatted,
       locationBrowser: location,
     });
