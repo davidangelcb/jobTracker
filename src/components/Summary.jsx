@@ -2,11 +2,13 @@ import React from "react";
 import "./Summary.css"; // estilos separados
 
 const Summary = ({ beforeFotos, afterFotos, date, time }) => {
-  const renderSection = (title, fotos) => (
-    <div className="section">
-      <h2 className="section-title">{title}</h2>
-      <div className="rows">
-        {fotos.map((row, rowIndex) => (
+  
+  const renderSection = (title, fotos = []) => (
+  <div className="section">
+    <h2 className="section-title">{title}</h2>
+    <div className="rows">
+      {fotos.length > 0 ? (
+        fotos.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((item, index) => (
               <div key={index} className="photo-card">
@@ -19,10 +21,13 @@ const Summary = ({ beforeFotos, afterFotos, date, time }) => {
               </div>
             ))}
           </div>
-        ))}
-      </div>
+        ))
+      ) : (
+        <p className="no-photos">No photos available</p>
+      )}
     </div>
-  );
+  </div>
+);
 
   return (
     <div className="summary-container">

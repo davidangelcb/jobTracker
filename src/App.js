@@ -535,10 +535,12 @@ function App() {
 
         {currentMenuActive === 2 && (
           <Summary
-                date="Thursday, 8th, 2025"
-                time="10:30 AM"
                 beforePhotos={startJobData.photos}
                 afterPhotos={endJobData.photos}
+                date="Thursday, 8th, 2025"
+                time="10:30 AM"
+                
+                
          />
          )}
 
