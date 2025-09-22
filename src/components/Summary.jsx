@@ -2,11 +2,14 @@ import React from "react";
 import "./Summary.css"; // estilos separados
 
 const Summary = ({ beforeFotos, afterFotos, date, time }) => {
-  
+  console.log(11,beforeFotos);
+  console.log(22, afterFotos);
+
   const renderSection = (title, fotos = []) => (
   <div className="section">
     <h2 className="section-title">{title}</h2>
     <div className="rows">
+
       {fotos.length > 0 ? (
         fotos.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
@@ -25,6 +28,9 @@ const Summary = ({ beforeFotos, afterFotos, date, time }) => {
       ) : (
         <p className="no-photos">No photos available</p>
       )}
+
+
+
     </div>
   </div>
 );
