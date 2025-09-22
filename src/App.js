@@ -453,11 +453,9 @@ function App() {
     let response = null;
     let datafiles = null;
 
-    if (endJobData.option === 2) {
-      datafiles = await uploadAllVideos(endJobData);
-    } else {
-      datafiles = await uploadAllPhotos(endJobData);
-    }
+     
+    datafiles = await uploadAllPhotos(endJobData);
+    
 
     let request = {
       trackerId: idJob,
@@ -472,6 +470,10 @@ function App() {
     };
     response = await postJobData(request);
     if (response.acknowledged) {
+      setEndJobData({ 
+              ...endJobData,
+              isConfirmed : true
+      });
       completarPaso(4);
     } else {
       // agregar algo cuando sale error
@@ -515,7 +517,7 @@ function App() {
                 mainSetStartJobData = {setEndJobData}
          />
          )}
-         
+
         {currentMenuActive === 2 && (
           <Summary
                 locationStatus={locationStatus}
@@ -531,6 +533,8 @@ function App() {
             MainStartJobData = {startJobData}
             onStatusChange={confirmLocation}
             confirmStarJOb={confirmStarJOb}
+            MainEndJobData = {endJobData}
+            confirmEndJOb={confirmEndJOb}
          />
     </div>
 

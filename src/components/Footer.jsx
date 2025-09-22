@@ -6,7 +6,7 @@ MainCurrentMenuActive={currentMenuActive}
             onStatusChange={confirmLocation}
 
 */
-function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb}) {
+function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb, MainEndJobData, confirmEndJOb}) {
     console.log(MainCurrentMenuActive)
     let btn = (<span>&nbsp;</span>);
     switch (MainCurrentMenuActive) {
@@ -30,7 +30,12 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
             
             break;
         case 3: 
-            btn = (<button className="footer-btn">Submit After Photos</button> );
+            if(MainEndJobData.isConfirmed===false) {
+                btn = (<button className="footer-btn disabledBtn">Submit After Photos</button> );
+                if (MainEndJobData.activeFoot){
+                    btn = (<button className="footer-btn" onClick={confirmEndJOb}>Submit After Photos</button> );
+                }
+            }
             break;    
         default:
             break;
