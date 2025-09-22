@@ -1,3 +1,21 @@
+.carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  max-width: 100%;       /* 🚀 importante: no se expande más de la pantalla */
+  padding-bottom: 10px;
+  box-sizing: border-box; /* asegura que respete el ancho del padre */
+}
+
+.photo-card {
+  min-width: 120px;
+  flex: 0 0 auto;        /* que no estiren, se mantengan en su ancho */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 .summary {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -19,12 +37,7 @@
   margin-bottom: 10px;
 }
 
-.carousel {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-}
+ 
 
 .carousel::-webkit-scrollbar {
   height: 8px;
@@ -35,15 +48,7 @@
   border-radius: 4px;
 }
 
-.photo-card {
-  min-width: 120px;
-  flex: 0 0 auto;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+ 
 
 .photo {
   width: 100%;
