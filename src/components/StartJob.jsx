@@ -97,11 +97,11 @@ export default function StartJob({ data, setData, startJobConfirmed, model }) {
       option = data.option;
     }
 
-    if (photos.length >= 5 && !canConfirm && option === 1) {
+    if (photos.length >= 1 && !canConfirm && option === 1) {
       setCanConfirm(true);
     } else if (videos.length >= 1 && !canConfirm && option === 2) {
       setCanConfirm(true);
-    } else if (photos.length < 5 && canConfirm && option === 1) {
+    } else if (photos.length < 1 && canConfirm && option === 1) {
       setCanConfirm(false);
     } else if (videos.length <= 0 && canConfirm && option === 2) {
       setCanConfirm(false);
