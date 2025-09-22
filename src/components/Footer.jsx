@@ -7,7 +7,7 @@ MainCurrentMenuActive={currentMenuActive}
 
 */
 function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb, MainEndJobData, confirmEndJOb}) {
-    console.log(MainCurrentMenuActive)
+    
     let btn = (<span>&nbsp;</span>);
     switch (MainCurrentMenuActive) {
         case 1:
@@ -16,12 +16,14 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
             if(MainJobInfoData.dateConfirm!=null){
                     btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
                 } 
+            } else {
+                btn = (<span className="wait">wait please...</span>);
             }
             
             break;
         case 2:
             
-            if(MainStartJobData.isConfirmed===false) {
+            if(MainStartJobData.isConfirmed===false && MainStartJobData.viewBtn) {
                 btn = (<button className="footer-btn disabledBtn">Submit Before Photos</button> );
                 if (MainStartJobData.activeFoot){
                     btn = (<button className="footer-btn" onClick={confirmStarJOb}>Submit Before Photos</button> );

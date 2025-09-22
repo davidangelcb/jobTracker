@@ -39,11 +39,12 @@ function App() {
     dateConfirm: null,
     option: 0,
     videos: [],
+    viewBtn: true
   });
   // end job
   const [endJobData, setEndJobData] = useState({
     activeFoot: false,
-    photos: [[], [], [], [], [], [], []],
+    photos: [[], [], [], [], [], []],
     isConfirmed: false,
     dateConfirm: null,
     option: 0,
@@ -332,6 +333,12 @@ function App() {
   };
 
   const confirmStarJOb = async () => {
+
+    setStartJobData({ 
+              ...startJobData,
+              viewBtn : false
+    });
+
     let response = null;
     let datafiles = null;
 
@@ -353,7 +360,8 @@ function App() {
     if (response.acknowledged) {
       setStartJobData({ 
               ...startJobData,
-              isConfirmed : true
+              isConfirmed : true,
+              viewBtn : true
       });
       completarPaso(3);
       //actualiza todo el objeto recien

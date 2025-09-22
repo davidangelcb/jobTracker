@@ -34,3 +34,7 @@
   flex-shrink: 0; /* 🔹 evita que se achique o empuje raro */
   margin: 10px;
 }
+.wait{
+  color: #C7C7CC;
+  font-size: 12px;
+}
