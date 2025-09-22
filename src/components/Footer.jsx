@@ -28,7 +28,7 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
                     }
                 } 
             } else {
-                btn = (<span className="wait">&nbsp;&nbsp;wait please...</span>);
+                btn = (<span className="wait">&nbsp;&nbsp;&nbsp;&nbsp;wait please...</span>);
             }
             
             break;
@@ -41,7 +41,7 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
                     }
                 }
             } else {
-                btn = (<span className="wait">&nbsp;&nbsp;wait please...</span>);
+                btn = (<span className="wait">&nbsp;&nbsp;&nbsp;&nbsp;wait please...</span>);
             }
             break;    
         default:
