@@ -42,7 +42,8 @@ function App() {
   });
   // end job
   const [endJobData, setEndJobData] = useState({
-    photos: [],
+    activeFoot: false,
+    photos: [[], [], [], [], [], [], []],
     isConfirmed: false,
     dateConfirm: null,
     option: 0,
@@ -510,12 +511,11 @@ function App() {
 
          {currentMenuActive === 3 && (
           <After
-                locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
-                data={jobInfoData}
+                mainstartJobData = {endJobData} 
+                mainSetStartJobData = {setEndJobData}
          />
          )}
-
+         
         {currentMenuActive === 2 && (
           <Summary
                 locationStatus={locationStatus}
