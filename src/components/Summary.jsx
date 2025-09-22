@@ -1,10 +1,13 @@
 import React from "react";
 import "./Summary.css"; // estilos separados
 
-const Summary = ({ beforeFotos, afterFotos, date, time }) => {
-  console.log(11, beforeFotos.photos);
-  console.log(22, afterFotos.photos);
+const Summary = ({ mainstartJobData, mainendJobData}) => {
+  console.log(11, mainstartJobData);
+  console.log(22, mainendJobData);
 
+
+  let date = "10/12/54";
+  let time = "10:00AM";
   const renderSection = (title, fotos = []) => (
   <div className="section">
     <h2 className="section-title">{title}</h2>

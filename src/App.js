@@ -490,7 +490,7 @@ function App() {
               isConfirmed : true,
               viewBtn : true
       });
-      console.log(44, endJobData);
+      console.log(44,endJobData);
       completarPaso(4);
     } else {
       // agregar algo cuando sale error
@@ -537,12 +537,9 @@ function App() {
 
         {currentMenuActive === 4 && (
           <Summary
-                beforePhotos={startJobData}
-                afterPhotos={endJobData}
-                date="Thursday, 8th, 2025"
-                time="10:30 AM"               
-                
-         />
+              mainstartJobData = {startJobData} 
+              mainendJobData = {endJobData}
+          />
          )}
 
 
