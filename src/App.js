@@ -281,6 +281,7 @@ function App() {
         },
       },
     });
+    console.log(response);
     completarPaso(2);
   };
 
