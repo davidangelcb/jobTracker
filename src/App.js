@@ -535,9 +535,10 @@ function App() {
 
         {currentMenuActive === 2 && (
           <Summary
-                locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
-                data={jobInfoData}
+                date="Thursday, 8th, 2025"
+                time="10:30 AM"
+                beforePhotos={startJobData.photos}
+                afterPhotos={endJobData.photos}
          />
          )}
 
