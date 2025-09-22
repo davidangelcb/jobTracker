@@ -2,8 +2,8 @@ import React from "react";
 import "./Summary.css"; // estilos separados
 
 const Summary = ({ beforeFotos, afterFotos, date, time }) => {
-  console.log(11,beforeFotos);
-  console.log(22, afterFotos);
+  console.log(11, beforeFotos.photos);
+  console.log(22, afterFotos.photos);
 
   const renderSection = (title, fotos = []) => (
   <div className="section">
