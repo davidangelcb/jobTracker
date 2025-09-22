@@ -1,0 +1,93 @@
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+
+/* Parte superior */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #fff;
+}
+
+.logo {
+   
+  font-size: 25px;
+  color: #241D5D;
+}
+
+.tracking {
+  font-size: 12px;
+  color: #007AFF;
+}
+
+.tracking-id {
+  font-size: 12px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.share-btn {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #EDF7FF;
+ 
+  border-color: #0088FF;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #0088FF;
+}
+
+/* Parte inferior */
+.header-bottom {
+  background-color: #F6F6F6;
+  color: white;
+  padding: 6px 0 0;
+  font-size: 12px;
+}
+
+.project-name {
+  padding: 0 16px;
+  font-size: 12px;
+  margin-bottom: 6px;
+  background-color: #F6F6F6;
+  color: black;
+  font-weight: bold;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-around;
+  background: #2a235f;
+  padding: 6px 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.nav-item svg {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  color: white;
+}

@@ -9,14 +9,6 @@ import { useParams, useLocation } from "react-router-dom";
 
 import "./App.css";
 // App
-import HeaderPro from "./components/HeaderPro";
-import Footer from "./components/Footer";
-
-import LocationTab from "./components/LocationTab";
-import Before from "./components/Before"
-import After from "./components/After"
-import Summary from "./components/Summary"
-
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import JobInfo from "./components/JobInfo";
@@ -29,12 +21,11 @@ import { formatDate } from "./utils/misc";
 let locationStatus = 0;
 
 function App() {
-  console.log("v1.2");
+  console.log("v1.1");
   let activeDB = false;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
-    activeFoot: false,
-    photos: [[], [], [], [], [], [], []],
+    photos: [],
     isConfirmed: false,
     dateConfirm: null,
     option: 0,
@@ -65,14 +56,7 @@ function App() {
     dateConfirm: null,
     locationBrowser: null,
   });
-  /********************************************************************************* */
 
-  let MenuActive = 1;
-  let MenuActiveList = [1]
-  const [currentMenuActive, setCurrentMenuActive] = useState(MenuActive);
-  const [currentMenuActiveList, setCurrentMenuActiveList] = useState(MenuActiveList);
-
-  /********************************************************************************* */
   let actDefault = null;
   let enaStepsDefault = [1000];
   if(!activeDB){
@@ -270,7 +254,7 @@ function App() {
       locationBrowser: location,
     });
 
-   /* let response = await postJobData({
+    let response = await postJobData({
       trackerId: idJob,
       step1: {
         location: {
@@ -278,7 +262,7 @@ function App() {
           geoApp: [location.lat, location.lng],
         },
       },
-    });*/
+    });
     completarPaso(2);
   };
 
@@ -317,23 +301,20 @@ function App() {
 
 
   const completarPaso = (num) => {
-    setCurrentMenuActiveList((prev) => [...new Set([...prev, num])]);
-    setCurrentMenuActive(num);
-
-    /*
-    const [currentMenuActive, setCurrentMenuActive] = useState(MenuActive);
-  const [currentMenuActiveList, setCurrentMenuActiveList] = useState(MenuActiveList);
-    
-    */
+    setEnabledSteps((prev) => [...new Set([...prev, num])]);
+    setCurrentStep(num);
   };
 
   const confirmStarJOb = async () => {
     let response = null;
     let datafiles = null;
 
-  
-    datafiles = await uploadAllPhotos(startJobData);
-     
+    if (startJobData.option === 2) {
+      datafiles = await uploadAllVideos(startJobData);
+    } else {
+      datafiles = await uploadAllPhotos(startJobData);
+    }
+
     let request = {
       trackerId: idJob,
       step2: {
@@ -347,14 +328,7 @@ function App() {
     };
     response = await postJobData(request);
     if (response.acknowledged) {
-      setStartJobData({ 
-              ...startJobData,
-              isConfirmed : true
-      });
       completarPaso(3);
-      //actualiza todo el objeto recien
-      
-      /*************************************************************** */
     } else {
       // agregar algo cuando sale error
       // reiniciamos el boton para intentar de nuevo
@@ -366,45 +340,35 @@ function App() {
       items: [],
     };
 
-    for (let X = 0; X < data.photos.length; X++) {
-      const stepPhotos = data.photos[X];
-      let item = [];
-      // aca pregunto si es el ultimo elemento puede ir vacio
-      if(stepPhotos.length!==0){      
-        for (let i = 0; i < stepPhotos.length; i++) {
-            
-          const { image, comment, blod } = stepPhotos[i];
+    for (let i = 0; i < data.photos.length; i++) {
+      const { image, comment, blod } = data.photos[i];
 
-          const fileType = blod.type; // ej: 'image/jpeg'
-          const fileSize = blod.size;
-          const fileName = `photo_${i}`; // puedes usar un índice para diferenciar
+      const fileType = blod.type; // ej: 'image/jpeg'
+      const fileSize = blod.size;
+      const fileName = `photo_${i}`; // puedes usar un índice para diferenciar
 
-          let fileNameS3 = "";
-          let urlS3 = "";
+      let fileNameS3 = "";
+      let urlS3 = "";
 
-          try {
-            const cleanMimeType = fileType.split(";")[0];
-            let downloadUrl = await uploadToS3Blob(
-              blod,
-              fileName,
-              cleanMimeType,
-              fileSize
-            );
-            fileNameS3 = downloadUrl.fileNameS3;
-            urlS3 = downloadUrl.url;
-          } catch (e) {
-            console.error("Error subiendo foto:", e);
-          }
-
-          item.push({
-            comment: comment,
-            downloadUrl: urlS3,
-            fileNameS3: fileNameS3,
-          });
-
-        }
+      try {
+        const cleanMimeType = fileType.split(";")[0];
+        let downloadUrl = await uploadToS3Blob(
+          blod,
+          fileName,
+          cleanMimeType,
+          fileSize
+        );
+        fileNameS3 = downloadUrl.fileNameS3;
+        urlS3 = downloadUrl.url;
+      } catch (e) {
+        console.error("Error subiendo foto:", e);
       }
-      photoDB.items.push(item);
+
+      photoDB.items.push({
+        comment: comment,
+        downloadUrl: urlS3,
+        fileNameS3: fileNameS3,
+      });
     }
 
     return photoDB;
@@ -478,58 +442,47 @@ function App() {
   const [paymentStatus, setPaymentStatus] = useState("I"); //I(inprogress) P (processing) D (done paid)
   const department =     jobInfoData.name + " - " + jobInfoData.unit;
   
-  
-  /********************************************************************************************** */
-  // NUEVAS FUNCIONES 
-  /********************************************************************************************** */
 
   return (
     <div className="App">
-         <HeaderPro
-            mainSetCurrentStep={currentMenuActive}
-            mainSetCurrentMenuActive={setCurrentMenuActive}
-            mainCurrentMenuActiveList ={currentMenuActiveList}
-         /> 
-
-         {currentMenuActive === 1 && (
-        <LocationTab
-                locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
-                data={jobInfoData}
+       <Header data={jobInfoData}  />
+     
+      <NavBar
+        currentStep={currentStep}
+        enabledSteps={enabledSteps}
+        onStepChange={setCurrentStep}
+      />
+       
+ 
+      {currentStep === 1 && (
+        <JobInfo
+          locationStatus={locationStatus}
+          onStatusChange={confirmLocation}
+          data={jobInfoData}
         />
-        )}
-         {currentMenuActive === 2 && (
-          <Before
-                mainstartJobData = {startJobData} 
-                mainSetStartJobData = {setStartJobData}
-         />
-         )}
-
-         {currentMenuActive === 3 && (
-          <After
-                locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
-                data={jobInfoData}
-         />
-         )}
-
-        {currentMenuActive === 2 && (
-          <Summary
-                locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
-                data={jobInfoData}
-         />
-         )}
-
-
-         <Footer
-            MainCurrentMenuActive={currentMenuActive}
-            MainJobInfoData = {jobInfoData}
-            MainStartJobData = {startJobData}
-            onStatusChange={confirmLocation}
-            confirmStarJOb={confirmStarJOb}
-         />
-    </div>
+      )}
+      {currentStep === 2 && (
+        <StartJob
+          data={startJobData}
+          setData={setStartJobData}
+          startJobConfirmed={confirmStarJOb}
+          model={1}
+        />
+      )}
+      {currentStep === 3 && (
+        <StartJob
+          data={endJobData}
+          setData={setEndJobData}
+          startJobConfirmed={confirmEndJOb}
+          model={2}
+        />
+      )}
+      {currentStep === 4 && (
+        <JobReview statusJob={paymentStatus} dept={department} />
+      )}
+      {currentStep === 5 && <Payment statusJob={paymentStatus} />}
+      </div>        
+   
 
     
   );

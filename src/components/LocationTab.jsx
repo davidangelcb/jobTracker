@@ -1,4 +1,4 @@
-export default function JobInfo({ locationStatus, onStatusChange, data }) {
+export default function LocationTab({ locationStatus, onStatusChange, data }) {
 
 let shareLocationText = ''
 let btnConfirm = (
@@ -8,8 +8,8 @@ switch (locationStatus) {
     case 0:
     case 2:
         shareLocationText = (
-        <div className="locationBox">
-            ● We couldn't access your location. Please enable location services in your device settings to continue.
+        <div className="locationBox1">
+            Location Shared
         </div>
         )
         break
@@ -38,10 +38,14 @@ if(data.dateConfirm!=null){
 
   return (
     <section className="step">
+       
       <div className="step-header">
-        <h2><b>Job Info</b></h2>
-        {btnConfirm}
-        </div>
+        <h2><b>Job Info</b></h2>       
+      </div>
+      <div className="step-new">
+        Payment will be delayed if you fail to Share Location.
+      </div>
+
       <div>
          
           <div className="bodyContent">
@@ -52,51 +56,42 @@ if(data.dateConfirm!=null){
             <br />
             <b>{data.unit}</b>
             <br />
-            <span className="location-shared">
+            <div className="location-shared">
               {shareLocationText}
-            </span>
-            <br />
+              <div className="datetime">02:41 PM-06/04/2025</div>
+            </div>
+             
             <hr className="spaceAlt"/>
-            <b className="subTitle">Cleaning Type</b>
-            <br /> 
-            {data.cleaningType}
-            <br /><br />
-            <b className="subTitle">Scheduled</b>
-            <br />
+            <div className="subTitle">
+               <b>Cleaning Type</b>
+            </div>
+            <div className="subTitleContent">
+               {data.cleaningType}
+            </div>
+            <div className="subTitle">
+                <b >Scheduled</b>
+            </div>
+            <div className="subTitleContent">
             {data.scheduled}
-            <br /><br />
-            <b className="subTitle">Special Instructions </b>
-            <br />
+            </div>
+             <div className="subTitle">
+                <b >Special Instructions </b>
+            </div>
+           <div className="subTitleContent">
             {data.instructions}
-            <br />
+            </div>
+            
             <hr className="spaceAlt" />
             <small className="footText">
-              PINCH Contact Info<br />
-              asasas<br />
-              asasasas<br />
-              asasas<br />
-              asasas<br />
-              asasas<br />
-              asasas<br />
-              asasas<br />
-              aasa <br />
-
-
-              asasas<br />
-
-              asasas<br />
-
-
-              asadsasd<br />
-
-              asadsasd<br />
-             
-              asadsasd<br />
-
-              <br />
-              Text: 843-983-1466
-              <br />
+              <div className="subTitle">
+                <b  >PINCH Contact Info</b><br/><br/>
+            </div>
+              <div>
+              Text-Only: <a className="email" target="_blank" href="sms:+18439831466?body=Hello Pinch!">843-983-1466</a>
+              </div>
+              <div>
               Email: <a className="email" href="mailto:Ops@pinchjob.com">Ops@pinchjob.com</a>
+              </div>
             </small>
           </div>
         

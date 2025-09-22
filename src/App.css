@@ -1,38 +1,138 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
 .App {
-  text-align: left;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+.App-main {
+  flex: 1;
+  margin-top: 120px; /* 👈 altura del header */
+  margin-bottom: 60px; /* espacio para footer */
+  padding: 16px;
+  overflow-y: auto;
+}
+
+
+.footer {
+  position: fixed;   /* siempre visible abajo */
+  bottom: 0;
+  left: 0;           /* asegura alineación a la izquierda */
+  width: 100%;       /* ocupa todo el ancho */
+  background: #fff;
+  border-top: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
+/*****************************************************************/
+/* JOB INFO */
+.locationBox {
+  background:  #EDFFF2 ;
+  color:  #23A756 ;
+  padding:  2px 8px ;
+  font-size : 12px;
+  border-radius : 4 ;
+  width:  fit-content ;
+  font-weight: bold;
+  margin-right: 10px;
+} 
+.locationBox1 {
+  background:  red ;
+  color:  white ;
+  padding:  2px 6px ;
+  font-size : 12px;
+  border-radius : 4 ;
+  width:  fit-content ;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+} 
+.step {
+  padding: 1.2rem;
+  margin-top: 150px;
+ }
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+ 
 }
 
-.App-link {
-  color: #61dafb;
+.step-header h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #241D5D;
+  line-height: 10px;
+} 
+.step-new{
+  padding: 5px;
+  font-size: 13px;
+  font-weight: 300;
+  color:black;
+  background-color: #F5F5F5;
+  width: 98%;
+  margin-bottom: 15px;
+}
+ .step-header .title{
+  font-size: 20px;
+  color: #1d1b5e;
+  font-weight: bold;
+}
+.spaceAlt { 
+  margin: 15px 0 
+} 
+.gris{
+  background-color: gray;
+  color:gray;
+  line-height: 1px;
+  height: 1px;
+}
+.bodyContent{
+  font-size:16px;
+  line-height: 24px;
+  color: #333333; 
+}
+.location-shared{
+   line-height: 24px;
+   display: flex;
+   margin-top: 5px;
+
+}
+.datetime{
+  font-size: 12px;
+  color: #333333; 
+}
+.subTitle{
+ font-size: 12px;
+}
+.subTitleContent{
+      font-size: 16px;
+    line-height: 15px;
+    margin-bottom: 10px;
+
+}
+.footText{
+  font-size: 14px;
+  line-height: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.email{
+  color:#0088FF;
+  text-decoration: none;
 }

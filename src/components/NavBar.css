@@ -1,0 +1,27 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background: #1d1b5e;
+  padding-top: 1rem;
+  padding-bottom: 0.4rem;
+}
+
+.icon {
+  font-size: 1.4rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  color: white;
+}
+
+.icon.active {
+  opacity: 1;
+}
+.icon.deactive {
+  opacity: 0.3;
+}
+.icon.deactive.disabled {
+  opacity: 0.3;
+}
+.icon.deactive.enabled {
+  opacity: 1;
+}

@@ -1,0 +1,59 @@
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%; /* 🔹 asegura que no se rompa */
+}
+
+.carousel-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 0;
+  max-width: 100%; /* 🔹 no sobrepasa el contenedor */
+}
+
+.carousel-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.carousel-thumb {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.carousel-thumb.active {
+  border: 2px solid #3498db;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.carousel-comment {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #4F4F4F;
+  text-align: center;
+  padding: 5px 10px;
+  width: 90%;
+  border:1px solid #999999;
+  text-align: left;
+  margin-bottom:10px;
+}
+.titlePhoto{
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    color:#4F4F4F;
+    padding-top: 10px;
+    width: 95%;
+}

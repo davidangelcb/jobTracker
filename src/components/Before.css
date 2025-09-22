@@ -1,0 +1,123 @@
+.body-container {
+  padding: 14px;
+  overflow-y: auto;
+  margin-top: 150px;
+}
+
+.body-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #241d5d;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px; /* espacio para línea */
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  width: 2px;
+  height: calc(100% - 50px); /* 🔹 ajusta 50px según la altura de tu último ítem */
+  background-color: #ddd;
+}
+
+.accordion-item {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -31px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.timeline-dot.active {
+  background-color: #3498db;
+}
+
+.timeline-dot.inactive {
+  background-color: #ccc;
+}
+
+.accordion-header {
+  background-color: #ffffff;
+  padding: 12px;
+  color:#0088FF;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #3498db;
+}
+
+.accordion-header.active {
+  background-color: #fff;
+  border: 1px solid #3498db;
+}
+
+.accordion-header.disabled {
+  background-color: #eee;
+  color: #888;
+  cursor: not-allowed;
+  border: 1px solid #eee;
+}
+
+.accordion-content {
+   background: #fff;
+   
+  border-radius: 0 0 5px 5px;
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+.photo-btn,
+.video-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #3498db;
+  background: #eaf5ff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.photo-btn:hover,
+.video-btn:hover {
+  background: #d6ebff;
+}
+
+.arrow {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* Bloque Others (mismo estilo que steps normales, pero sin línea vertical) */
+.others-container {
+  margin-top: 15px;
+  padding-left: 40px; /* mismo espacio que los steps */
+  position: relative;
+}
+
+.others-container .timeline-dot {
+  position: absolute;
+  left: 14px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
