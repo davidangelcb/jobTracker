@@ -364,6 +364,7 @@ function App() {
               isConfirmed : true,
               viewBtn : true
       });
+      console.log(33, startJobData);
       completarPaso(3);
       //actualiza todo el objeto recien
       
@@ -489,6 +490,7 @@ function App() {
               isConfirmed : true,
               viewBtn : true
       });
+      console.log(44, endJobData);
       completarPaso(4);
     } else {
       // agregar algo cuando sale error
