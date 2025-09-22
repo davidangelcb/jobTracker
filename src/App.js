@@ -49,6 +49,7 @@ function App() {
     dateConfirm: null,
     option: 0,
     videos: [],
+    viewBtn: true
   });
   // JobInfo
   const [jobInfoData, setJobInfoData] = useState({
@@ -461,7 +462,12 @@ function App() {
     let response = null;
     let datafiles = null;
 
-     
+    setEndJobData({ 
+              ...endJobData,
+              viewBtn : false
+      });
+
+      
     datafiles = await uploadAllPhotos(endJobData);
     
 
@@ -480,7 +486,8 @@ function App() {
     if (response.acknowledged) {
       setEndJobData({ 
               ...endJobData,
-              isConfirmed : true
+              isConfirmed : true,
+              viewBtn : true
       });
       completarPaso(4);
     } else {

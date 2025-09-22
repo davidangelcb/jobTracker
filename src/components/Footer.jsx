@@ -12,12 +12,10 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
     switch (MainCurrentMenuActive) {
         case 1:
             if(MainJobInfoData.isConfirmed===false) {
-            btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
-            if(MainJobInfoData.dateConfirm!=null){
+                btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
+                if(MainJobInfoData.dateConfirm!=null){
                     btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
                 } 
-            } else {
-                btn = (<span className="wait">wait please...</span>);
             }
             
             break;
@@ -28,15 +26,19 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
                 if (MainStartJobData.activeFoot){
                     btn = (<button className="footer-btn" onClick={confirmStarJOb}>Submit Before Photos</button> );
                 }
+            } else {
+                btn = (<span className="wait">wait please...</span>);
             }
             
             break;
         case 3: 
-            if(MainEndJobData.isConfirmed===false) {
+            if(MainEndJobData.isConfirmed===false && MainEndJobData.viewBtn) {
                 btn = (<button className="footer-btn disabledBtn">Submit After Photos</button> );
                 if (MainEndJobData.activeFoot){
                     btn = (<button className="footer-btn" onClick={confirmEndJOb}>Submit After Photos</button> );
                 }
+            } else {
+                btn = (<span className="wait">wait please...</span>);
             }
             break;    
         default:
