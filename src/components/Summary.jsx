@@ -14,21 +14,16 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
   const renderCarousel = (title, fotos = []) => (
     <div className="section">
       <h2 className="section-title">{title}</h2>
-      <div className="carousel">
-        {fotos.length > 0 ? (
-          fotos.map((item, index) => (
-            <div key={index} className="photo-card">
-              <img
-                src={URL.createObjectURL(item.blob)}
-                alt={item.comment}
-                className="photo"
-              />
-              <div className="photo-footer">{item.comment}</div>
+      
+      <div className="carousel-container">
+        <div className="carousel">
+          {group.map((item, i) => (
+            <div key={i} className="photo-card">
+              <img src={URL.createObjectURL(item.blob)} alt={`Foto ${i}`} />
+              <p>{item.comment}</p>
             </div>
-          ))
-        ) : (
-          <p className="no-photos">No photos available</p>
-        )}
+          ))}
+        </div>
       </div>
     </div>
   );

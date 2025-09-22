@@ -1,21 +1,39 @@
+.carousel-container {
+  width: 100%;              /* 🚀 nunca más ancho que la app */
+  overflow-x: auto;          /* scroll solo aquí */
+  overflow-y: hidden;
+  padding: 8px 0;
+  box-sizing: border-box;
+}
+
 .carousel {
   display: flex;
   gap: 12px;
-  overflow-x: auto;
-  max-width: 100%;       /* 🚀 importante: no se expande más de la pantalla */
-  padding-bottom: 10px;
-  box-sizing: border-box; /* asegura que respete el ancho del padre */
+  flex-wrap: nowrap;         /* 🔒 evita que salte a otra fila */
 }
 
 .photo-card {
-  min-width: 120px;
-  flex: 0 0 auto;        /* que no estiren, se mantengan en su ancho */
+  flex: 0 0 auto;            /* 🚀 que no se estire ni deforme */
+  width: 100px;              /* ancho fijo de cada preview */
   border: 1px solid #ddd;
   border-radius: 6px;
   overflow: hidden;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+
+ 
+
+ 
 .summary {
   font-family: Arial, sans-serif;
   padding: 20px;
