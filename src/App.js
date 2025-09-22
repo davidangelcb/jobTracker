@@ -373,10 +373,10 @@ function App() {
       if(stepPhotos.length!==0){      
         for (let i = 0; i < stepPhotos.length; i++) {
             
-          const { image, comment, blod } = stepPhotos[i];
+          const { image, comment, blob } = stepPhotos[i];
 
-          const fileType = blod.type; // ej: 'image/jpeg'
-          const fileSize = blod.size;
+          const fileType = blob.type; // ej: 'image/jpeg'
+          const fileSize = blob.size;
           const fileName = `photo_${i}`; // puedes usar un índice para diferenciar
 
           let fileNameS3 = "";
