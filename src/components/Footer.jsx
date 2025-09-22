@@ -20,25 +20,28 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
             
             break;
         case 2:
-            
-            if(MainStartJobData.isConfirmed===false && MainStartJobData.viewBtn) {
-                btn = (<button className="footer-btn disabledBtn">Submit Before Photos</button> );
-                if (MainStartJobData.activeFoot){
-                    btn = (<button className="footer-btn" onClick={confirmStarJOb}>Submit Before Photos</button> );
-                }
+            if(MainStartJobData.viewBtn){ 
+                if(MainStartJobData.isConfirmed===false) {
+                    btn = (<button className="footer-btn disabledBtn">Submit Before Photos</button> );
+                    if (MainStartJobData.activeFoot){
+                        btn = (<button className="footer-btn" onClick={confirmStarJOb}>Submit Before Photos</button> );
+                    }
+                } 
             } else {
-                btn = (<span className="wait">wait please...</span>);
+                btn = (<span className="wait">&nbsp;&nbsp;wait please...</span>);
             }
             
             break;
         case 3: 
-            if(MainEndJobData.isConfirmed===false && MainEndJobData.viewBtn) {
-                btn = (<button className="footer-btn disabledBtn">Submit After Photos</button> );
-                if (MainEndJobData.activeFoot){
-                    btn = (<button className="footer-btn" onClick={confirmEndJOb}>Submit After Photos</button> );
+            if(MainEndJobData.viewBtn) {
+                if(MainEndJobData.isConfirmed===false) {
+                    btn = (<button className="footer-btn disabledBtn">Submit After Photos</button> );
+                    if (MainEndJobData.activeFoot){
+                        btn = (<button className="footer-btn" onClick={confirmEndJOb}>Submit After Photos</button> );
+                    }
                 }
             } else {
-                btn = (<span className="wait">wait please...</span>);
+                btn = (<span className="wait">&nbsp;&nbsp;wait please...</span>);
             }
             break;    
         default:
