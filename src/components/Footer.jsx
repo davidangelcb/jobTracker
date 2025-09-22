@@ -8,7 +8,7 @@ MainCurrentMenuActive={currentMenuActive}
 */
 function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb}) {
     console.log(MainCurrentMenuActive)
-    let btn = '&nbsp;';
+    let btn = (<span>&nbsp;</span>);
     switch (MainCurrentMenuActive) {
         case 1:
             if(MainJobInfoData.isConfirmed===false) {
