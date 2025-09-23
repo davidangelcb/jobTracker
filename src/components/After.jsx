@@ -24,9 +24,17 @@ function verifyCompletedInformation(arrayData){
 }
 const After = ({mainstartJobData, mainSetStartJobData}) => {
 
+  let activeBtn = true;
+  let defaultCompleted = [];
+  if(mainstartJobData.isConfirmed){
+      defaultCompleted = [0,1,2,3,4,5,6]
+      activeBtn=false;
+
+  }
+
   const [openIndices, setOpenIndices] = useState([0]);  
   const [openIndex, setOpenIndex] = useState(0);
-  const [completed, setCompleted] = useState([]);
+  const [completed, setCompleted] = useState(defaultCompleted);
   const [stepsData, setStepsData] = useState(mainstartJobData.photos);
 
   const handleComplete = (index, newData) => {
@@ -102,6 +110,7 @@ let iconAcc1 = `
                        stepIndex={index}
                        data={stepsData[index]}
                        onComplete={(data) => handleComplete(index, data)}
+                       activeBtnMain={activeBtn}
                    />
                 </div>
               )}
