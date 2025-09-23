@@ -55,7 +55,8 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
               _previewUrl: url,
               indice,          // índice dentro del grupo
               parentIndex : itemsB[parentIndex],     // índice del grupo padre
-              date: date+" - "+time,  // referencia tipo
+              date: date+" - "+time, 
+              onlyDate: date// referencia tipo
             };
           })
       ),
@@ -77,6 +78,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
               indice,
               parentIndex : itemsA[parentIndex],
               date: dateEnd+ " - " + timeEnd,
+              onlyDate: dateEnd
             };
           })
       ),
@@ -113,7 +115,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
                   className="summary_photo"
                 />
                 <div className="summary_photo-footer">
-                  {item.date}
+                  {item.onlyDate}
                 </div>
               </div>
             ))
