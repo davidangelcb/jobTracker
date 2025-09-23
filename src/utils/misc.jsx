@@ -1,5 +1,5 @@
 // Date formatter
-export const formatDate = (mongoDate) => {
+const formatDate = (mongoDate) => {
     const now = mongoDate ? new Date(mongoDate) : new Date();
     const time = now.toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -18,7 +18,7 @@ export const formatDate = (mongoDate) => {
     return formatted;
   };
 
-export const  getFormattedDate = () => {
+const  getFormattedDate = () => {
   const now = new Date();
 
   // Obtener nombre del día
@@ -53,4 +53,8 @@ export const  getFormattedDate = () => {
 };
 
 
+module.exports = {
+  getFormattedDate,
+  formatDate
+};
   

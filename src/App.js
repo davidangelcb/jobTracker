@@ -363,7 +363,7 @@ function App() {
               ...startJobData,
               isConfirmed : true,
               viewBtn : true,
-              dateConfirm:getFormattedDate()
+              dateConfirm: getFormattedDate()
       });
       console.log(33, startJobData);
       completarPaso(3);
