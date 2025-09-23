@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
  
  
 function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMenuActiveList, dataJob }) {
-   
+   console.log(mainSetCurrentStep,mainSetCurrentMenuActive,  mainCurrentMenuActiveList,)
   return (
     <header className="header">
       {/* Parte superior */}
