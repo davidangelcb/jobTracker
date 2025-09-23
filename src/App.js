@@ -36,7 +36,7 @@ function App() {
     activeFoot: false,
     photos: [[], [], [], [], [], [], []],
     isConfirmed: false,
-    dateConfirm: null,
+    dateConfirm: '',
     option: 0,
     videos: [],
     viewBtn: true
@@ -46,7 +46,7 @@ function App() {
     activeFoot: false,
     photos: [[], [], [], [], [], []],
     isConfirmed: false,
-    dateConfirm: null,
+    dateConfirm: '',
     option: 0,
     videos: [],
     viewBtn: true
