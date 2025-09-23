@@ -4,7 +4,7 @@ import { FaShareAlt, FaLocationArrow, FaCamera, FaClipboardList } from "react-ic
 import NavBar from "./NavBar";
  
  
-function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMenuActiveList }) {
+function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMenuActiveList, dataJob }) {
    
   return (
     <header className="header">
@@ -12,7 +12,7 @@ function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMen
       <div className="header-top">
         <div className="logo">PINCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div className="tracking">
-          Tracking <span className="tracking-id">#124578</span>
+          Tracking <span className="tracking-id">#{dataJob.idJob}</span>
         </div>
         <button className="share-btn">
           <FaShareAlt /> Share
@@ -21,7 +21,7 @@ function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMen
 
       {/* Parte inferior */}
       <div className="header-bottom">
-        <div className="project-name">Riverhood Apartments.</div>
+        <div className="project-name">{dataJob.name}</div>
         <NavBar
             currentStep={mainSetCurrentStep}
             enabledSteps={mainCurrentMenuActiveList}

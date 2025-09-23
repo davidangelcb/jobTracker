@@ -518,6 +518,7 @@ function App() {
             mainSetCurrentStep={currentMenuActive}
             mainSetCurrentMenuActive={setCurrentMenuActive}
             mainCurrentMenuActiveList ={currentMenuActiveList}
+            dataJob={jobInfoData}
          /> 
 
          {currentMenuActive === 1 && (
