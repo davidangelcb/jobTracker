@@ -1,7 +1,7 @@
 // Summary.jsx
 import React, { useMemo, useEffect, useState } from "react";
 import "./Summary.css";
-
+import { abbreviateDateString } from "../utils/misc";
 const itemsB = [
   "Front Door (Unit Number)",
   "Kitchen - Appliances (Door Open)",
@@ -32,8 +32,12 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
   let dateData = mainstartJobData.dateConfirm;
   const stringDates = dateData?.split("-") || ["", ""];
 
+  let dateAbrStart = abbreviateDateString(mainstartJobData.dateConfirm)
+
   let dateDataEnd = mainendJobData.dateConfirm;
   const stringDatesEnd = dateDataEnd?.split("-") || ["", ""];
+
+  let dateAbrEnd = abbreviateDateString(mainendJobData.dateConfirm)
 
   let date = stringDates[0];
   let time = stringDates[1];
@@ -56,7 +60,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
               indice,          // índice dentro del grupo
               parentIndex : itemsB[parentIndex],     // índice del grupo padre
               date: date+" - "+time, 
-              onlyDate: date// referencia tipo
+              onlyDate: dateAbrStart// referencia tipo
             };
           })
       ),
@@ -78,7 +82,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
               indice,
               parentIndex : itemsA[parentIndex],
               date: dateEnd+ " - " + timeEnd,
-              onlyDate: dateEnd
+              onlyDate: dateAbrEnd
             };
           })
       ),
