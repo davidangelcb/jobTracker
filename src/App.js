@@ -24,7 +24,7 @@ import StartJob from "./components/StartJob";
 import JobReview from "./components/JobReview";
 import Payment from "./components/Payment";
 
-import { formatDate } from "./utils/misc";
+import { formatDate, getFormattedDate } from "./utils/misc";
 
 let locationStatus = 0;
 
@@ -362,7 +362,8 @@ function App() {
       setStartJobData({ 
               ...startJobData,
               isConfirmed : true,
-              viewBtn : true
+              viewBtn : true,
+              dateConfirm:getFormattedDate()
       });
       console.log(33, startJobData);
       completarPaso(3);
@@ -488,7 +489,8 @@ function App() {
       setEndJobData({ 
               ...endJobData,
               isConfirmed : true,
-              viewBtn : true
+              viewBtn : true,
+              dateConfirm:getFormattedDate()
       });
       console.log(44,endJobData);
       completarPaso(4);

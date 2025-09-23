@@ -7,8 +7,13 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
 
   let beforeFotos = mainstartJobData.photos;
   let afterFotos = mainendJobData.photos;
-  let date = "21/21/22";
-  let time = "10:10am";
+  
+  let dateData = mainendJobData.dateConfirm;
+  const stringDates = dateData.split("-");
+
+
+  let date = stringDates[0];
+  let time = stringDates[1];
 
   const flatBefore = useMemo(
     () => (Array.isArray(beforeFotos) ? beforeFotos.flat() : []),
@@ -70,7 +75,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
                   className="summary_photo"
                 />
                 <div className="summary_photo-footer">
-                  {item.comment || date}
+                  {date}
                 </div>
               </div>
             ))
@@ -140,7 +145,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
 
         <div className="summary_overlay-image-container">
           {/* Texto superpuesto dentro de la imagen */}
-          <span className="summary_overlay-label">Thursday, 8th, 2025 - 14:25 PM</span>
+          <span className="summary_overlay-label">{date} - {time}</span>
           <img
             src={activePhoto._previewUrl}
             alt="preview"
