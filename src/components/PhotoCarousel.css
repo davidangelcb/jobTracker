@@ -1,3 +1,32 @@
+.photo-card {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+}
+
+.photo-remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  z-index: 10;
+}
+
+.photo-remove-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+
+
 .carousel-container {
   display: flex;
   flex-direction: column;
@@ -23,7 +52,7 @@
 }
 
 .carousel-thumb {
-  width: 150px;
+  width: 140px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
@@ -43,11 +72,19 @@
   font-size: 14px;
   color: #4F4F4F;
   text-align: center;
-  padding: 5px 10px;
-  width: 90%;
-  border:1px solid #999999;
-  text-align: left;
-  margin-bottom:10px;
+   
+  width: 100%;
+   text-align: left;
+   
+}
+.carousel-comment textarea{ 
+  width: 94%;
+  min-height: 60px;
+  resize: vertical;
+  padding-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border: 1px solid grey;
 }
 .titlePhoto{
     text-align: left;

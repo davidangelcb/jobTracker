@@ -1,28 +1,85 @@
 // AccordionStep.jsx
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import PhotoOverlay from "./PhotoOverlay";
 import PhotoCarousel from "./PhotoCarousel";
 import "./AccordionStep.css";
+import { v4 as uuidv4 } from "uuid"; 
 
 const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
   const [photos, setPhotos] = useState(data);
   const [showOverlay, setShowOverlay] = useState(false);
 
+  const [activeIndex, setActiveIndex] = useState(null);
+
+
   // 👇 ahora controlamos el máximo de 5
   const handleSavePhoto = (dataUrl, comment, blob) => {
     if (photos.length >= 5) return; // no agrega más de 5
-    const newPhoto = { photo: dataUrl, comment, blob };
+    const newPhoto = { photo: dataUrl, comment, blob , id: uuidv4() };
     const updated = [...photos, newPhoto];
     setPhotos(updated);
     onComplete(updated);
+
+    if (activeIndex === null) {
+      setActiveIndex(0);
+    }
   };
+
+  const handleRemovePhoto = (id) => {
+    const idx = photos.findIndex((p) => p.id === id);
+    const updated = photos.filter((p) => p.id !== id);
+
+    setPhotos(updated);
+
+    if (updated.length === 0) {
+      setActiveIndex(null); // nada que mostrar
+      return;
+    }
+
+    if (idx === activeIndex) {
+      // si eliminé la foto activa
+      if (idx >= updated.length) {
+        // eliminé la última → activa la anterior
+        setActiveIndex(updated.length - 1);
+      } else {
+        // activa la que quedó en esa misma posición
+        setActiveIndex(idx);
+      }
+    } else if (idx < activeIndex) {
+      // si eliminé una antes de la activa → corregir índice
+      setActiveIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleUpdateComment = (comment) => {
+    setPhotos((prev) =>
+      prev.map((p, i) =>
+        i === activeIndex ? { ...p, comment } : p
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (photos.length > 0 && activeIndex === null) {
+      setActiveIndex(0);
+    }
+  }, [photos, activeIndex]);
 
   return (
     <div className="accordion-step">
       {/* Botón deshabilitado si ya llegó a 5 */}
 
       {/* Carrusel de previews */}
-      {photos.length > 0 && <PhotoCarousel photos={photos} />}
+      {photos.length > 0 && 
+     
+     <PhotoCarousel
+        photos={photos}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+        onRemove={handleRemovePhoto}
+        handleUpdateCommentFunction={handleUpdateComment}
+      />
+      }
       
        {activeBtnMain && (
       <div className="controls">

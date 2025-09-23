@@ -21,6 +21,8 @@ import AppModal1 from "./components/modals/AppModal1";
 import AppModal2 from "./components/modals/AppModal2";
 import AppModal3 from "./components/modals/AppModal3";
 
+import AppModal4 from "./components/modals/AppModal4";
+
 
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
@@ -41,14 +43,15 @@ function App() {
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
 
+  const [showModal4, setShowModal4] = useState(false);
   /* ***** *  */
 
   let dateFormatted = getFormattedDateV2();
-  let activeDB = true;
+  let activeDB = false;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     activeFoot: false,
-    photos: [[], [], [], [], [], [], []],
+    photos: [[], [], [], [], [], [] ],
     isConfirmed: false,
     dateConfirm: '',
     option: 0,
@@ -58,7 +61,7 @@ function App() {
   // end job
   const [endJobData, setEndJobData] = useState({
     activeFoot: false,
-    photos: [[], [], [], [], [], []],
+    photos: [[], [], [], [], [] ],
     isConfirmed: false,
     dateConfirm: '',
     option: 0,
@@ -87,6 +90,10 @@ function App() {
 
   let MenuActive = null;
   let MenuActiveList = [1000]
+  if(!activeDB){
+    MenuActive  = 1;
+    MenuActiveList = [1,2,3,4];
+  }
   const [currentMenuActive, setCurrentMenuActive] = useState(MenuActive);
   const [currentMenuActiveList, setCurrentMenuActiveList] = useState(MenuActiveList);
 
@@ -552,6 +559,7 @@ function App() {
       });
       console.log(44,endJobData);
       completarPaso(4);
+       setShowModal4(true);
     } else {
       // agregar algo cuando sale error
       // reiniciamos el boton para intentar de nuevo
@@ -618,6 +626,8 @@ function App() {
         <AppModal1 show={showModal1} onClose={() => setShowModal1(false)}  onDontShowAgain={saveNotification1} />
         <AppModal2 show={showModal2} onClose={() => setShowModal2(false)}  onDontShowAgain={saveNotification2} />
         <AppModal3 show={showModal3} onClose={() => setShowModal3(false)}  onDontShowAgain={saveNotification3} />
+
+        <AppModal4 show={showModal4} onClose={() => setShowModal4(false)}  MainJobInfoData={jobInfoData} />
     </div>
 
     

@@ -6,7 +6,6 @@ import "./Before.css";
 const items = [
   "Kitchen - Appliances (Door Open)",
   "Living Room Ceiling Fan(s)",
-  "Living Room Air Vent.",
   "Bedrooms",
   "Bathrooms",
   "Others (Not Required)"
@@ -27,7 +26,7 @@ const After = ({mainstartJobData, mainSetStartJobData}) => {
   let activeBtn = true;
   let defaultCompleted = [];
   if(mainstartJobData.isConfirmed){
-      defaultCompleted = [0,1,2,3,4,5,6]
+      defaultCompleted = [0,1,2,3,4]
       activeBtn=false;
 
   }

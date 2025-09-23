@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import "./PhotoCarousel.css";
 
-const PhotoCarousel = ({ photos }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemove,  handleUpdateCommentFunction  }) => {
+   
 
   if (!photos || photos.length === 0) return null;
 
@@ -12,6 +12,18 @@ const PhotoCarousel = ({ photos }) => {
       {/* Carrusel de miniaturas */}
       <div className="carousel-scroll">
         {photos.map((item, idx) => (
+          <div key={item.id}   className='photo-card'
+                      onClick={() => setActiveIndex(idx)}
+          >
+          <button
+            className="photo-remove-btn"
+            onClick={(e) => {
+                e.stopPropagation();
+                onRemove(item.id);
+              }}
+          >
+            ×
+          </button>
           <img
             key={idx}
             src={item.photo}
@@ -19,17 +31,25 @@ const PhotoCarousel = ({ photos }) => {
             className={`carousel-thumb ${
               idx === activeIndex ? "active" : ""
             }`}
-            onClick={() => setActiveIndex(idx)}
+             
           />
+          </div>
         ))}
       </div>
 
       {/* Comentario de la imagen activa */}
+      
       <div className="titlePhoto">Photo {activeIndex+1}</div>
-      <div className="carousel-comment">
-        <p>{photos[activeIndex].comment || "No comment"}</p>
+      <div  className="carousel-comment" >
+         <textarea
+            value={photos[activeIndex]?.comment}
+            onChange={(e) => handleUpdateCommentFunction(e.target.value)}
+            placeholder="Add comment..."
+           
+          />
       </div>
     </div>
+    
   );
 };
 
