@@ -279,6 +279,7 @@ function App() {
     let response = await postJobData({
       trackerId: idJob,
       step1: {
+        dateConfirm: dateFormatted,
         location: {
           geo: [jobInfoData.location.lat, jobInfoData.location.lng],
           geoApp: [location.lat, location.lng],
