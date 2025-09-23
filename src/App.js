@@ -224,7 +224,7 @@ function App() {
                 activeTabs([1, 2, 3]);
                 break;
               case "S3":
-                activeTabs([4]);
+                activeTabs([1, 2, 3, 4]);
                 setPaymentStatus("I");
                 break;
               case "In":
@@ -336,7 +336,7 @@ function App() {
 
   
     datafiles = await uploadAllPhotos(startJobData);
-     
+    let dataStr =  getFormattedDate(); 
     let request = {
       trackerId: idJob,
       step2: {
@@ -346,11 +346,12 @@ function App() {
         },
         media: startJobData.option,
         files: datafiles,
+        dateConfirm:  dataStr
       },
     };
     response = await postJobData(request);
     if (response.acknowledged) {
-      let dataStr =  getFormattedDate();
+      
       console.log(55, dataStr);
       
       setStartJobData({ 
@@ -476,6 +477,7 @@ function App() {
         },
         media: endJobData.option,
         files: datafiles,
+        dateConfirm: getFormattedDate()
       },
     };
     response = await postJobData(request);
