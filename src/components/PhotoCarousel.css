@@ -79,12 +79,13 @@
 }
 .carousel-comment textarea{ 
   width: 94%;
-  min-height: 60px;
+  min-height: 40px;
   resize: vertical;
   padding-right: 5px;
   margin-left: 5px;
   margin-top: 5px;
   border: 1px solid grey;
+  margin-bottom:10px;
 }
 .titlePhoto{
     text-align: left;
