@@ -1,11 +1,9 @@
-import { getFormattedDateV2 } from "../utils/misc";
 
-export default function LocationTab({ locationStatus, onStatusChange, data }) {
+
+export default function LocationTab({ locationStatus, formattedDate, data }) {
 
 let shareLocationText = ''
-let btnConfirm = (
-    <button className="off" disabled >Confirm</button>
-);
+ 
 let dateShare = '';
 switch (locationStatus) {
     case 0:
@@ -17,28 +15,23 @@ switch (locationStatus) {
         )
         break
     case 1:
-        dateShare = getFormattedDateV2();
-
+        if(data.dateConfirm=='') {
+          dateShare = formattedDate;
+        }  else {
+          dateShare = dateShare.dateConfirm;
+        }
+        
         shareLocationText = (
         <div className="locationBox">
             ● Location Shared
         </div>
         )
-        btnConfirm = (
-            <button className="confirmBtn"  onClick={onStatusChange}>Confirm</button>
-        ) 
+         
         break
     default:
         break
 }
-if(data.dateConfirm!=null){
-    btnConfirm = (
-        <div className="confirmed">
-            <div className="confirmedText">Confirmed</div>
-            <div className="reduce">{data.dateConfirm}</div>
-        </div>
-    ) 
-}
+ 
  
 
   return (

@@ -24,12 +24,13 @@ import StartJob from "./components/StartJob";
 import JobReview from "./components/JobReview";
 import Payment from "./components/Payment";
 
-import { formatDate, getFormattedDate } from "./utils/misc";
+import { formatDate, getFormattedDate, getFormattedDateV2 } from "./utils/misc";
 
 let locationStatus = 0;
 
 function App() {
   console.log("v1.2");
+  let dateFormatted = getFormattedDateV2();
   let activeDB = false;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
@@ -65,7 +66,7 @@ function App() {
     scheduled: "Friday, December 27th, 2024",
     instructions:
       "Enter through the back gate using code 4832. Pets on premises.",
-    dateConfirm: null,
+    dateConfirm: '',
     locationBrowser: null,
     isConfirmed: false
   });
@@ -267,11 +268,11 @@ function App() {
   }, [activeWindow.search]);
 
   const confirmLocation = async (num) => {
-    const formatted = formatDate();
+    // formatted = formatDate();
     setJobInfoData({
       ...jobInfoData,
       isConfirmed: true,
-      dateConfirm: formatted,
+      dateConfirm: dateFormatted,
       locationBrowser: location,
     });
 
@@ -522,7 +523,7 @@ function App() {
          {currentMenuActive === 1 && (
         <LocationTab
                 locationStatus={locationStatus}
-                onStatusChange={confirmLocation}
+                formattedDate={dateFormatted}
                 data={jobInfoData}
         />
         )}
