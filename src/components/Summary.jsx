@@ -113,7 +113,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
                   className="summary_photo"
                 />
                 <div className="summary_photo-footer">
-                  {item.comment || "No comment"}
+                  {item.date}
                 </div>
               </div>
             ))
