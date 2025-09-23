@@ -125,26 +125,46 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
       </div>
 
       {activePhoto && (
-        <div className="summary_overlay" onClick={() => setActivePhoto(null)}>
-          <div
-            className="summary_overlay-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={activePhoto._previewUrl}
-              alt={activePhoto.comment}
-              className="summary_overlay-img"
-            />
-            <p className="summary_overlay-comment">{activePhoto.comment}</p>
-            <button
-              className="summary_overlay-close"
-              onClick={() => setActivePhoto(null)}
-            >
-              ✖
-            </button>
-          </div>
+  <div className="summary_overlay" onClick={() => setActivePhoto(null)}>
+    <div
+      className="summary_overlay-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Botón cerrar */}
+      <button
+        className="summary_overlay-close"
+        onClick={() => setActivePhoto(null)}
+      >
+        ✖
+      </button>
+
+      {/* Fecha */}
+      <div className="summary_overlay-date">
+        Thursday, 8th, 2025 - 14:25 PM
+      </div>
+
+      {/* Imagen */}
+      <img
+        src={activePhoto._previewUrl}
+        alt={activePhoto.comment}
+        className="summary_overlay-img"
+      />
+
+      {/* Footer con comentario */}
+      <div className="summary_overlay-footer">
+        <div className="summary_overlay-title">
+          {activePhoto.title || "Bath"}
         </div>
-      )}
+        <div className="summary_overlay-comment">
+          {activePhoto.comment || "No description available"}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+      
     </div>
   );
 };
