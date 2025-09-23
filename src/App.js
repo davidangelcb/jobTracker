@@ -17,6 +17,9 @@ import Before from "./components/Before"
 import After from "./components/After"
 import Summary from "./components/Summary"
 
+import AppModal from "./AppModal";
+
+
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import JobInfo from "./components/JobInfo";
@@ -30,6 +33,9 @@ let locationStatus = 0;
 
 function App() {
   console.log("v1.2");
+  const [showModal, setShowModal] = useState(true);
+
+
   let dateFormatted = getFormattedDateV2();
   let activeDB = true;
   // StartJOb
@@ -552,6 +558,9 @@ function App() {
             MainEndJobData = {endJobData}
             confirmEndJOb={confirmEndJOb}
          />
+
+         {/* Modal */}
+        <AppModal show={showModal} onClose={() => setShowModal(false)} />
     </div>
 
     
