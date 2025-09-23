@@ -31,7 +31,7 @@ let locationStatus = 0;
 function App() {
   console.log("v1.2");
   let dateFormatted = getFormattedDateV2();
-  let activeDB = false;
+  let activeDB = true;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     activeFoot: false,
@@ -119,9 +119,8 @@ function App() {
             if (data.tracker?.data?.tracker?.step1?.dayApproved) {
               return {
                 ...baseData,
-                dateConfirm: formatDate(
-                  data.tracker.data.tracker.step1.dayApproved
-                ),
+                dateConfirm: data.tracker.data.tracker.step1.dateConfirm,
+                isConfirmed: true
               };
             }
 
@@ -258,10 +257,10 @@ function App() {
   function activeTabs(arr) {
     let lastNum = null;
     for (let num of arr) {
-      setEnabledSteps((prev) => [...new Set([...prev, num])]);
+      setCurrentMenuActiveList((prev) => [...new Set([...prev, num])]);
       lastNum = num;
     }
-    setCurrentStep(lastNum);
+    setCurrentMenuActive(lastNum);
   }
 
   useEffect(() => {
