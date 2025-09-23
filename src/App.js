@@ -224,9 +224,8 @@ function App() {
                 activeTabs([1, 2, 3]);
                 break;
               case "S3":
-                setCurrentMenuActive(4);
-                setCurrentMenuActiveList([4])
-                //activeTabs([1, 2, 3, 4]);
+                
+                activeTabs([4]);
                // setPaymentStatus("I");
                 break;
               case "In":
