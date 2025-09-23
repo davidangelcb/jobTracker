@@ -359,13 +359,14 @@ function App() {
     };
     response = await postJobData(request);
     if (response.acknowledged) {
-      console.log(55, getFormattedDate());
-
+      let dataStr =  getFormattedDate();
+      console.log(55, dataStr);
+      
       setStartJobData({ 
               ...startJobData,
               isConfirmed : true,
               viewBtn : true,
-              dateConfirm: getFormattedDate()
+              dateConfirm: dataStr
       });
       console.log(33, startJobData);
       completarPaso(3);
