@@ -72,8 +72,8 @@ function App() {
   });
   /********************************************************************************* */
 
-  let MenuActive = 1;
-  let MenuActiveList = [1]
+  let MenuActive = null;
+  let MenuActiveList = [1000]
   const [currentMenuActive, setCurrentMenuActive] = useState(MenuActive);
   const [currentMenuActiveList, setCurrentMenuActiveList] = useState(MenuActiveList);
 
@@ -202,7 +202,7 @@ function App() {
               const baseData = {
                 ...prev,
                 isConfirmed: true,
-                dateConfirm: data.tracker.data.tracker.step3.dayApproved,
+                dateConfirm: data.tracker.data.tracker.step3.dateConfirm,
                 option: data.tracker.data.tracker.step3.media,
                 photos: iniPhotos2,
                 videos: iniVideos2,
