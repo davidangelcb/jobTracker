@@ -612,7 +612,7 @@ function App() {
          {/* Modal */}
         <AppModal1 show={showModal1} onClose={() => setShowModal1(false)}  onDontShowAgain={saveNotification1} />
         <AppModal2 show={showModal2} onClose={() => setShowModal2(false)}  onDontShowAgain={saveNotification2} />
-        <AppModal2 show={showModal3} onClose={() => setShowModal3(false)}  onDontShowAgain={saveNotification3} />
+        <AppModal3 show={showModal3} onClose={() => setShowModal3(false)}  onDontShowAgain={saveNotification3} />
     </div>
 
     

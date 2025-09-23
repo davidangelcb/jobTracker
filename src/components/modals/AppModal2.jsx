@@ -1,9 +1,17 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./AppModal.css";
 
-function AppModal({ show, onClose }) {
-  if (!show) return null; // si no está activo, no se renderiza
+function AppModal2({ show, onClose, onDontShowAgain  }) {
+  const [checked, setChecked] = useState(false);
 
+  if (!show) return null;
+
+  const handleOk = () => {
+    if (checked && onDontShowAgain) {
+      onDontShowAgain(); // dispara la acción extra si está marcado
+    }
+    onClose(); // cierra siempre el modal
+  };
   return (
     <div className="appmodal_overlay">
       <div className="appmodal_content">
@@ -38,9 +46,13 @@ function AppModal({ show, onClose }) {
         <div className="appmodal_footer">
           
           <label className="appmodal_checkbox">
-            <input type="checkbox" /> Don't show this again
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+            /> Don't show this again
           </label>
-          <button className="appmodal_ok" onClick={onClose}>
+          <button className="appmodal_ok"  onClick={handleOk}>
             OK
           </button>
         </div>
@@ -49,4 +61,4 @@ function AppModal({ show, onClose }) {
   );
 }
 
-export default AppModal;
+export default AppModal2;
