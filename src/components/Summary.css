@@ -1,11 +1,11 @@
 .summary_overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1999;
 }
 
 .summary_overlay-content {
@@ -17,7 +17,7 @@
 
 .summary_overlay-close {
   position: absolute;
-  top: -10px;   /* 10px arriba del borde de la imagen */
+  top: -30px;   /* 10px arriba del borde de la imagen */
   left: 0;
   background: none;
   border: none;
@@ -33,30 +33,37 @@
 
 .summary_overlay-label {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0px;
+   
   font-size: 15px;
-  color: yellow;
-  background: rgba(0,0,0,0.5);
+  color: #333;
+  background: #FEBC2F;
   padding: 2px 6px;
-  border-radius: 4px;
+  opacity: 0.8;
 }
 
 .summary_overlay-image {
   width: 100%;
-  border-radius: 10px;
+ 
 }
 
 .summary_overlay-title {
   margin-top: 15px; /* debajo de la imagen */
   font-size: 18px;
   color: white;
+  text-align: left;
+  padding-left: 15px;
 }
 
 .summary_overlay-comment {
-  margin-top: 10px; /* debajo del título */
-  font-size: 14px;
-  color: #ddd;
+     
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: white;
+    color: #4F4F4F;
+    padding: 10px;
+    width: 90%;
+    margin: 10px;
 }
 
  
