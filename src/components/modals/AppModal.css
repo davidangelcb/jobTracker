@@ -15,10 +15,10 @@
 /* Caja modal */
 .appmodal_content {
   background: white;
-  border-radius: 10px;
-  width: 90%;
+ 
+  width:85%;
   max-width: 400px;
-  padding: 20px;
+  padding: 10px;
   position: relative;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   text-align: center;
@@ -45,8 +45,9 @@
 
 /* Icono */
 .appmodal_icon {
-  font-size: 40px;
+  font-size: 24px;
   margin-bottom: 15px;
+  color: #241d5d;
 }
 
 /* Título */
@@ -88,13 +89,14 @@
 
 /* Botón OK */
 .appmodal_ok {
-  background: #007bff;
-  color: white;
+  background:white;
+  color:  #007bff ;
   border: none;
   padding: 8px 18px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .appmodal_ok:hover {

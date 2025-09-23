@@ -17,7 +17,9 @@ import Before from "./components/Before"
 import After from "./components/After"
 import Summary from "./components/Summary"
 
-import AppModal from "./components/AppModal";
+import AppModal1 from "./components/modals/AppModal1";
+import AppModal2 from "./components/modals/AppModal2";
+import AppModal3 from "./components/modals/AppModal3";
 
 
 import Header from "./components/Header";
@@ -34,10 +36,15 @@ let locationStatus = 0;
 function App() {
   console.log("v1.2");
   const [showModal, setShowModal] = useState(true);
+  /* MODALS */
+  const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
 
+  /* ***** *  */
 
   let dateFormatted = getFormattedDateV2();
-  let activeDB = true;
+  let activeDB = false;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     activeFoot: false,
@@ -222,12 +229,22 @@ function App() {
             switch (data.tracker?.status) {
               case "E":
                 activeTabs([1]);
+                if (data.tracker?.data?.tracker && !('noti1' in data.tracker.data.tracker)) {
+                  setShowModal1(true);
+                }
+                
                 break;
               case "S1":
                 activeTabs([1, 2]);
+                if (data.tracker?.data?.tracker && !('noti2' in data.tracker.data.tracker)) {
+                  setShowModal2(true);
+                }
                 break;
               case "S2":
                 activeTabs([1, 2, 3]);
+                if (data.tracker?.data?.tracker && !('noti3' in data.tracker.data.tracker)) {
+                  setShowModal3(true);
+                }
                 break;
               case "S3":
                 
@@ -377,6 +394,39 @@ function App() {
       // reiniciamos el boton para intentar de nuevo
     }
   };
+
+  async function saveNotification1() {
+    let request = {
+      trackerId: idJob,
+      noti1 : '1'
+    };
+    let response = await postJobData(request);
+    if (response.acknowledged) {
+      setShowModal1(false);
+    }
+  }
+
+  async function saveNotification2() {
+    let request = {
+      trackerId: idJob,
+      noti2 : '2'
+    };
+    let response = await postJobData(request);
+    if (response.acknowledged) {
+      setShowModal2(false);
+    }
+  }
+
+  async function saveNotification3() {
+    let request = {
+      trackerId: idJob,
+      noti3 : '3'
+    };
+    let response = await postJobData(request);
+    if (response.acknowledged) {
+      setShowModal3(false);
+    }
+  }
 
   async function uploadAllPhotos(data) {
     let photoDB = {
@@ -560,7 +610,9 @@ function App() {
          />
 
          {/* Modal */}
-        <AppModal show={showModal} onClose={() => setShowModal(false)} />
+        <AppModal1 show={showModal1} onClose={() => setShowModal1(false)}  onDontShowAgain={saveNotification1} />
+        <AppModal2 show={showModal2} onClose={() => setShowModal2(false)}  onDontShowAgain={saveNotification2} />
+        <AppModal2 show={showModal3} onClose={() => setShowModal3(false)}  onDontShowAgain={saveNotification3} />
     </div>
 
     
