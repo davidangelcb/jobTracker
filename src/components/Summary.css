@@ -41,8 +41,8 @@
   font-family: Arial, sans-serif;
   margin: 0 auto;
   overflow-x: hidden;
-  width: 94%;
-  margin-top:150px;
+  width: 90%;
+  margin-top:160px;
 }
 
 .summary_title { 
@@ -86,11 +86,11 @@
 .summary_no-photos { color: #777; padding: 12px 0; }
 
 .summary_info-box {
-  margin-top: 24px;
+  margin-top: 14px;
   display: flex;
   gap: 12px;
   padding: 10px;
-  background: #eef3fb;
+  background: #D5EBFF;
    
 }
 .summary_info-icon { font-size: 20px; color: #2b6cb0; }

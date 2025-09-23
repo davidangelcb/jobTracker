@@ -9,7 +9,7 @@
   justify-content: space-between; /* 🔹 botón a la izquierda, globo a la derecha */
   align-items: center;
   padding: 0 0px;  /* 🔹 margen interno controlado */
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+   
 
 }
 .footer-btn{
