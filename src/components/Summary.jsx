@@ -125,44 +125,30 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
       </div>
 
       {activePhoto && (
-  <div className="summary_overlay" onClick={() => setActivePhoto(null)}>
-    <div
-      className="summary_overlay-content"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Botón cerrar */}
-      <button
-        className="summary_overlay-close"
-        onClick={() => setActivePhoto(null)}
-      >
-        ✖
-      </button>
+      <div className="summary_overlay">
+      <div className="summary_overlay-content">
+        {/* Botón cerrar (fuera de la imagen, arriba izq) */}
+        <button className="summary_overlay-close">×</button>
 
-      <div className="summary_overlay-img-wrapper">
-        {/* Fecha superpuesta */}
-        <div className="summary_overlay-date">
-          Thursday, 8th, 2025 - 14:25 PM
+        <div className="summary_overlay-image-container">
+          {/* Texto superpuesto dentro de la imagen */}
+          <span className="summary_overlay-label">Texto Amarillo</span>
+          <img
+            src="https://picsum.photos/600/400"
+            alt="preview"
+            className="summary_overlay-image"
+          />
         </div>
 
-        {/* Imagen */}
-        <img
-          src={activePhoto._previewUrl}
-          alt={activePhoto.comment}
-          className="summary_overlay-img"
-        />
-      </div>
+        {/* Título debajo de la imagen */}
+        <h3 className="summary_overlay-title">Bath</h3>
 
-      {/* Título + comentario */}
-      <div className="summary_overlay-text">
-        <div className="summary_overlay-title">
-          {activePhoto.title || "Bath"}
-        </div>
-        <div className="summary_overlay-comment">
-          {activePhoto.comment || "No description available"}
-        </div>
+        {/* Comentario debajo del título */}
+        <p className="summary_overlay-comment">
+          Este es el comentario de la imagen
+        </p>
       </div>
     </div>
-  </div>
 )}
 
 
