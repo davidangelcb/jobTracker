@@ -225,7 +225,7 @@ function App() {
                 break;
               case "S3":
                 activeTabs([1, 2, 3, 4]);
-                setPaymentStatus("I");
+               // setPaymentStatus("I");
                 break;
               case "In":
                 activeTabs([1, 2, 3, 4]);
