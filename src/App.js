@@ -359,6 +359,8 @@ function App() {
     };
     response = await postJobData(request);
     if (response.acknowledged) {
+      console.log(55, getFormattedDate());
+
       setStartJobData({ 
               ...startJobData,
               isConfirmed : true,
