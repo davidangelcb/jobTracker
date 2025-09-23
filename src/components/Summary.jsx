@@ -124,17 +124,25 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
         </div>
       </div>
 
-      {activePhoto && (
+
+
+
+
+
+
+
+
+{activePhoto && (
       <div className="summary_overlay">
       <div className="summary_overlay-content">
         {/* Botón cerrar (fuera de la imagen, arriba izq) */}
-        <button className="summary_overlay-close">×</button>
+        <button className="summary_overlay-close" onClick={() => setActivePhoto(null)}>×</button>
 
         <div className="summary_overlay-image-container">
           {/* Texto superpuesto dentro de la imagen */}
-          <span className="summary_overlay-label">Texto Amarillo</span>
+          <span className="summary_overlay-label">Thursday, 8th, 2025 - 14:25 PM</span>
           <img
-            src="https://picsum.photos/600/400"
+            src={activePhoto._previewUrl}
             alt="preview"
             className="summary_overlay-image"
           />
@@ -145,12 +153,11 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
 
         {/* Comentario debajo del título */}
         <p className="summary_overlay-comment">
-          Este es el comentario de la imagen
+            {activePhoto.comment || "No description available"}
         </p>
       </div>
     </div>
 )}
-
 
 
       
