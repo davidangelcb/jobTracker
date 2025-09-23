@@ -44,7 +44,7 @@ function App() {
   /* ***** *  */
 
   let dateFormatted = getFormattedDateV2();
-  let activeDB = false;
+  let activeDB = true;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     activeFoot: false,
