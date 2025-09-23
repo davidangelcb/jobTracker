@@ -96,3 +96,56 @@
 .summary_info-icon { font-size: 20px; color: #2b6cb0; }
 .summary_info-text { font-size: 14px; color: #333; }
 .summary_link { color: #2b6cb0; text-decoration: none; font-weight: 600; }
+
+
+.summary_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.summary_overlay-content {
+  position: relative;
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary_overlay-img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 6px;
+}
+
+.summary_overlay-comment {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.summary_overlay-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #f44336;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
