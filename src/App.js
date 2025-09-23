@@ -176,38 +176,33 @@ function App() {
               let baseMedia2 = [];
               let iniPhotos2 = [];
               let iniVideos2 = [];
+
               const items2 = data.tracker?.data?.tracker?.step3?.files?.items;
+              
               if (Array.isArray(items2)) {
-                for (let item2 of items2) {
-                  if (item2.downloadUrl) {
-                    if (data.tracker.data.tracker.step3.media === 2) {
-                      baseMedia2.push({
-                        url: item2.downloadUrl,
-                        comment: item2.comment || "",
-                        blob: "",
-                        type: "",
-                      });
-                    } else {
-                      baseMedia2.push({
-                        image: item2.downloadUrl,
-                        comment: item2.comment || "",
-                      });
-                    }
-                  }
-                }
+               
+
+                for (let arr2 of items2) {
+                  let arrAct2 = [];
+                  for( let itemX2 of arr2){
+                      if (itemX2.downloadUrl) {
+                          arrAct2.push({
+                            photo: itemX2.downloadUrl,
+                            comment: itemX2.comment || "",
+                            blob : ""
+                          });
+                      }
+                  }  
+                  baseMedia2.push(arrAct2);    
+                }       
               }
-              if (data.tracker.data.tracker.step3.media === 1) {
                 iniPhotos2 = baseMedia2;
-              } else {
-                iniVideos2 = baseMedia2;
-              }
+               
 
               const baseData = {
                 ...prev,
                 isConfirmed: true,
-                dateConfirm: formatDate(
-                  data.tracker.data.tracker.step3.dayApproved
-                ),
+                dateConfirm: data.tracker.data.tracker.step3.dayApproved,
                 option: data.tracker.data.tracker.step3.media,
                 photos: iniPhotos2,
                 videos: iniVideos2,
@@ -229,7 +224,7 @@ function App() {
                 activeTabs([1, 2, 3]);
                 break;
               case "S3":
-                activeTabs([1, 2, 3, 4]);
+                activeTabs([4]);
                 setPaymentStatus("I");
                 break;
               case "In":
