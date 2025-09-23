@@ -402,6 +402,7 @@ function App() {
       noti1 : '1'
     };
     let response = await postJobData(request);
+    console.log(response);
     if (response.acknowledged) {
       setShowModal1(false);
     }
