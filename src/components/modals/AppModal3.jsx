@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./AppModal.css";
 
 function AppModal3({ show, onClose, onDontShowAgain  }) {
