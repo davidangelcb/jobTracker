@@ -138,20 +138,22 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
         ✖
       </button>
 
-      {/* Fecha */}
-      <div className="summary_overlay-date">
-        Thursday, 8th, 2025 - 14:25 PM
+      <div className="summary_overlay-img-wrapper">
+        {/* Fecha superpuesta */}
+        <div className="summary_overlay-date">
+          Thursday, 8th, 2025 - 14:25 PM
+        </div>
+
+        {/* Imagen */}
+        <img
+          src={activePhoto._previewUrl}
+          alt={activePhoto.comment}
+          className="summary_overlay-img"
+        />
       </div>
 
-      {/* Imagen */}
-      <img
-        src={activePhoto._previewUrl}
-        alt={activePhoto.comment}
-        className="summary_overlay-img"
-      />
-
-      {/* Footer con comentario */}
-      <div className="summary_overlay-footer">
+      {/* Título + comentario */}
+      <div className="summary_overlay-text">
         <div className="summary_overlay-title">
           {activePhoto.title || "Bath"}
         </div>
@@ -162,6 +164,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
     </div>
   </div>
 )}
+
 
 
       
