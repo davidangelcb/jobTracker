@@ -2,50 +2,88 @@
 import React, { useMemo, useEffect, useState } from "react";
 import "./Summary.css";
 
+const itemsB = [
+  "Front Door (Unit Number)",
+  "Kitchen - Appliances (Door Open)",
+  "Living Room Ceiling Fan(s)",
+  "Living Room Air Vent.",
+  "Bedrooms",
+  "Bathrooms",
+  "Others (Not Required)"
+];
+
+const itemsA = [
+  "Kitchen - Appliances (Door Open)",
+  "Living Room Ceiling Fan(s)",
+  "Living Room Air Vent.",
+  "Bedrooms",
+  "Bathrooms",
+  "Others (Not Required)"
+];
+
+
+
 const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
   const [activePhoto, setActivePhoto] = useState(null);
 
-  let beforeFotos = mainstartJobData.photos;
-  let afterFotos = mainendJobData.photos;
-  
-  let dateData = mainendJobData.dateConfirm;
-  const stringDates = dateData.split("-");
+  let beforeFotos = mainstartJobData.photos; // ANTES
+  let afterFotos = mainendJobData.photos; // DESPUES
 
+  let dateData = mainstartJobData.dateConfirm;
+  const stringDates = dateData?.split("-") || ["", ""];
+
+  let dateDataEnd = mainendJobData.dateConfirm;
+  const stringDatesEnd = dateDataEnd?.split("-") || ["", ""];
 
   let date = stringDates[0];
   let time = stringDates[1];
 
-  const flatBefore = useMemo(
-    () => (Array.isArray(beforeFotos) ? beforeFotos.flat() : []),
+  let dateEnd = stringDatesEnd[0];
+  let timeEnd = stringDatesEnd[1];
+
+  // 👇 enriquecemos las fotos de before
+  const beforeWithUrls = useMemo(
+    () =>
+      (Array.isArray(beforeFotos) ? beforeFotos : []).flatMap(
+        (group, parentIndex) =>
+          (Array.isArray(group) ? group : []).map((item, indice) => {
+            const url = item?.blob
+              ? URL.createObjectURL(item.blob)
+              : item?.photo || "";
+            return {
+              ...item,
+              _previewUrl: url,
+              indice,          // índice dentro del grupo
+              parentIndex : itemsB[parentIndex],     // índice del grupo padre
+              date: date+" - "+time,  // referencia tipo
+            };
+          })
+      ),
     [beforeFotos]
   );
-  const flatAfter = useMemo(
-    () => (Array.isArray(afterFotos) ? afterFotos.flat() : []),
+
+  // 👇 enriquecemos las fotos de after
+  const afterWithUrls = useMemo(
+    () =>
+      (Array.isArray(afterFotos) ? afterFotos : []).flatMap(
+        (group, parentIndex) =>
+          (Array.isArray(group) ? group : []).map((item, indice) => {
+            const url = item?.blob
+              ? URL.createObjectURL(item.blob)
+              : item?.photo || "";
+            return {
+              ...item,
+              _previewUrl: url,
+              indice,
+              parentIndex : itemsA[parentIndex],
+              date: dateEnd+ " - " + timeEnd,
+            };
+          })
+      ),
     [afterFotos]
   );
 
-  const beforeWithUrls = useMemo(
-    () =>
-      flatBefore.map((item) => {
-        const url = item?.blob
-          ? URL.createObjectURL(item.blob)
-          : item?.photo || "";
-        return { ...item, _previewUrl: url };
-      }),
-    [flatBefore]
-  );
-
-  const afterWithUrls = useMemo(
-    () =>
-      flatAfter.map((item) => {
-        const url = item?.blob
-          ? URL.createObjectURL(item.blob)
-          : item?.photo || "";
-        return { ...item, _previewUrl: url };
-      }),
-    [flatAfter]
-  );
-
+  // limpiar memoria de blobs
   useEffect(() => {
     return () => {
       beforeWithUrls.forEach((i) => {
@@ -75,7 +113,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
                   className="summary_photo"
                 />
                 <div className="summary_photo-footer">
-                  {date}
+                  {item.comment || "No comment"}
                 </div>
               </div>
             ))
@@ -129,43 +167,38 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
         </div>
       </div>
 
+      {activePhoto && (
+        <div className="summary_overlay">
+          <div className="summary_overlay-content">
+            {/* Botón cerrar */}
+            <button
+              className="summary_overlay-close"
+              onClick={() => setActivePhoto(null)}
+            >
+              ×
+            </button>
 
+            <div className="summary_overlay-image-container">
+              <span className="summary_overlay-label">
+                {activePhoto.date}
+              </span>
+              <img
+                src={activePhoto._previewUrl}
+                alt="preview"
+                className="summary_overlay-image"
+              />
+            </div>
 
+            <h3 className="summary_overlay-title">
+              {activePhoto.parentIndex}
+            </h3>
 
-
-
-
-
-
-{activePhoto && (
-      <div className="summary_overlay">
-      <div className="summary_overlay-content">
-        {/* Botón cerrar (fuera de la imagen, arriba izq) */}
-        <button className="summary_overlay-close" onClick={() => setActivePhoto(null)}>×</button>
-
-        <div className="summary_overlay-image-container">
-          {/* Texto superpuesto dentro de la imagen */}
-          <span className="summary_overlay-label">{date} - {time}</span>
-          <img
-            src={activePhoto._previewUrl}
-            alt="preview"
-            className="summary_overlay-image"
-          />
+            <p className="summary_overlay-comment">
+              {activePhoto.comment || "No description available"}
+            </p>
+          </div>
         </div>
-
-        {/* Título debajo de la imagen */}
-        <h3 className="summary_overlay-title">Bath</h3>
-
-        {/* Comentario debajo del título */}
-        <p className="summary_overlay-comment">
-            {activePhoto.comment || "No description available"}
-        </p>
-      </div>
-    </div>
-)}
-
-
-      
+      )}
     </div>
   );
 };

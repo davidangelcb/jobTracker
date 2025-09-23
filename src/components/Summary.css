@@ -102,7 +102,7 @@
   background: rgba(254, 188, 47, 0.8); /* negro semi-transparente */ 
   color: #fff;
   font-size: 12px;
-  padding: 6px 8px;
+  padding: 6px 1px;
   display: flex;
   align-items: center;
   justify-content: center;
