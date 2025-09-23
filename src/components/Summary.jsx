@@ -58,11 +58,16 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
     <div className="summary">
       <h1 className="summary_title">Job Completed on:</h1>
       <p className="summary_subtitle">{date} at {time}</p>
+      <hr className="spaceAlt" />
       {renderCarousel("Before Photos", beforeWithUrls)}
       {renderCarousel("After Photos", afterWithUrls)}
 
       <div className="summary_info-box">
-        <div className="summary_info-icon">ℹ️</div>
+        <div className="summary_info-icon">
+          <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 25C19.875 25 25.5 19.375 25.5 12.5C25.5 5.625 19.875 -2.3991e-06 13 -3.00013e-06C6.125 -3.60117e-06 0.5 5.625 0.499999 12.5C0.499999 19.375 6.125 25 13 25ZM13 6.25C13.75 6.25 14.25 6.75 14.25 7.5C14.25 8.25 13.75 8.75 13 8.75C12.25 8.75 11.75 8.25 11.75 7.5C11.75 6.75 12.25 6.25 13 6.25ZM11.75 12.5C11.75 11.75 12.25 11.25 13 11.25C13.75 11.25 14.25 11.75 14.25 12.5L14.25 17.5C14.25 18.25 13.75 18.75 13 18.75C12.25 18.75 11.75 18.25 11.75 17.5L11.75 12.5Z" fill="#241D5D"/>
+          </svg>
+        </div>
         <div className="summary_info-text">
           We successfully received your before and after photos. If you need to make any changes, please contact us.
           <br /><br />
