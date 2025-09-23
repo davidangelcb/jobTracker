@@ -28,10 +28,11 @@ function verifyCompletedInformation(arrayData){
 }
 const Before = ({mainstartJobData, mainSetStartJobData}) => {
 
- let defaultIndex = 0;
+ let activeBtn = true;
  let defaultCompleted = [];
  if(mainstartJobData.isConfirmed){
     defaultCompleted = [0,1,2,3,4,5,6]
+    activeBtn=false;
 
  }
 
@@ -113,7 +114,7 @@ let iconAcc1 = `
                        stepIndex={index}
                        data={stepsData[index]}
                        onComplete={(data) => handleComplete(index, data)}
-                       mainstartJobData={mainstartJobData}
+                       activeBtnMain={activeBtn}
                    />
                 </div>
               )}

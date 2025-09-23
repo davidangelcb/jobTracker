@@ -4,7 +4,7 @@ import PhotoOverlay from "./PhotoOverlay";
 import PhotoCarousel from "./PhotoCarousel";
 import "./AccordionStep.css";
 
-const AccordionStep = ({ stepIndex, data = [], onComplete, mainstartJobData }) => {
+const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
   const [photos, setPhotos] = useState(data);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -24,7 +24,7 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, mainstartJobData }) =
       {/* Carrusel de previews */}
       {photos.length > 0 && <PhotoCarousel photos={photos} />}
       
-       {mainstartJobData.isConfirmed===false && (
+       {activeBtnMain===false && (
       <div className="controls">
         <button
           className="save"
