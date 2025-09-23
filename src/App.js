@@ -134,39 +134,34 @@ function App() {
               let baseMedia = [];
               let iniPhotos = [];
               let iniVideos = [];
-              const items1 = data.tracker?.data?.tracker?.step2?.files?.items;
-              if (Array.isArray(items1)) {
-                for (let item1 of items1) {
-                  if (item1.downloadUrl) {
-                    if (data.tracker.data.tracker.step2.media === 2) {
-                      baseMedia.push({
-                        url: item1.downloadUrl,
-                        comment: item1.comment || "",
-                        blob: "",
-                        type: "",
-                      });
-                    } else {
-                      baseMedia.push({
-                        image: item1.downloadUrl,
-                        comment: item1.comment || "",
-                      });
-                    }
-                  }
-                }
-              }
 
-              if (data.tracker.data.tracker.step2.media === 1) {
-                iniPhotos = baseMedia;
-              } else {
-                iniVideos = baseMedia;
+              const items1 = data.tracker?.data?.tracker?.step2?.files?.items;
+
+              if (Array.isArray(items1)) {
+               
+
+                for (let arr of items1) {
+                  let arrAct = [];
+                  for( let itemX of arr){
+                      if (itemX.downloadUrl) {
+                          arrAct.push({
+                            photo: itemX.downloadUrl,
+                            comment: itemX.comment || "",
+                            blob : ""
+                          });
+                      }
+                  }  
+                  baseMedia.push(arrAct);    
+                }       
               }
+               
+              iniPhotos = baseMedia;
+               
 
               const baseData = {
                 ...prev,
                 isConfirmed: true,
-                dateConfirm: formatDate(
-                  data.tracker.data.tracker.step2.dayApproved
-                ),
+                dateConfirm:  data.tracker.data.tracker.step2.dateConfirm ,
                 option: data.tracker.data.tracker.step2.media,
                 photos: iniPhotos,
                 videos: iniVideos,
