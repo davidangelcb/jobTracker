@@ -396,6 +396,7 @@ function App() {
   };
 
   async function saveNotification1() {
+    console.log('si vao por aca')
     let request = {
       trackerId: idJob,
       noti1 : '1'
