@@ -113,6 +113,7 @@ let iconAcc1 = `
                        stepIndex={index}
                        data={stepsData[index]}
                        onComplete={(data) => handleComplete(index, data)}
+                       mainstartJobData={mainstartJobData}
                    />
                 </div>
               )}
