@@ -23,9 +23,8 @@ const  getFormattedDate = () => {
 
   // Obtener nombre del día
   const weekday = now.toLocaleDateString("en-US", { weekday: "long" });
-
   // Obtener el día del mes
-  const day = now.getDate();
+  const day = now.getDate(); 
 
   // Función para obtener sufijo (st, nd, rd, th)
   const getOrdinalSuffix = (n) => {
