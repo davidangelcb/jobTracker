@@ -301,6 +301,8 @@ function App() {
     });
     console.log(response);
     completarPaso(2);
+    //mostrarModal 2 
+    setShowModal2(true);
   };
 
   /****************************************/
@@ -386,6 +388,7 @@ function App() {
       });
       console.log(33, startJobData);
       completarPaso(3);
+      setShowModal3(true);
       //actualiza todo el objeto recien
       
       /*************************************************************** */
