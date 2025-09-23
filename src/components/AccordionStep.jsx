@@ -24,7 +24,7 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
       {/* Carrusel de previews */}
       {photos.length > 0 && <PhotoCarousel photos={photos} />}
       
-       {activeBtnMain===false && (
+       {activeBtnMain && (
       <div className="controls">
         <button
           className="save"
