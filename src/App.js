@@ -17,7 +17,7 @@ import Before from "./components/Before"
 import After from "./components/After"
 import Summary from "./components/Summary"
 
-import AppModal from "./AppModal";
+import AppModal from "./components/AppModal";
 
 
 import Header from "./components/Header";
