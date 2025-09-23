@@ -107,6 +107,6 @@
 .close-x{
   position: absolute;
   color: white;
-  top:-470px;
+  top:-10px;
   cursor:pointer;
 }

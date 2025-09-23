@@ -132,6 +132,9 @@ export default function PhotoOverlay({ onClose, onSave }) {
           </>
         ) : (
           <div className="preview-area">
+            <div className="close">  
+              <div className="close-x" onClick={handleCancel}>X</div>
+            </div> 
             <img className="preview-img" src={captured} alt="preview" />
             <textarea
               className="preview-text"
@@ -146,9 +149,7 @@ export default function PhotoOverlay({ onClose, onSave }) {
               </button>
                  
             </div>
-            <div className="close">  
-                <div className="close-x" onClick={handleCancel}>X</div>
-              </div> 
+            
           </div>
         )}
         <canvas ref={canvasRef} style={{ display: "none" }} />
