@@ -1,9 +1,12 @@
+import { getFormattedDateV2 } from "../utils/misc";
+
 export default function LocationTab({ locationStatus, onStatusChange, data }) {
 
 let shareLocationText = ''
 let btnConfirm = (
     <button className="off" disabled >Confirm</button>
-)
+);
+let dateShare = '';
 switch (locationStatus) {
     case 0:
     case 2:
@@ -14,6 +17,8 @@ switch (locationStatus) {
         )
         break
     case 1:
+        dateShare = getFormattedDateV2();
+
         shareLocationText = (
         <div className="locationBox">
             ● Location Shared
@@ -58,7 +63,7 @@ if(data.dateConfirm!=null){
             <br />
             <div className="location-shared">
               {shareLocationText}
-              <div className="datetime">02:41 PM-06/04/2025</div>
+              <div className="datetime">{dateShare}</div>
             </div>
              
             <hr className="spaceAlt"/>

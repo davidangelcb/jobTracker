@@ -131,7 +131,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
     <div className="summary">
       <h1 className="summary_title">Job Completed on:</h1>
       <p className="summary_subtitle">
-        {date} at {time}
+        {dateEnd} at {timeEnd}
       </p>
       <hr className="spaceAlt" />
       {renderCarousel("Before Photos", beforeWithUrls)}
