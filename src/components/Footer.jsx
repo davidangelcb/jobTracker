@@ -17,7 +17,7 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
         case 1:
             if(MainJobInfoData.isConfirmed===false) {
                 btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
-                if(MainJobInfoData.dateConfirm!=null){
+                if(MainJobInfoData.dateConfirm!=''){
                     btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
                 } 
             }
