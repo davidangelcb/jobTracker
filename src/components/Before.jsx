@@ -28,9 +28,16 @@ function verifyCompletedInformation(arrayData){
 }
 const Before = ({mainstartJobData, mainSetStartJobData}) => {
 
+ let defaultIndex = 0;
+ let defaultCompleted = [];
+ if(mainstartJobData.isConfirmed){
+    defaultCompleted = [0,1,2,3,4,5,6]
+
+ }
+
   const [openIndices, setOpenIndices] = useState([0]);  
   const [openIndex, setOpenIndex] = useState(0);
-  const [completed, setCompleted] = useState([]);
+  const [completed, setCompleted] = useState(defaultCompleted);
   const [stepsData, setStepsData] = useState(mainstartJobData.photos);
 
   const handleComplete = (index, newData) => {
