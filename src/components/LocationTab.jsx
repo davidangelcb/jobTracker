@@ -18,7 +18,7 @@ switch (locationStatus) {
         dateShare = dateShare.dateConfirm;
          shareLocationText = (
         <div className="locationBox">
-            ● Location Shared
+            ● Share Location 
         </div>
         )
       }
