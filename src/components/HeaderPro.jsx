@@ -4,8 +4,11 @@ import { FaShareAlt, FaLocationArrow, FaCamera, FaClipboardList } from "react-ic
 import NavBar from "./NavBar";
  
  
-function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMenuActiveList, dataJob }) {
-   console.log(mainSetCurrentStep,mainSetCurrentMenuActive,  mainCurrentMenuActiveList,)
+function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMenuActiveList, dataJob  , setShowModal5}) {
+  
+  function xxxx(){
+    setShowModal5(true);
+  }
   return (
     <header className="header">
       {/* Parte superior */}
@@ -14,7 +17,7 @@ function HeaderPro({mainSetCurrentStep, mainSetCurrentMenuActive, mainCurrentMen
         <div className="tracking">
           Tracking <span className="tracking-id">#{dataJob.idJob}</span>
         </div>
-        <button className="share-btn">
+        <button onClick={xxxx} className="share-btn">
           <FaShareAlt /> Share
         </button>
       </div>

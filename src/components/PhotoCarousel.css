@@ -21,6 +21,23 @@
   z-index: 10;
 }
 
+.photo-remove-btn2 {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: white;
+  color: gray;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 20px;
+  text-align: center;
+  z-index: 10;
+}
+
 .photo-remove-btn:hover {
   background: rgba(255, 0, 0, 0.8);
 }
@@ -84,8 +101,9 @@
   padding-right: 5px;
   margin-left: 5px;
   margin-top: 5px;
-  border: 1px solid grey;
+  border: 1px solid #999999;
   margin-bottom:10px;
+  padding: 5px;
 }
 .titlePhoto{
     text-align: left;

@@ -74,6 +74,9 @@ const getFormattedDateV2 = () => {
 };
 
 const abbreviateDateString = (dateString) => {
+  if(dateString=='' || !dateString){
+    return '';
+  }
   // Mapas de nombres completos a abreviaciones
   const daysMap = {
     Sunday: "Sun",

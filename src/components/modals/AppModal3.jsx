@@ -39,6 +39,7 @@ function AppModal3({ show, onClose, onDontShowAgain  }) {
 
         <ol className="appmodal_list">
           <li>Capture photos of each space (you may add extras if needed)</li>
+           <br/>
           <li>Click Submit After Photos to continue.</li>
         </ol>
  <hr className="spaceAlt" />

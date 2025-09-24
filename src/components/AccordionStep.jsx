@@ -5,7 +5,7 @@ import PhotoCarousel from "./PhotoCarousel";
 import "./AccordionStep.css";
 import { v4 as uuidv4 } from "uuid"; 
 
-const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
+const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain, onRemovePhoto }) => {
   const [photos, setPhotos] = useState(data);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -65,6 +65,10 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
     }
   }, [photos, activeIndex]);
 
+  useEffect(() => {
+  setPhotos(data);
+}, [data]);
+
   return (
     <div className="accordion-step">
       {/* Botón deshabilitado si ya llegó a 5 */}
@@ -73,10 +77,11 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain }) => {
       {photos.length > 0 && 
      
      <PhotoCarousel
+        onRemovePhoto={onRemovePhoto}
         photos={photos}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
-        onRemove={handleRemovePhoto}
+         
         handleUpdateCommentFunction={handleUpdateComment}
       />
       }

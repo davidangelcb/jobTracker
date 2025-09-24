@@ -22,6 +22,8 @@
   transition: background 0.3s;
   max-height: 50px;
   margin: 10px;
+  margin-left: 30px;
+  width: 50%;
 }
 .disabledBtn{
  background-color: #C7C7CC;

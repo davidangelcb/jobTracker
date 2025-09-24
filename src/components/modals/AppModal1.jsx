@@ -35,6 +35,7 @@ PINCH
 
         <ol className="appmodal_list">
           <li>First, review the job details and <b>share your location</b> before starting.</li>
+          <br/>
           <li>Then, click Start Job to begin.</li>
         </ol>
 

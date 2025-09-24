@@ -1,9 +1,22 @@
 // PhotoCarousel.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PhotoCarousel.css";
 
-const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemove,  handleUpdateCommentFunction  }) => {
+const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  handleUpdateCommentFunction  }) => {
    
+  useEffect(() => {
+    console.log(11);
+  if (!photos || photos.length === 0) {
+    setActiveIndex(null);
+    console.log(111);
+  } else if (activeIndex >= photos.length) {
+    setActiveIndex(0);
+    console.log(1111); // vuelve al primer elemento disponible
+  }
+  console.log(11111);
+}, [photos]);
+
+
 
   if (!photos || photos.length === 0) return null;
 
@@ -18,8 +31,8 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemove,  handleU
           <button
             className="photo-remove-btn"
             onClick={(e) => {
-                e.stopPropagation();
-                onRemove(item.id);
+              
+                onRemovePhoto(item.id);
               }}
           >
             ×

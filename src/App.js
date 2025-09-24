@@ -22,7 +22,7 @@ import AppModal2 from "./components/modals/AppModal2";
 import AppModal3 from "./components/modals/AppModal3";
 
 import AppModal4 from "./components/modals/AppModal4";
-
+import AppModal5 from "./components/modals/AppModal5";
 
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
@@ -44,6 +44,7 @@ function App() {
   const [showModal3, setShowModal3] = useState(false);
 
   const [showModal4, setShowModal4] = useState(false);
+  const [showModal5, setShowModal5] = useState(false);
   /* ***** *  */
 
   let dateFormatted = getFormattedDateV2();
@@ -112,6 +113,7 @@ function App() {
   const { idJob } = useParams();
   const [location, setLocation] = useState(null);
 
+  let verificaLocation = false;
   // 0 = fail, 1=done, 2=need access, 3=not supported
   useEffect(() => {
     if (!idJob) return;
@@ -239,7 +241,7 @@ function App() {
                 if (data.tracker?.data?.tracker && !('noti1' in data.tracker.data.tracker)) {
                   setShowModal1(true);
                 }
-                
+                verificaLocation = true;
                 break;
               case "S1":
                 activeTabs([1, 2]);
@@ -314,31 +316,33 @@ function App() {
 
   /****************************************/
   const getLocation = () => {
-    if (!navigator.geolocation) {
-      locationStatus = 3;
-      //setError("Geolocation not supported")
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-        locationStatus = 1;
-        //setError(false);
-      },
-      (err) => {
-        if (err.code === 1) {
-          // PERMISSION_DENIED
-          locationStatus = 2;
-          //setError("We couldn't access your location. Please enable location services in your device settings to continue.")
-        } else {
-          locationStatus = 0;
-          //setError("Error getting location.")
-        }
+    if(verificaLocation) {
+      if (!navigator.geolocation) {
+        locationStatus = 3;
+        //setError("Geolocation not supported")
+        return;
       }
-    );
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+          locationStatus = 1;
+          //setError(false);
+        },
+        (err) => {
+          if (err.code === 1) {
+            // PERMISSION_DENIED
+            locationStatus = 2;
+            //setError("We couldn't access your location. Please enable location services in your device settings to continue.")
+          } else {
+            locationStatus = 0;
+            //setError("Error getting location.")
+          }
+        }
+      );
+    }
   };
 
   useEffect(() => {
@@ -581,6 +585,7 @@ function App() {
             mainSetCurrentMenuActive={setCurrentMenuActive}
             mainCurrentMenuActiveList ={currentMenuActiveList}
             dataJob={jobInfoData}
+            setShowModal5={setShowModal5}
          /> 
 
          {currentMenuActive === 1 && (
@@ -612,6 +617,7 @@ function App() {
          )}
 
 
+        {currentMenuActive !== 4 && (
          <Footer
             MainCurrentMenuActive={currentMenuActive}
             MainJobInfoData = {jobInfoData}
@@ -621,13 +627,14 @@ function App() {
             MainEndJobData = {endJobData}
             confirmEndJOb={confirmEndJOb}
          />
-
+        )}
          {/* Modal */}
         <AppModal1 show={showModal1} onClose={() => setShowModal1(false)}  onDontShowAgain={saveNotification1} />
         <AppModal2 show={showModal2} onClose={() => setShowModal2(false)}  onDontShowAgain={saveNotification2} />
         <AppModal3 show={showModal3} onClose={() => setShowModal3(false)}  onDontShowAgain={saveNotification3} />
 
         <AppModal4 show={showModal4} onClose={() => setShowModal4(false)}  MainJobInfoData={jobInfoData} />
+        <AppModal5 show={showModal5} onClose={() => setShowModal5(false)}  MainJobInfoData={jobInfoData} />
     </div>
 
     

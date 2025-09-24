@@ -6,7 +6,7 @@ import "./Before.css";
 const items = [
   "Front Door (Unit Number)",
   "Kitchen - Appliances (Door Open)",
-  "Living Room Ceiling Fan(s)",
+  "Living Room",
   "Bedrooms",
   "Bathrooms",
   "Others (Not Required)"
@@ -41,33 +41,40 @@ const Before = ({mainstartJobData, mainSetStartJobData}) => {
   const [stepsData, setStepsData] = useState(mainstartJobData.photos);
 
   const handleComplete = (index, newData) => {
-  const updated = [...stepsData];
-  updated[index] = newData;
-  setStepsData(updated);
+    const updated = [...stepsData];
+    updated[index] = newData;
+    setStepsData(updated);
 
-  if (!completed.includes(index)) {
-    setCompleted([...completed, index]);
-    // desbloquear el siguiente paso sin abrirlo
-    // No modificar openIndices aquí
+    if (!completed.includes(index)) {
+      setCompleted([...completed, index]);
+      // desbloquear el siguiente paso sin abrirlo
+      // No modificar openIndices aquí
+    }
+    console.log("Estado actual de stepsData:", updated);
+    setInformacion(updated);
+    //aca le pasmos el udate
+    //mainSetStartJobData
+  };
+
+  const setInformacion = (updated) => {
+      mainSetStartJobData((prev) => ({
+        ...prev,
+        photos: updated,
+        activeFoot: verifyCompletedInformation(updated)
+      }));
   }
-  console.log("Estado actual de stepsData:", updated);
-  setInformacion(updated);
-  //aca le pasmos el udate
-  //mainSetStartJobData
-};
 
-const setInformacion = (updated) => {
-     mainSetStartJobData((prev) => ({
-      ...prev,
-      photos: updated,
-      activeFoot: verifyCompletedInformation(updated)
-    }));
-}
+ // Dentro del componente Before
 
-let iconAcc1 = `
-<svg width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.96645 7.83267L16.8164 0.975337C17.0674 0.748322 17.0602 0.386571 16.8003 0.167323C16.5468 -0.0465668 16.1449 -0.0465669 15.8914 0.167323L8.50396 6.62065L1.11652 0.167318C0.861088 -0.0557798 0.446972 -0.0557799 0.191542 0.167318C-0.0638485 0.390483 -0.0638485 0.7522 0.191542 0.975332L8.04147 7.83267C8.29694 8.05577 8.71102 8.05577 8.96645 7.83267Z" fill="#8C8C8C"/>
-</svg>`;
+  const handleRemovePhoto = (stepIndex, id) => {
+    const updated = [...stepsData];
+  updated[stepIndex] = updated[stepIndex].filter((photo) => photo.id !== id);
+    setStepsData(updated);
+
+    // actualizar también en mainSetStartJobData
+    setInformacion(updated);
+  };
+
 
   return (
     <div className="body-container">
@@ -113,6 +120,7 @@ let iconAcc1 = `
                        stepIndex={index}
                        data={stepsData[index]}
                        onComplete={(data) => handleComplete(index, data)}
+                       onRemovePhoto={(id) => handleRemovePhoto(index, id)} // 👈 nuevo
                        activeBtnMain={activeBtn}
                    />
                 </div>

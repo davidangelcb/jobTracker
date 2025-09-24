@@ -5,7 +5,7 @@ import "./Before.css";
 
 const items = [
   "Kitchen - Appliances (Door Open)",
-  "Living Room Ceiling Fan(s)",
+  "Living Room",
   "Bedrooms",
   "Bathrooms",
   "Others (Not Required)"

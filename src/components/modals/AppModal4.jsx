@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./AppModal.css";
 
-function AppModal3({ show, onClose, MainJobInfoData  }) {
+function AppModal4({ show, onClose, MainJobInfoData  }) {
   const [checked, setChecked] = useState(false);
 
   if (!show) return null;
@@ -43,4 +43,4 @@ function AppModal3({ show, onClose, MainJobInfoData  }) {
   );
 }
 
-export default AppModal3;
+export default AppModal4;
