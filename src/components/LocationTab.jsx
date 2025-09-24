@@ -8,11 +8,20 @@ let dateShare = '';
 switch (locationStatus) {
     case 0:
     case 2:
+      if(data.dateConfirm=='') {
         shareLocationText = (
         <div className="locationBox1">
             Location Shared
         </div>
         )
+      } else {
+        dateShare = dateShare.dateConfirm;
+         shareLocationText = (
+        <div className="locationBox">
+            ● Location Shared
+        </div>
+        )
+      }
         break
     case 1:
         if(data.dateConfirm=='') {
