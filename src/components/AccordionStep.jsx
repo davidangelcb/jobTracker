@@ -5,7 +5,7 @@ import PhotoCarousel from "./PhotoCarousel";
 import "./AccordionStep.css";
 import { v4 as uuidv4 } from "uuid"; 
 
-const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain, onRemovePhoto }) => {
+const AccordionStep = ({ stepIndex, data = [], onComplete, onRemovePhoto, mainstartJobData }) => {
   const [photos, setPhotos] = useState(data);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -77,12 +77,14 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain, onRemo
       {photos.length > 0 && 
      
      <PhotoCarousel
+        
         onRemovePhoto={onRemovePhoto}
         photos={photos}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
          
         handleUpdateCommentFunction={handleUpdateComment}
+        mainstartJobData={mainstartJobData}
       />
       }
       
@@ -163,6 +165,7 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, activeBtnMain, onRemo
         <PhotoOverlay
           onClose={() => setShowOverlay(false)}
           onSave={handleSavePhoto}
+          
         />
       )}
     </div>

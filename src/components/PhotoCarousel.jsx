@@ -2,8 +2,15 @@
 import React, { useState, useEffect } from "react";
 import "./PhotoCarousel.css";
 
-const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  handleUpdateCommentFunction , activeBtnMain }) => {
+const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  handleUpdateCommentFunction , mainstartJobData }) => {
    
+
+ let activeBtn = true;
+ if(mainstartJobData.isConfirmed){
+    activeBtn=false;
+
+ }
+
   useEffect(() => {
     console.log(11);
   if (!photos || photos.length === 0) {
