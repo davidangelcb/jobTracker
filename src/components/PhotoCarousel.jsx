@@ -36,7 +36,7 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
           <div key={item.id}   className='photo-card'
                       onClick={() => setActiveIndex(idx)}
           >
-           {activeBtnMain && (
+           {activeBtn && (
           <button
             className="photo-remove-btn"
             onClick={(e) => {
