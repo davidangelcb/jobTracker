@@ -15,11 +15,13 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
                 </svg>);
     switch (MainCurrentMenuActive) {
         case 1:
-            if(MainJobInfoData.isConfirmed===false || locationStatus===1) {
-                btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
-                if(MainJobInfoData.dateConfirm!=''){
-                    btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
-                } 
+          if(locationStatus===1) {
+              if(MainJobInfoData.isConfirmed===false) {
+                  btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
+                  if(MainJobInfoData.dateConfirm!=''){
+                      btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
+                  } 
+              }
             }
             
             break;
