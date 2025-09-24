@@ -192,6 +192,7 @@ const Summary = ({ mainstartJobData = [], mainendJobData = [] }) => {
                 src={activePhoto._previewUrl}
                 alt="preview"
                 className="summary_overlay-image"
+                 onClick={() => setActivePhoto(null)}
               />
             </div>
 
