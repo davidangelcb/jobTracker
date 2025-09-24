@@ -5,7 +5,7 @@ import PhotoCarousel from "./PhotoCarousel";
 import "./AccordionStep.css";
 import { v4 as uuidv4 } from "uuid"; 
 
-const AccordionStep = ({ stepIndex, data = [], onComplete, onRemovePhoto, mainstartJobData }) => {
+const AccordionStep = ({ stepIndex, data = [], onComplete, onRemovePhoto, mainstartJobData, activeBtnMain }) => {
   const [photos, setPhotos] = useState(data);
   const [showOverlay, setShowOverlay] = useState(false);
 

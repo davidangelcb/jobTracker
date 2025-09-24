@@ -122,6 +122,7 @@ const Before = ({mainstartJobData, mainSetStartJobData}) => {
                        onComplete={(data) => handleComplete(index, data)}
                        onRemovePhoto={(id) => handleRemovePhoto(index, id)} // 👈 nuevo
                        mainstartJobData={mainstartJobData}
+                       activeBtnMain={activeBtn}
                    />
                 </div>
               )}
