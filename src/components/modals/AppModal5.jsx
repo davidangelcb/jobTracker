@@ -69,7 +69,7 @@ let sms = (
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      {...props}
+     
     >
       <circle cx={24.5} cy={24.5} r={24.5} fill="#27C840" />
       <path fill="url(#pattern0_1026_8535)" d="M12 14H37V36H12z" />
