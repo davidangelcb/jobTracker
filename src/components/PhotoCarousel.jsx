@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./PhotoCarousel.css";
 
-const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  handleUpdateCommentFunction  }) => {
+const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  handleUpdateCommentFunction , activeBtnMain }) => {
    
   useEffect(() => {
     console.log(11);
@@ -19,6 +19,7 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
 
 
   if (!photos || photos.length === 0) return null;
+   
 
   return (
     <div className="carousel-container">
@@ -28,6 +29,7 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
           <div key={item.id}   className='photo-card'
                       onClick={() => setActiveIndex(idx)}
           >
+           {activeBtnMain && (
           <button
             className="photo-remove-btn"
             onClick={(e) => {
@@ -37,6 +39,7 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
           >
             ×
           </button>
+          )}
           <img
             key={idx}
             src={item.photo}
