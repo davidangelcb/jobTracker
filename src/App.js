@@ -113,7 +113,7 @@ function App() {
   const { idJob } = useParams();
   const [location, setLocation] = useState(null);
 
-  let verificaLocationPre = false;
+  let verificaLocationPre = true;
   const [verificaLocation, setVerificaLocation] = useState(verificaLocationPre);
   // 0 = fail, 1=done, 2=need access, 3=not supported
   useEffect(() => {
@@ -248,16 +248,18 @@ function App() {
                 activeTabs([1, 2]);
                 if (data.tracker?.data?.tracker && !('noti2' in data.tracker.data.tracker)) {
                   setShowModal2(true);
+                  setVerificaLocation(false)
                 }
                 break;
               case "S2":
                 activeTabs([1, 2, 3]);
                 if (data.tracker?.data?.tracker && !('noti3' in data.tracker.data.tracker)) {
                   setShowModal3(true);
+                  setVerificaLocation(false)
                 }
                 break;
               case "S3":
-                
+                setVerificaLocation(false)
                 activeTabs([4]);
                // setPaymentStatus("I");
                 break;
