@@ -6,7 +6,7 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
    
 
  let activeBtn = true;
- if(mainstartJobData.isConfirmed){
+ if(mainstartJobData?.isConfirmed){
     activeBtn=false;
 
  }
