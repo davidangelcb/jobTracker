@@ -113,7 +113,8 @@ function App() {
   const { idJob } = useParams();
   const [location, setLocation] = useState(null);
 
-  let verificaLocation = false;
+  let verificaLocationPre = false;
+  const [verificaLocation, setVerificaLocation] = useState(verificaLocationPre);
   // 0 = fail, 1=done, 2=need access, 3=not supported
   useEffect(() => {
     if (!idJob) return;
@@ -241,7 +242,7 @@ function App() {
                 if (data.tracker?.data?.tracker && !('noti1' in data.tracker.data.tracker)) {
                   setShowModal1(true);
                 }
-                verificaLocation = true;
+                setVerificaLocation(true);
                 break;
               case "S1":
                 activeTabs([1, 2]);
