@@ -629,6 +629,7 @@ function App() {
             confirmStarJOb={confirmStarJOb}
             MainEndJobData = {endJobData}
             confirmEndJOb={confirmEndJOb}
+            locationStatus={locationStatus}
          />
         )}
          {/* Modal */}

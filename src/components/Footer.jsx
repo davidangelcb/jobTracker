@@ -6,7 +6,7 @@ MainCurrentMenuActive={currentMenuActive}
             onStatusChange={confirmLocation}
 
 */
-function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb, MainEndJobData, confirmEndJOb}) {
+function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onStatusChange, confirmStarJOb, MainEndJobData, confirmEndJOb , locationStatus}) {
     
     let btn = (<span>&nbsp;</span>);
     let info= (
@@ -15,7 +15,7 @@ function Footer({MainCurrentMenuActive, MainJobInfoData,  MainStartJobData, onSt
                 </svg>);
     switch (MainCurrentMenuActive) {
         case 1:
-            if(MainJobInfoData.isConfirmed===false) {
+            if(MainJobInfoData.isConfirmed===false || locationStatus===1) {
                 btn = (<button className="footer-btn" onClick={onStatusChange} >Start Job</button> );
                 if(MainJobInfoData.dateConfirm!=''){
                     btn = (<button className="footer-btn disabledBtn" >Start Job</button> ); 
