@@ -11,14 +11,14 @@ switch (locationStatus) {
       if(data.dateConfirm=='') {
         shareLocationText = (
         <div className="locationBox1">
-            Location Shared
+            Share Location 
         </div>
         )
       } else {
         dateShare = dateShare.dateConfirm;
          shareLocationText = (
         <div className="locationBox">
-            ● Share Location 
+            ● Location Shared
         </div>
         )
       }
