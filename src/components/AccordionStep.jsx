@@ -57,6 +57,7 @@ const AccordionStep = ({ stepIndex, data = [], onComplete, onRemovePhoto, mainst
         i === activeIndex ? { ...p, comment } : p
       )
     );
+    onComplete(photos);
   };
 
   useEffect(() => {

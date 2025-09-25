@@ -15,10 +15,8 @@ const PhotoCarousel = ({ photos, activeIndex, setActiveIndex, onRemovePhoto,  ha
     console.log(11);
   if (!photos || photos.length === 0) {
     setActiveIndex(null);
-    console.log(111);
   } else if (activeIndex >= photos.length) {
     setActiveIndex(0);
-    console.log(1111); // vuelve al primer elemento disponible
   }
   console.log(11111);
 }, [photos]);

@@ -118,7 +118,7 @@ let sms = (
         </div>
 
         <p className="appmodal_text">
-          Share this URL to allow other team members to complete the job.
+          Share this URL to allow other team members to complete or review the job.
         </p>
 
         <div className="appmodal_text2 centerRedes">

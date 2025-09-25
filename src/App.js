@@ -48,7 +48,7 @@ function App() {
   /* ***** *  */
 
   let dateFormatted = getFormattedDateV2();
-  let activeDB = false;
+  let activeDB = true;
   // StartJOb
   const [startJobData, setStartJobData] = useState({
     activeFoot: false,
@@ -243,6 +243,7 @@ function App() {
                   setShowModal1(true);
                 }
                 setVerificaLocation(true);
+                getLocation();
                 break;
               case "S1":
                 activeTabs([1, 2]);
@@ -278,6 +279,7 @@ function App() {
         })
         .catch((err) => console.error("GET Fail:", err));
     }
+    
   }, []);
 
   function activeTabs(arr) {
@@ -348,10 +350,7 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    getLocation();
-  }, []);
-
+ 
 
   const completarPaso = (num) => {
     setCurrentMenuActiveList((prev) => [...new Set([...prev, num])]);
